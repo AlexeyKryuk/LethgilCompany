@@ -1,0 +1,16 @@
+{
+    "name": "Core.View",
+    "rootNamespace": "Core",
+    "references": [
+        "GUID:e93772d0b18c6d947881211d6b784ca3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
