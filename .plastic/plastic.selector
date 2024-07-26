@@ -1,0 +1,4 @@
+repository "LethgilCompany@hopera240@cloud"
+  path "/"
+    br "/main"
+    co "/main"
