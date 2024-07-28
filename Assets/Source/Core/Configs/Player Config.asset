@@ -12,14 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 773e14bcb6dd3ed47a167729ba009d38, type: 3}
   m_Name: Player Config
   m_EditorClassIdentifier: 
-  Prefab: {fileID: -4921024932613533636, guid: cfc3ae10bb7cdff4aadd8217263b1a5b, type: 3}
+  Prefab: {fileID: 1580409430032995283, guid: 9b1c9a1e5f5145343a53c2a295fec3d2, type: 3}
   CameraPrefab: {fileID: 3788456764726403635, guid: 0a39fa6027c55d5499be94aa20b6ef26, type: 3}
-  TransformSettings:
-    Speed:
-      <Walk>k__BackingField: 3
-      <Running>k__BackingField: 5
-      <Sprint>k__BackingField: 7
-    Jumping:
-      <Gravity>k__BackingField: 2
-      <Height>k__BackingField: 5
-      <Time>k__BackingField: 2

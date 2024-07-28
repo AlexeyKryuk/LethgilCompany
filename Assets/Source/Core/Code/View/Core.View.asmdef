@@ -1,9 +1,7 @@
 {
     "name": "Core.View",
-    "rootNamespace": "Core",
-    "references": [
-        "GUID:e93772d0b18c6d947881211d6b784ca3"
-    ],
+    "rootNamespace": "Core.View",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

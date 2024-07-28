@@ -1,4 +1,4 @@
-using UnityEngine;
+using Core.Model;
 using VContainer;
 using VContainer.Unity;
 
@@ -11,6 +11,8 @@ namespace Core
             builder.RegisterInstance(FindObjectOfType<PlayerSpawnPoint>());
 
             builder.RegisterEntryPoint<GameEntryPoint>();
+
+            builder.Register<PlayerPrefsSaveService<Player>>(Lifetime.Scoped).As<ISaveService<Player>>();
             builder.Register<PlayerSpawnService>(Lifetime.Scoped);
         }
     }

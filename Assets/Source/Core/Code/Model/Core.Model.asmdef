@@ -1,6 +1,6 @@
 {
     "name": "Core.Model",
-    "rootNamespace": "Core",
+    "rootNamespace": "Core.Model",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

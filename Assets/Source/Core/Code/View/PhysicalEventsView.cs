@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Core
+namespace Core.View
 {
     public class PhysicalEventsView : MonoBehaviour, IPhysicsEventBroadcaster
     {

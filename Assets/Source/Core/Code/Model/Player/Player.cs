@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Core
+namespace Core.Model
 {
     public class Player
     {

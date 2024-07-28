@@ -6,7 +6,7 @@ namespace Core
 {
     public class PlayerCharacterFactory
     {
-        private readonly PlayerPresenter _prefab;
+        private readonly GameObject _prefab;
         private readonly Camera _cameraPrefab;
         private readonly IObjectResolver _objectResolver;
 
@@ -19,7 +19,7 @@ namespace Core
             Debug.Log("Factory Created!");
         }
 
-        public PlayerPresenter Create()
+        public GameObject Create()
             => _objectResolver.Instantiate(_prefab);
 
         public Camera CreateCamera()

@@ -1,11 +1,13 @@
+using UnityEngine;
+
 namespace Core
 {
     public interface IMovementView
     {
-        Speed MovementSpeed { get; }
-        Jumping Jumping { get; }
+        Vector3 Position { get; }
+        Vector3 Scale { get; }
+        Quaternion Rotation { get; }
 
-        void Construct(Movement model);
-        void Render();
+        Vector3 MoveAt(Vector3 position);
     }
 }

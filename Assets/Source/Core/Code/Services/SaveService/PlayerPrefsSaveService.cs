@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core
 {
-    public class PlayerPrefsSaveSystem<T> : ISaveSystem<T>
+    public class PlayerPrefsSaveService<T> : ISaveService<T>
     {
         public T Load(ISaveLoaded saveLoaded, T byDefault)
         {
@@ -11,7 +11,6 @@ namespace Core
 
             return byDefault;
         }
-
 
         public void Save(ISaveLoaded saveLoaded, T model)
         {

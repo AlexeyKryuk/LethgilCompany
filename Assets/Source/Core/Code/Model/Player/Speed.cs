@@ -1,9 +1,5 @@
-using System;
-using UnityEngine;
-
-namespace Core
+namespace Core.Model
 {
-    [Serializable]
     public struct Speed
     {
         public Speed(float walk, float running, float sprint)
@@ -13,8 +9,8 @@ namespace Core
             Sprint = sprint;
         }
 
-        [field: SerializeField] public float Walk { get; private set; }
-        [field: SerializeField] public float Running { get; private set; }
-        [field: SerializeField] public float Sprint { get; private set; }
+        public float Walk;
+        public float Running;
+        public float Sprint;
     }
 }

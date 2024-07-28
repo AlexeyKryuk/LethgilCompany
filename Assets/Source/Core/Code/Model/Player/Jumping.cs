@@ -1,9 +1,5 @@
-using System;
-using UnityEngine;
-
-namespace Core
+namespace Core.Model
 {
-    [Serializable]
     public struct Jumping
     {
         public Jumping(float gravity, float height, float time)
@@ -13,8 +9,8 @@ namespace Core
             Time = time;
         }
 
-        [field: SerializeField] public float Gravity { get; private set; }
-        [field: SerializeField] public float Height { get; private set; }
-        [field: SerializeField] public float Time { get; private set; }
+        public float Gravity;
+        public float Height;
+        public float Time;
     }
 }

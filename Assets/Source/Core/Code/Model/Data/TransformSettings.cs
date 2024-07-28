@@ -1,8 +1,5 @@
-using System;
-
-namespace Core
+namespace Core.Model
 {
-    [Serializable]
     public struct TransformSettings
     {
         public Speed Speed;

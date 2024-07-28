@@ -1,3 +1,4 @@
+using Core.Model;
 using UnityEngine;
 
 namespace Core
@@ -5,27 +6,31 @@ namespace Core
     public class PlayerSpawnService
     {
         private readonly PlayerCharacterFactory _factory;
-        private readonly TransformSettings _settings;
+        private readonly PlayerConfig _config;
 
-        public PlayerSpawnService(PlayerCharacterFactory factory, PlayerConfig config)
+        private readonly IInputService _inputService;
+        private readonly ISaveService<Player> _saveService;
+
+        public PlayerSpawnService(PlayerCharacterFactory factory, PlayerConfig config, 
+            ISaveService<Player> saveService, IInputService inputService)
         {
             _factory = factory;
-            _settings = config.TransformSettings;
-
-            Debug.Log("Player Spawner Created!");
+            _config = config;
+            _saveService = saveService;
+            _inputService = inputService;
         }
 
         public void Spawn(Vector3 position)
         {
-            PlayerPresenter player = _factory.Create();
-            Camera camera = _factory.CreateCamera();
+            GameObject player = _factory.Create();
+            //Camera camera = _factory.CreateCamera();
 
             IMovementView movementView = player.GetComponent<IMovementView>();
 
-            player.Construct(new PlayerPrefsSaveSystem<Player>(), movementView, _settings);
-
             player.transform.position = position;
-            camera.transform.position = position - camera.transform.forward * 5;
+            //camera.transform.position = position - camera.transform.forward * 5;
+
+            //return new PlayerPresenter(_saveService, _inputService, movementView, _config);
         }
     }
 }

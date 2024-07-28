@@ -1,39 +1,35 @@
 using System;
-using UnityEngine;
 
-namespace Core
+namespace Core.Model
 {
     [Serializable]
     public class Movement
     {
-        [SerializeField] private Speed _speed;
-        [SerializeField] private Jumping _jumping;
-
         public Movement(Speed speed, Jumping jumping)
         {
-            _speed = speed;
-            _jumping = jumping;
+            Speed = speed;
+            Jumping = jumping;
         }
 
-        public Speed Speed => _speed;
-        public Jumping Jumping => _jumping;
+        public Speed Speed;
+        public Jumping Jumping;
 
         public void BuffSpeed(Speed speed)
         {
-            float walk = Math.Max(0, _speed.Walk + speed.Walk);
-            float running = Math.Max(0, _speed.Running + speed.Running);
-            float sprint = Math.Max(0, _speed.Sprint + speed.Sprint);
+            float walk = Math.Max(0, Speed.Walk + speed.Walk);
+            float running = Math.Max(0, Speed.Running + speed.Running);
+            float sprint = Math.Max(0, Speed.Sprint + speed.Sprint);
 
-            _speed = new Speed(walk, running, sprint);
+            Speed = new Speed(walk, running, sprint);
         }
 
         public void BuffJump(Jumping jumping)
         {
-            float gravity = Math.Max(0, _jumping.Gravity + jumping.Gravity);
-            float height = Math.Max(0, _jumping.Height + jumping.Height);
-            float time = Math.Max(0, _jumping.Time + jumping.Time);
+            float gravity = Math.Max(0, Jumping.Gravity + jumping.Gravity);
+            float height = Math.Max(0, Jumping.Height + jumping.Height);
+            float time = Math.Max(0, Jumping.Time + jumping.Time);
 
-            _jumping = new Jumping(gravity, height, time);
+            Jumping = new Jumping(gravity, height, time);
         }
     }
 }
