@@ -20,7 +20,7 @@ namespace Core
 
         public void Start()
         {
-            _playerSpawnService.Spawn(_playerSpawnPoint.transform.position);
+            _player = _playerSpawnService.Spawn(_playerSpawnPoint.transform.position);
             _player.Start();
         }
 

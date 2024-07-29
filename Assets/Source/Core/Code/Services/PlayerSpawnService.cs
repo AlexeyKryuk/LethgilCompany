@@ -20,17 +20,17 @@ namespace Core
             _inputService = inputService;
         }
 
-        public void Spawn(Vector3 position)
+        public PlayerPresenter Spawn(Vector3 position)
         {
             GameObject player = _factory.Create();
-            //Camera camera = _factory.CreateCamera();
+            Camera camera = _factory.CreateCamera();
 
             IMovementView movementView = player.GetComponent<IMovementView>();
 
             player.transform.position = position;
-            //camera.transform.position = position - camera.transform.forward * 5;
+            camera.transform.position = position - camera.transform.forward * 5;
 
-            //return new PlayerPresenter(_saveService, _inputService, movementView, _config);
+            return new PlayerPresenter(_saveService, _inputService, movementView, _config);
         }
     }
 }

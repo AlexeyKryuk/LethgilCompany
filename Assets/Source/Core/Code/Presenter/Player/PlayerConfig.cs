@@ -13,4 +13,3 @@ namespace Core
         public DamageSettings DamageSettings;
     }
 }
-
