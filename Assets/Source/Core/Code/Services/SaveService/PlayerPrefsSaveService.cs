@@ -15,6 +15,7 @@ namespace Core
         public void Save(ISaveLoaded saveLoaded, T model)
         {
             PlayerPrefs.SetString(saveLoaded.Key, JsonUtility.ToJson(model));
+            PlayerPrefs.Save();
         }
     }
 }

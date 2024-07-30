@@ -19,8 +19,8 @@ namespace Core
             Debug.Log("Factory Created!");
         }
 
-        public GameObject Create()
-            => _objectResolver.Instantiate(_prefab);
+        public GameObject Create(Vector3 position, Quaternion rotation)
+            => _objectResolver.Instantiate(_prefab, position, rotation);
 
         public Camera CreateCamera()
             => _objectResolver.Instantiate(_cameraPrefab);

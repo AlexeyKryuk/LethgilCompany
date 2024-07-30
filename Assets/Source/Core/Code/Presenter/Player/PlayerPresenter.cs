@@ -1,57 +1,68 @@
 using Core.Model;
+using Core.View;
 using System;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using VContainer.Unity;
 
 namespace Core
 {
-    public class PlayerPresenter : ISaveLoaded, IStartable, ITickable, IDisposable
+    public class PlayerPresenter : ISaveLoaded, IStartable, ITickable, ILateTickable, IDisposable
     {
         private ISaveService<Player> _saveService;
         private IInputService _inputService;
-        private IMovementView _movementView;
+        private ICharacterControllerView _controllerView;
+        private ICharacterCameraView _cameraView;
 
         private PlayerConfig _playerConfig;
         private Player _model;
 
         public string Key => "PlayerInfo";
 
-        public PlayerPresenter(ISaveService<Player> saveService, IInputService inputService, IMovementView movementView, PlayerConfig config)
+        public PlayerPresenter(ISaveService<Player> saveService, IInputService inputService, 
+            ICharacterControllerView controllerView, ICharacterCameraView cameraView, PlayerConfig config)
         {
             _saveService = saveService;
             _inputService = inputService;
-            _movementView = movementView;
+            _controllerView = controllerView;
+            _cameraView = cameraView;
             _playerConfig = config;
         }
 
-        private void LoadSaves(IMovementView movementView, PlayerConfig config)
+        private void LoadSaves(ICharacterControllerView controllerView, PlayerConfig config)
         {
-            Transformable transformable = new Transformable(movementView.Position, movementView.Scale, movementView.Rotation);
+            Transform transform = controllerView.Transform;
+
+            Transformable transformable = new Transformable(transform.position, transform.localScale, transform.rotation);
             Movement movement = new Movement(config.TransformSettings.Speed, config.TransformSettings.Jumping);
             Damage damage = new Damage(config.DamageSettings.Min, config.DamageSettings.Max);
-            Player defaultModel = new Player(transformable, movement, damage);
 
-            _model = _saveService.Load(this, defaultModel);
+            _model = _saveService.Load(this, new Player(transformable, movement, damage));
+
+            controllerView.Transform.position = _model.Transformable.Position;
         }
 
         public void Start()
         {
-            Debug.Log("Start");
-
-            LoadSaves(_movementView, _playerConfig);
+            LoadSaves(_controllerView, _playerConfig);
         }
 
         public void Tick()
         {
-            Debug.Log(_inputService.Move);
+            _controllerView.UpdateInputs(_inputService.CharacterInputs, _cameraView.Transform.rotation);
+            _model.Transformable.SetPosition(_controllerView.Transform.position);
+        }
 
-            Vector3 newPosition = _movementView.MoveAt(_inputService.Move);
-            _model.Transformable.SetPosition(newPosition);
+        public void LateTick()
+        {
+            _cameraView.UpdateInput(_inputService.CameraInputs);
         }
 
         public void Dispose()
         {
             _saveService.Save(this, _model);
+            Debug.Log(_model.Transformable.Position);
+
         }
     }
 }

@@ -1,3 +1,4 @@
+using Core.View;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,24 +8,41 @@ namespace Core
     [RequireComponent(typeof(PlayerInput))]
     public class StandaloneInputService : MonoBehaviour, IInputService
     {
-        public Vector2 Move { get; private set; }
-        public Vector2 Look { get; private set; }
+        public ICharacterInputs CharacterInputs { get; private set; }
+        public ICameraInputs CameraInputs { get; private set; }
 
         public event Action Jump;
 
+        private void Awake()
+        {
+            CharacterInputs = new PlayerCharacterInputs();
+            CameraInputs = new PlayerCameraInputs();
+        }
+
         public void OnMove(InputValue inputValue)
         {
-            Move = inputValue.Get<Vector2>();
+            CharacterInputs.MoveAxisForward = inputValue.Get<Vector2>().y;
+            CharacterInputs.MoveAxisRight = inputValue.Get<Vector2>().x;
         }
 
         public void OnJump(InputValue inputValue)
         {
-            Jump?.Invoke();
+            CharacterInputs.JumpDown = inputValue.Get<bool>();
         }
 
         public void OnLook(InputValue inputValue)
         {
-            Look = inputValue.Get<Vector2>();
+            CameraInputs.AxisRaw = inputValue.Get<Vector2>();
+        }
+
+        public void OnScroll(InputValue inputValue)
+        {
+            CameraInputs.Scroll = inputValue.Get<float>();
+        }
+
+        public void OnRightMouseDown(InputValue inputValue)
+        {
+            CameraInputs.RightMouseDown = inputValue.Get<bool>();
         }
     }
 }

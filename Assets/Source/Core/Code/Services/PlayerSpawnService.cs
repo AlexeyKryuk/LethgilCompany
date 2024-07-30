@@ -1,5 +1,7 @@
 using Core.Model;
+using Core.View;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace Core
 {
@@ -7,7 +9,6 @@ namespace Core
     {
         private readonly PlayerCharacterFactory _factory;
         private readonly PlayerConfig _config;
-
         private readonly IInputService _inputService;
         private readonly ISaveService<Player> _saveService;
 
@@ -22,15 +23,31 @@ namespace Core
 
         public PlayerPresenter Spawn(Vector3 position)
         {
-            GameObject player = _factory.Create();
-            Camera camera = _factory.CreateCamera();
+            Cursor.lockState = CursorLockMode.Locked; // Вынести это отсюда
 
-            IMovementView movementView = player.GetComponent<IMovementView>();
+            var player = _factory.Create(position, Quaternion.identity);
+            var camera = _factory.CreateCamera();
 
-            player.transform.position = position;
-            camera.transform.position = position - camera.transform.forward * 5;
+            ICharacterControllerView controllerView = player.GetComponent<ICharacterControllerView>();
+            ICharacterCameraView cameraView = camera.GetComponent<ICharacterCameraView>();
 
-            return new PlayerPresenter(_saveService, _inputService, movementView, _config);
+            PrepareCamera(player, controllerView, cameraView);
+            SetCharacterPosition(position, controllerView);
+
+            return new PlayerPresenter(_saveService, _inputService, controllerView, cameraView, _config);
+        }
+
+        private void SetCharacterPosition(Vector3 position, ICharacterControllerView controllerView)
+        {
+            controllerView.Transform.position = position;
+        }
+
+        private void PrepareCamera(GameObject player, ICharacterControllerView controllerView, ICharacterCameraView cameraView)
+        {
+            cameraView.SetFollowTransform(controllerView.CameraFollowPoint);
+
+            cameraView.IgnoredColliders.Clear();
+            cameraView.IgnoredColliders.AddRange(player.GetComponentsInChildren<Collider>());
         }
     }
 }

@@ -1,11 +1,9 @@
-using Core.Model;
 using System;
-using VContainer;
 using VContainer.Unity;
 
 namespace Core
 {
-    public class GameEntryPoint : IStartable, ITickable, IDisposable
+    public class GameEntryPoint : IStartable, ITickable, ILateTickable, IDisposable
     {
         private PlayerSpawnPoint _playerSpawnPoint;
         private PlayerSpawnService _playerSpawnService;
@@ -27,6 +25,11 @@ namespace Core
         public void Tick()
         {
             _player.Tick();
+        }
+
+        public void LateTick()
+        {
+            _player.LateTick();
         }
 
         public void Dispose()
