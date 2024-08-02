@@ -11,7 +11,7 @@ namespace Core
 
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterInstance(_playerSpawnPoint);
+            builder.RegisterComponent(_playerSpawnPoint);
 
             builder.RegisterEntryPoint<GameEntryPoint>();
 
