@@ -1,4 +1,3 @@
-using Core.View;
 using UnityEngine;
 
 namespace Core.View
@@ -6,8 +5,8 @@ namespace Core.View
     public interface ICharacterControllerView
     {
         Transform Transform { get; }
-        Transform CameraFollowPoint { get; }
 
-        void UpdateInputs(ICharacterInputs inputs, Quaternion cameraRotation);
+        void SpecifyCameraTransform(Transform transform);
+        void UpdateInputs(ICharacterInputs inputs);
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using VContainer.Unity;
 
 namespace Core
@@ -18,6 +19,8 @@ namespace Core
 
         public void Start()
         {
+            Cursor.lockState = CursorLockMode.Locked; // Вынести это отсюда
+
             _player = _playerSpawnService.Spawn(_playerSpawnPoint.transform.position);
             _player.Start();
         }

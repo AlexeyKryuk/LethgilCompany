@@ -7,14 +7,17 @@ namespace Core
     public class PlayerCharacterFactory
     {
         private readonly GameObject _prefab;
-        private readonly Camera _cameraPrefab;
+        private readonly GameObject _playerCameraPrefab;
+        private readonly GameObject _mainCameraPrefab;
+        
         private readonly IObjectResolver _objectResolver;
 
         public PlayerCharacterFactory(IObjectResolver objectResolver, PlayerConfig config)
         {
             _objectResolver = objectResolver;
             _prefab = config.Prefab;
-            _cameraPrefab = config.CameraPrefab;
+            _playerCameraPrefab = config.PlayerCameraPrefab;
+            _mainCameraPrefab = config.MainCameraPrefab;
 
             Debug.Log("Factory Created!");
         }
@@ -22,7 +25,10 @@ namespace Core
         public GameObject Create(Vector3 position, Quaternion rotation)
             => _objectResolver.Instantiate(_prefab, position, rotation);
 
-        public Camera CreateCamera()
-            => _objectResolver.Instantiate(_cameraPrefab);
+        public GameObject CreatePlayerCamera()
+            => _objectResolver.Instantiate(_playerCameraPrefab);
+
+        public GameObject CreateMainCamera()
+            => _objectResolver.Instantiate(_mainCameraPrefab);
     }
 }

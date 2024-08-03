@@ -1,4 +1,3 @@
-using UnityEngine;
 using VContainer.Unity;
 
 namespace Core
@@ -14,7 +13,6 @@ namespace Core
 
         public void Start()
         {
-            Debug.Log("Loaded");
             _sceneLoadService.LoadGameScene();
         }
     }

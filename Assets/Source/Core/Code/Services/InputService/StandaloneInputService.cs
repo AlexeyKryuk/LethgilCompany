@@ -27,7 +27,7 @@ namespace Core
 
         public void OnJump(InputValue inputValue)
         {
-            CharacterInputs.JumpDown = inputValue.Get<bool>();
+            CharacterInputs.JumpDown = inputValue.isPressed;
         }
 
         public void OnLook(InputValue inputValue)

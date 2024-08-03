@@ -49,7 +49,7 @@ namespace Core
 
         public void Tick()
         {
-            _controllerView.UpdateInputs(_inputService.CharacterInputs, _cameraView.Transform.rotation);
+            _controllerView.UpdateInputs(_inputService.CharacterInputs);
             _model.Transformable.SetPosition(_controllerView.Transform.position);
         }
 
@@ -61,8 +61,6 @@ namespace Core
         public void Dispose()
         {
             _saveService.Save(this, _model);
-            Debug.Log(_model.Transformable.Position);
-
         }
     }
 }

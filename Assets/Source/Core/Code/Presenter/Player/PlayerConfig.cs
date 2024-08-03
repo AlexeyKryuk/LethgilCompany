@@ -7,7 +7,8 @@ namespace Core
     public class PlayerConfig : ScriptableObject
     {
         public GameObject Prefab;
-        public Camera CameraPrefab;
+        public GameObject PlayerCameraPrefab;
+        public GameObject MainCameraPrefab;
 
         public TransformSettings TransformSettings;
         public DamageSettings DamageSettings;

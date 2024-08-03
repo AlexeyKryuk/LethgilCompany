@@ -1,7 +1,6 @@
 using Core.Model;
 using Core.View;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 namespace Core
 {
@@ -23,31 +22,28 @@ namespace Core
 
         public PlayerPresenter Spawn(Vector3 position)
         {
-            Cursor.lockState = CursorLockMode.Locked; // Вынести это отсюда
-
             var player = _factory.Create(position, Quaternion.identity);
-            var camera = _factory.CreateCamera();
+            var playerCamera = _factory.CreatePlayerCamera();
+            var mainCamera = _factory.CreateMainCamera();
 
             ICharacterControllerView controllerView = player.GetComponent<ICharacterControllerView>();
-            ICharacterCameraView cameraView = camera.GetComponent<ICharacterCameraView>();
+            ICharacterCameraView cameraView = playerCamera.GetComponent<ICharacterCameraView>();
 
-            PrepareCamera(player, controllerView, cameraView);
-            SetCharacterPosition(position, controllerView);
+            PrepareCamera(player, cameraView);
+            PrepareCharacter(controllerView, position, mainCamera.transform);
 
             return new PlayerPresenter(_saveService, _inputService, controllerView, cameraView, _config);
         }
 
-        private void SetCharacterPosition(Vector3 position, ICharacterControllerView controllerView)
+        private void PrepareCharacter(ICharacterControllerView controllerView, Vector3 position, Transform mainCamera)
         {
             controllerView.Transform.position = position;
+            controllerView.SpecifyCameraTransform(mainCamera);
         }
 
-        private void PrepareCamera(GameObject player, ICharacterControllerView controllerView, ICharacterCameraView cameraView)
+        private void PrepareCamera(GameObject player, ICharacterCameraView cameraView)
         {
-            cameraView.SetFollowTransform(controllerView.CameraFollowPoint);
-
-            cameraView.IgnoredColliders.Clear();
-            cameraView.IgnoredColliders.AddRange(player.GetComponentsInChildren<Collider>());
+            cameraView.SetFollowTransform(player.transform);
         }
     }
 }

@@ -1,0 +1,24 @@
+{
+    "name": "MotionMatching",
+    "rootNamespace": "MotionMatching",
+    "references": [
+        "GUID:9ffbbd5fef7e1344dab0db6cc5208fb1",
+        "GUID:1f2a9c1f10b457844a25a170e7139d86",
+        "GUID:2665a8d13d1b3f18800f46e256720795",
+        "GUID:d8b63aba1907145bea998dd612889d6b",
+        "GUID:d8e7b33ba1e4a89fc8a64b6b1e97a6ac",
+        "GUID:4307f53044263cf4b835bd812fc161a4",
+        "GUID:8a2eafa29b15f444eb6d74f94a930e1d",
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:2702b94ed25b25fdda2226e5c974e9e8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

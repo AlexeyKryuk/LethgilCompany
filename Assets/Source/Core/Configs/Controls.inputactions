@@ -29,7 +29,7 @@
                     "id": "03cbf0ab-3e0a-483f-860e-a3a9f960d2ce",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
@@ -159,7 +159,7 @@
                     "name": "",
                     "id": "387a6be1-b8cb-49c7-a65f-2ef42f837333",
                     "path": "<Keyboard>/space",
-                    "interactions": "Tap",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Standalone",
                     "action": "Jump",
