@@ -360,7 +360,7 @@ CharacterController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1175313349234401502}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ba8e34bb0c1bcbd4d80f85ffbadaccda, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
