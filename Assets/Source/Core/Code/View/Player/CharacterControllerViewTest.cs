@@ -7,7 +7,8 @@ namespace Core
     public class CharacterControllerViewTest : MonoBehaviour, ICharacterControllerView
     {
         public Transform Transform => transform;
-        public Transform CameraFollowPoint => transform;
+        public Transform CameraTarget => transform;
+        public Transform CameraFollow => transform;
 
         public void SpecifyCameraTransform(Transform transform)
         {

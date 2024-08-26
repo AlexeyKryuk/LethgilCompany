@@ -10,10 +10,10 @@ namespace CharacterController
 
         public Transform Transform => transform;
 
-        public void SetFollowTransform(Transform target)
+        public void SetFollowTransform(Transform lookAt, Transform follow)
         {
-            _freeLookCamera.LookAt = target;
-            _freeLookCamera.Follow = target;
+            _freeLookCamera.LookAt = lookAt;
+            _freeLookCamera.Follow = follow;
         }
 
         public void UpdateInput(ICameraInputs inputs)

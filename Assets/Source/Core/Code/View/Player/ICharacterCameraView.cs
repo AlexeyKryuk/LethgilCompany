@@ -7,7 +7,7 @@ namespace Core.View
     {
         Transform Transform { get; }
 
-        void SetFollowTransform(Transform target);
+        void SetFollowTransform(Transform lookAt, Transform follow);
         void UpdateInput(ICameraInputs inputs);
     }
 }

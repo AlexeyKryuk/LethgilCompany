@@ -22,28 +22,29 @@ namespace Core
 
         public PlayerPresenter Spawn(Vector3 position)
         {
+            _factory.CreateMainCamera();
+
             var player = _factory.Create(position, Quaternion.identity);
             var playerCamera = _factory.CreatePlayerCamera();
-            var mainCamera = _factory.CreateMainCamera();
 
-            ICharacterControllerView controllerView = player.GetComponent<ICharacterControllerView>();
+            ICharacterControllerView controllerView = player.GetComponentInChildren<ICharacterControllerView>();
             ICharacterCameraView cameraView = playerCamera.GetComponent<ICharacterCameraView>();
 
-            PrepareCamera(player, cameraView);
-            PrepareCharacter(controllerView, position, mainCamera.transform);
+            PrepareCamera(controllerView, cameraView);
+            PrepareCharacter(controllerView, position, playerCamera.transform);
 
             return new PlayerPresenter(_saveService, _inputService, controllerView, cameraView, _config);
         }
 
-        private void PrepareCharacter(ICharacterControllerView controllerView, Vector3 position, Transform mainCamera)
+        private void PrepareCharacter(ICharacterControllerView controllerView, Vector3 position, Transform camera)
         {
             controllerView.Transform.position = position;
-            controllerView.SpecifyCameraTransform(mainCamera);
+            controllerView.SpecifyCameraTransform(camera);
         }
 
-        private void PrepareCamera(GameObject player, ICharacterCameraView cameraView)
+        private void PrepareCamera(ICharacterControllerView player, ICharacterCameraView cameraView)
         {
-            cameraView.SetFollowTransform(player.transform);
+            cameraView.SetFollowTransform(player.CameraTarget, player.CameraFollow);
         }
     }
 }

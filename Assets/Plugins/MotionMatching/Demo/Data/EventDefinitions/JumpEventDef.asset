@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316ca862c074e1741bb37ecbefd40148, type: 3}
   m_Name: JumpEventDef
   m_EditorClassIdentifier: 
-  Id: 0
-  EventName: Jump
+  Id: 7
+  EventName: VaultOffHigh
   EventType: 0
   Priority: -1
   ContactCountToMatch: 0
@@ -22,17 +22,18 @@ MonoBehaviour:
   MatchPose: 1
   MatchTrajectory: 1
   MatchRequireTags: 0
+  FavourTagMethod: 0
   PostEventTrajectoryMode: 1
   MatchTiming: 0
   TimingWeight: 0
   TimingWarpType: 0
-  MatchPosition: 0
+  MatchPosition: 1
   PositionWeight: 0
   MotionWarpType: 2
   WarpTimeScaling: 0
   ContactCountToTimeScale: 1
-  MinWarpTimeScale: 0.9
-  MaxWarpTimeScale: 1.2
+  MinWarpTimeScale: 0.5
+  MaxWarpTimeScale: 1
   MatchRotation: 0
   RotationWeight: 0
   RotationWarpType: 0

@@ -147,8 +147,7 @@ MonoBehaviour:
   m_eventNames: []
   m_getBonesByName: 0
   m_lastSaveDirectory: Assets/Plugins/MotionMatching/Demo/Data/Legacy/MxMAnimData
-  m_lastCreatedAnimData: {fileID: 11400000, guid: 044ac0aabce61324da379ce23b6f26a2,
-    type: 2}
+  m_lastCreatedAnimData: {fileID: 11400000, guid: 044ac0aabce61324da379ce23b6f26a2, type: 2}
   m_hideSubAssets: 1
   m_jointVelocityGlobal: 0
   m_compositeCategories:
@@ -160,10 +159,8 @@ MonoBehaviour:
     RuntimeSplicing_default: 0
     RequireTags_default: 0
     FavourTags_default: 0
-  m_overrideConfigModule: {fileID: 11400000, guid: 573343cc66b0675439f5bb9d34476d43,
-    type: 2}
-  m_overrideTagModule: {fileID: 11400000, guid: 6b7014982c117a4419587441e184f2a2,
-    type: 2}
+  m_overrideConfigModule: {fileID: 11400000, guid: 573343cc66b0675439f5bb9d34476d43, type: 2}
+  m_overrideTagModule: {fileID: 11400000, guid: 6b7014982c117a4419587441e184f2a2, type: 2}
   m_overrideEventModule: {fileID: 0}
   m_animModules:
   - {fileID: 11400000, guid: eab99d0a2f3bc8c48834c88c489aab14, type: 2}

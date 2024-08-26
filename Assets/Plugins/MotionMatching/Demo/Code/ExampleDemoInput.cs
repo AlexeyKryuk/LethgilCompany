@@ -20,6 +20,12 @@ namespace MxMGameplay
         private LocomotionSpeedRamp m_locomotionSpeedRamp;
         private VaultDetector m_vaultDetector;
 
+        [SerializeField]
+        private Transform _cameraTarget;
+
+        [SerializeField]
+        private Transform _cameraFollow;
+
         private GenericControllerWrapper m_controller;
 
         [SerializeField]
@@ -53,12 +59,20 @@ namespace MxMGameplay
         private bool bIsDancing = false;
 
         public Transform Transform => transform;
+        public Transform CameraTarget => _cameraTarget;
+        public Transform CameraFollow => _cameraFollow;
 
         private enum EState
         {
             General,
             Sliding,
             Jumping
+        }
+
+        private void OnValidate()
+        {
+            if (m_trajectoryGenerator  == null)
+                m_trajectoryGenerator = GetComponent<MxMTrajectoryGenerator>();
         }
 
         // Start is called before the first frame update
@@ -210,7 +224,7 @@ namespace MxMGameplay
                     Ray ray = new Ray(eventContact.Position + (Vector3.up * 3.5f), Vector3.down);
                     RaycastHit rayHit = new RaycastHit();
 
-                    if (Physics.Raycast(ray, out rayHit, 10f) 
+                    if (Physics.Raycast(ray, out rayHit, 1000f) 
                         && rayHit.distance > 1.5f 
                         && rayHit.distance < 5f)
                     {
@@ -218,7 +232,9 @@ namespace MxMGameplay
                     }
                     else
                     {
-                        m_mxmAnimator.ModifyDesiredEventContactPosition(eventContact.Position);
+                        m_mxmAnimator.ModifyDesiredEventContactPosition(rayHit.point);
+
+                        //m_mxmAnimator.ModifyDesiredEventContactPosition(eventContact.Position);
                     }
 
                     //m_controller.enabled = false;
@@ -234,7 +250,9 @@ namespace MxMGameplay
             m_curState = EState.Sliding;
             m_controller.Height = m_defaultControllerHeight / 2f;
             m_controller.Center = new Vector3(0f, m_defaultControllerCenter / 2f + 0.05f, 0f);
-            m_vaultDetector.enabled = false;
+
+            if (m_vaultDetector != null)
+                m_vaultDetector.enabled = false;
         }
 
         private void UpdateSliding()
@@ -244,7 +262,9 @@ namespace MxMGameplay
                 m_curState = EState.General;
                 m_controller.Center = new Vector3(0f, m_defaultControllerCenter, 0f);
                 m_controller.Height = m_defaultControllerHeight;
-                m_vaultDetector.enabled = true;
+
+                if (m_vaultDetector != null)
+                    m_vaultDetector.enabled = true;
             }
         }
 
