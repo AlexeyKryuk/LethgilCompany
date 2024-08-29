@@ -8,7 +8,7 @@ namespace Core.View
         Transform CameraTarget { get; }
         Transform CameraFollow { get; }
 
-        void SpecifyCameraTransform(Transform transform);
         void UpdateInputs(ICharacterInputs inputs);
+        void SetCameraTransform(Transform camera);
     }
 }

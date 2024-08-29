@@ -12,21 +12,21 @@ namespace Core
         private ISaveService<Player> _saveService;
         private IInputService _inputService;
         private ICharacterControllerView _controllerView;
-        private ICharacterCameraView _cameraView;
+        private ICharacterCameraView[] _cameraViews;
 
         private PlayerConfig _playerConfig;
         private Player _model;
 
         public string Key => "PlayerInfo";
 
-        public PlayerPresenter(ISaveService<Player> saveService, IInputService inputService, 
-            ICharacterControllerView controllerView, ICharacterCameraView cameraView, PlayerConfig config)
+        public PlayerPresenter(PlayerConfig config, ISaveService<Player> saveService, IInputService inputService, 
+            ICharacterControllerView controllerView, params ICharacterCameraView[] cameraViews)
         {
+            _playerConfig = config;
             _saveService = saveService;
             _inputService = inputService;
             _controllerView = controllerView;
-            _cameraView = cameraView;
-            _playerConfig = config;
+            _cameraViews = cameraViews;
         }
 
         private void LoadSaves(ICharacterControllerView controllerView, PlayerConfig config)
@@ -55,7 +55,8 @@ namespace Core
 
         public void LateTick()
         {
-            _cameraView.UpdateInput(_inputService.CameraInputs);
+            foreach (var camera in _cameraViews)
+                camera.UpdateInput(_inputService.CameraInputs);
         }
 
         public void Dispose()

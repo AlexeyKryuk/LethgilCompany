@@ -288,5 +288,10 @@ namespace MxMGameplay
         {
             m_trajectoryGenerator.RelativeCameraTransform = transform;
         }
+
+        public void SetCameraTransform(Transform camera)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

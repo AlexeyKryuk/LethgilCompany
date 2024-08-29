@@ -2,6 +2,7 @@ using Core.View;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.InputAction;
 
 namespace Core
 {
@@ -21,8 +22,12 @@ namespace Core
 
         public void OnMove(InputValue inputValue)
         {
-            CharacterInputs.MoveAxisForward = inputValue.Get<Vector2>().y;
-            CharacterInputs.MoveAxisRight = inputValue.Get<Vector2>().x;
+            CharacterInputs.MoveAxis = inputValue.Get<Vector2>();
+        }
+
+        public void OnSprint(InputValue inputValue)
+        {
+            CharacterInputs.Sprint = inputValue.Get<float>() > 0f;
         }
 
         public void OnJump(InputValue inputValue)
@@ -43,6 +48,12 @@ namespace Core
         public void OnRightMouseDown(InputValue inputValue)
         {
             CameraInputs.RightMouseDown = inputValue.Get<bool>();
+        }
+
+        private void OnApplicationFocus(bool focus)
+        {
+            Cursor.lockState = focus ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.visible = !focus;
         }
     }
 }

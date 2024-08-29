@@ -1,13 +1,12 @@
 using Core.View;
+using UnityEngine;
 
 namespace Core
 {
     public class PlayerCharacterInputs : ICharacterInputs
     {
-        public float MoveAxisForward { get; set; }
-        public float MoveAxisRight { get; set; }
+        public Vector2 MoveAxis { get; set; }
         public bool JumpDown { get; set; }
-        public bool CrouchDown { get; set; }
-        public bool CrouchUp { get; set; }
-    }
+        public bool Sprint { get; set; }
+}
 }

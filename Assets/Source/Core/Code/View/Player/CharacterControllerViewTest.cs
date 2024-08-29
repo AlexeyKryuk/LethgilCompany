@@ -10,6 +10,11 @@ namespace Core
         public Transform CameraTarget => transform;
         public Transform CameraFollow => transform;
 
+        public void SetCameraTransform(Transform camera)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void SpecifyCameraTransform(Transform transform)
         {
             Debug.Log("transform camera " + transform);

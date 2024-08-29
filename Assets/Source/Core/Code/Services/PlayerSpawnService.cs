@@ -31,15 +31,15 @@ namespace Core
             ICharacterCameraView cameraView = playerCamera.GetComponent<ICharacterCameraView>();
 
             PrepareCamera(controllerView, cameraView);
-            PrepareCharacter(controllerView, position, playerCamera.transform);
+            PrepareCharacter(controllerView, cameraView, position);
 
-            return new PlayerPresenter(_saveService, _inputService, controllerView, cameraView, _config);
+            return new PlayerPresenter(_config, _saveService, _inputService, controllerView, cameraView);
         }
 
-        private void PrepareCharacter(ICharacterControllerView controllerView, Vector3 position, Transform camera)
+        private void PrepareCharacter(ICharacterControllerView controllerView, ICharacterCameraView cameraView, Vector3 position)
         {
             controllerView.Transform.position = position;
-            controllerView.SpecifyCameraTransform(camera);
+            controllerView.SetCameraTransform(cameraView.Transform);
         }
 
         private void PrepareCamera(ICharacterControllerView player, ICharacterCameraView cameraView)

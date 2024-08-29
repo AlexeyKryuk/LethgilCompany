@@ -19,8 +19,6 @@ namespace Core
 
         public void Start()
         {
-            Cursor.lockState = CursorLockMode.Locked; // Вынести это отсюда
-
             _player = _playerSpawnService.Spawn(_playerSpawnPoint.transform.position);
             _player.Start();
         }
