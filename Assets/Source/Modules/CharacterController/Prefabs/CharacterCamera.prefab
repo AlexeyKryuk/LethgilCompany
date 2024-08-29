@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9007682126841391747}
   - component: {fileID: 5407159964501171678}
   - component: {fileID: 895762825603271081}
+  - component: {fileID: -6486443368915643459}
   m_Layer: 0
   m_Name: CharacterCamera
   m_TagString: Untagged
@@ -45,21 +46,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a18aec471746dd04f82a6c2dc350d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showGizmos: 1
+  showGizmos: 0
   editorPreview: 0
   follow: {fileID: 0}
   lookAt: {fileID: 0}
   topRing:
     radius: 2
-    height: 1.4
+    height: 2.76
     color: {r: 1, g: 0, b: 0, a: 1}
   middleRing:
-    radius: 5
-    height: 3
+    radius: 2.74
+    height: 1.5
     color: {r: 1, g: 0, b: 0, a: 1}
   bottomRing:
-    radius: 1
-    height: -1
+    radius: 1.91
+    height: -0.61
     color: {r: 1, g: 0, b: 0, a: 1}
   lockHeight: 0
   fixedHeight: 0.5
@@ -78,11 +79,11 @@ MonoBehaviour:
   useTargetNormal: 1
   captureCursor: 1
   horizontalAxis: Mouse X
-  horizontalSensitivity: 1
+  horizontalSensitivity: 0.68
   invertX: 0
   verticalAxis: Mouse Y
-  verticalSensitivity: 0.8
-  invertY: 0
+  verticalSensitivity: 0.14
+  invertY: 1
   zoomOutOnMotion:
     enabled: 1
     startSpeed: 10
@@ -152,3 +153,11 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!81 &-6486443368915643459
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4357260483811684540}
+  m_Enabled: 1
