@@ -2,12 +2,10 @@ using System;
 
 namespace Core.View
 {
-    public interface IPhysicsEventBroadcaster
+    public interface IPhysicsEventBroadcaster<T>
     {
-        event Action<IPhysicsEventBroadcaster> onTriggerEnter;
-        event Action<IPhysicsEventBroadcaster> onTriggerExit;
-        event Action<IPhysicsEventBroadcaster> onTriggerStay;
-
-        public bool TryGetComponent<T>(out T component);
+        event Action<T> onTriggerEnter;
+        event Action<T> onTriggerExit;
+        event Action<T> onTriggerStay;
     }
 }

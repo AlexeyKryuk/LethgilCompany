@@ -1,0 +1,19 @@
+{
+    "name": "ItemGrabber",
+    "rootNamespace": "ItemGrabber",
+    "references": [
+        "GUID:9ffbbd5fef7e1344dab0db6cc5208fb1",
+        "GUID:e93772d0b18c6d947881211d6b784ca3",
+        "GUID:1f2a9c1f10b457844a25a170e7139d86",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

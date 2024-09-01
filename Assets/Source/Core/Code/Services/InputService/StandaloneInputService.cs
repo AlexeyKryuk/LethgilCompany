@@ -1,8 +1,6 @@
 using Core.View;
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.InputSystem.InputAction;
 
 namespace Core
 {
@@ -11,8 +9,6 @@ namespace Core
     {
         public ICharacterInputs CharacterInputs { get; private set; }
         public ICameraInputs CameraInputs { get; private set; }
-
-        public event Action Jump;
 
         private void Awake()
         {
@@ -50,10 +46,9 @@ namespace Core
             CameraInputs.RightMouseDown = inputValue.Get<bool>();
         }
 
-        private void OnApplicationFocus(bool focus)
+        public void OnActionButton(InputValue inputValue)
         {
-            Cursor.lockState = focus ? CursorLockMode.Locked : CursorLockMode.None;
-            Cursor.visible = !focus;
+            CharacterInputs.ActionButton = inputValue.isPressed;
         }
     }
 }

@@ -1,41 +1,35 @@
 using System;
-using UnityEngine;
 using VContainer.Unity;
 
 namespace Core
 {
     public class GameEntryPoint : IStartable, ITickable, ILateTickable, IDisposable
     {
-        private PlayerSpawnPoint _playerSpawnPoint;
-        private PlayerSpawnService _playerSpawnService;
+        private readonly ILifetimeCycleService _playerService;
 
-        private PlayerPresenter _player;
-
-        public GameEntryPoint(PlayerSpawnService playerSpawnService, PlayerSpawnPoint playerSpawnPoint)
+        public GameEntryPoint(PlayerService playerService)
         {
-            _playerSpawnService = playerSpawnService;
-            _playerSpawnPoint = playerSpawnPoint;
+            _playerService = playerService;
         }
 
         public void Start()
         {
-            _player = _playerSpawnService.Spawn(_playerSpawnPoint.transform.position);
-            _player.Start();
+            _playerService.Start();
         }
 
         public void Tick()
         {
-            _player.Tick();
+            _playerService.Tick();
         }
 
         public void LateTick()
         {
-            _player.LateTick();
+            _playerService.LateTick();
         }
 
         public void Dispose()
         {
-            _player.Dispose();
+            _playerService.Dispose();
         }
     }
 }

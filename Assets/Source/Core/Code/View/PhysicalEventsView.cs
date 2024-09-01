@@ -3,33 +3,28 @@ using UnityEngine;
 
 namespace Core.View
 {
-    public class PhysicalEventsView : MonoBehaviour, IPhysicsEventBroadcaster
+    public abstract class PhysicalEventsView<T> : MonoBehaviour, IPhysicsEventBroadcaster<T> where T : MonoBehaviour
     {
-        public event Action<IPhysicsEventBroadcaster> onTriggerEnter;
-        public event Action<IPhysicsEventBroadcaster> onTriggerExit;
-        public event Action<IPhysicsEventBroadcaster> onTriggerStay;
+        public event Action<T> onTriggerEnter;
+        public event Action<T> onTriggerExit;
+        public event Action<T> onTriggerStay;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out IPhysicsEventBroadcaster physicsEventBroadcaster))
+            if (other.TryGetComponent(out T physicsEventBroadcaster))
                 onTriggerEnter?.Invoke(physicsEventBroadcaster);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(out IPhysicsEventBroadcaster physicsEventBroadcaster))
+            if (other.TryGetComponent(out T physicsEventBroadcaster))
                 onTriggerExit?.Invoke(physicsEventBroadcaster);
         }
 
         private void OnTriggerStay(Collider other)
         {
-            if (other.TryGetComponent(out IPhysicsEventBroadcaster physicsEventBroadcaster))
+            if (other.TryGetComponent(out T physicsEventBroadcaster))
                 onTriggerStay?.Invoke(physicsEventBroadcaster);
-        }
-
-        bool IPhysicsEventBroadcaster.TryGetComponent<T>(out T component)
-        {
-            return TryGetComponent(out component);
         }
     }
 }

@@ -10,11 +10,11 @@ namespace Core
         [SerializeField] private Vector3 _scale;
         [SerializeField] private Quaternion _rotation;
 
-        public Transformable(Vector3 position, Vector3 scale, Quaternion rotation)
+        public Transformable(Transform transform)
         {
-            _position = position;
-            _scale = scale;
-            _rotation = rotation;
+            _position = transform.position;
+            _scale = transform.localScale;
+            _rotation = transform.rotation;
         }
 
         public Vector3 Position => _position;

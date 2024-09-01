@@ -18,8 +18,6 @@ namespace Core
             _prefab = config.Prefab;
             _playerCameraPrefab = config.PlayerCameraPrefab;
             _mainCameraPrefab = config.MainCameraPrefab;
-
-            Debug.Log("Factory Created!");
         }
 
         public GameObject Create(Vector3 position, Quaternion rotation)

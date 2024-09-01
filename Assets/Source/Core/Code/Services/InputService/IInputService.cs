@@ -8,7 +8,5 @@ namespace Core
     {
         ICharacterInputs CharacterInputs { get; }
         ICameraInputs CameraInputs { get; }
-
-        event Action Jump;
     }
 }
