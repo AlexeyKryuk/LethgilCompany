@@ -1,12 +1,11 @@
-using System;
 using UnityEngine;
 
 namespace Core
 {
     public interface IGrabberView
     {
-        IAttachable Grab();
-        IAttachable Drop();
+        IAttachableView Grab();
+        IAttachableView Drop();
 
         Transform Anchor { get; }
         bool IsGrabReady { get; }

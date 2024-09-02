@@ -1,5 +1,4 @@
 using Core;
-using UnityEngine;
 
 namespace ItemGrabber
 {
@@ -33,9 +32,6 @@ namespace ItemGrabber
                     var item = _grabber.Grab();
                     item.Attach(_grabber);
                 }
-
-                Debug.Log(_grabber.IsGrabActive);
-                Debug.Log(_grabber.IsGrabReady);
 
                 _inputService.CharacterInputs.ActionButton = false;
             }

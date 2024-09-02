@@ -1,25 +1,28 @@
 using Core;
 using Core.View;
-using System;
 using UnityEngine;
 
 namespace ItemGrabber
 {
-    public class PlayerItemGrabber : MonoBehaviour, IGrabberView
+    public class PlayerItemGrabberView : MonoBehaviour, IGrabberView
     {
         [SerializeField] private Transform _anchor;
 
-        private IAttachable _itemInRange;
-        private IAttachable _attachable;
+        private IAttachableView _itemInRange;
+        private IAttachableView _attachable;
 
-        private IPhysicsEventBroadcaster<AttachableItem> _broadcaster;
+        private IPhysicsEventBroadcaster<AttachableItemView> _broadcaster;
+        private IAnimatorController _animatorController;
 
         public Transform Anchor => _anchor;
         public bool IsGrabReady => _itemInRange != null;
         public bool IsGrabActive => _attachable != null;
 
         private void Awake()
-            => _broadcaster = GetComponentInChildren<IPhysicsEventBroadcaster<AttachableItem>>();
+        {
+            _broadcaster = GetComponentInChildren<IPhysicsEventBroadcaster<AttachableItemView>>();
+            _animatorController = GetComponentInChildren<IAnimatorController>();
+        }
 
         private void OnEnable()
         {
@@ -33,28 +36,30 @@ namespace ItemGrabber
             _broadcaster.onTriggerExit -= OnItemIsNotInRange;
         }
 
-        private void OnItemInRange(IAttachable item)
+        private void OnItemInRange(IAttachableView item)
         {
             _itemInRange = item;
         }
 
-        private void OnItemIsNotInRange(IAttachable item)
+        private void OnItemIsNotInRange(IAttachableView item)
         {
             if (_itemInRange == item)
                 _itemInRange = null;
         }
 
-        public IAttachable Grab()
+        public IAttachableView Grab()
         {
             _attachable = _itemInRange;
+            _animatorController.SetBool(AnimatorParameter.Grab, true);
 
             return _attachable;
         }
 
-        public IAttachable Drop()
+        public IAttachableView Drop()
         {
             var droped = _attachable;
             _attachable = null;
+            _animatorController.SetBool(AnimatorParameter.Grab, false);
 
             return droped;
         }
