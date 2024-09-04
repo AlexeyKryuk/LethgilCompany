@@ -745,7 +745,7 @@ GameObject:
   - component: {fileID: 134329842353577569}
   - component: {fileID: 7085205805681893740}
   - component: {fileID: 8867811908851353387}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ItemGrabber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -777,11 +777,11 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
+    m_Bits: 55
+  m_LayerOverridePriority: 1
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -916,13 +916,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4726600271344328969}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3410252, y: -0.62236553, z: 0.6149012, w: 0.34388882}
+  m_LocalRotation: {x: 0.38547054, y: -0.59529305, z: 0.58805823, w: 0.38887814}
   m_LocalPosition: {x: 7.9, y: -74.9, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6602554228403474385}
-  m_LocalEulerAnglesHint: {x: 90.64801, y: 49.955994, z: 172.021}
+  m_LocalEulerAnglesHint: {x: 90.64801, y: 58.42, z: 172.021}
 --- !u!1 &5010641323972751400
 GameObject:
   m_ObjectHideFlags: 0

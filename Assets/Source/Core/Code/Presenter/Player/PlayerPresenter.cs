@@ -1,53 +1,13 @@
 using Core.Model;
 using Core.View;
 using UnityEngine;
-using VContainer.Unity;
 
 namespace Core
 {
-    public interface ICharacterView : ITickable, ILateTickable
-    {
-        ICharacterControllerView ControllerView { get; }
-        ICharacterCameraView CameraView { get; }
-        IGrabberView GrabberView { get; }
-    }
-
-    public class CharacterView : ICharacterView
-    {
-        private readonly IInputService _inputService;
-        private readonly ICharacterControllerView _controllerView;
-        private readonly ICharacterCameraView _cameraView;
-        private readonly IGrabberView _grabberView;
-
-        public CharacterView(IInputService inputService, ICharacterControllerView controllerView, 
-            ICharacterCameraView cameraView, IGrabberView grabberView)
-        {
-            _inputService = inputService;
-            _controllerView = controllerView;
-            _cameraView = cameraView;
-            _grabberView = grabberView;
-        }
-
-        public ICharacterControllerView ControllerView => _controllerView;
-        public ICharacterCameraView CameraView => _cameraView;
-        public IGrabberView GrabberView => _grabberView;
-
-        public void Tick()
-        {
-            _controllerView.UpdateInputs(_inputService.CharacterInputs);
-        }
-
-        public void LateTick()
-        {
-            _cameraView.UpdateInput(_inputService.CameraInputs);
-        }
-    }
-
-    public class PlayerPresenter : ISaveLoaded
+    public class PlayerPresenter : ISaveLoaded, IPresenter
     {
         private readonly IInputService _inputService;
         private readonly ISaveService<Player> _saveService;
-        private readonly IGrabbingService _grabbingService;
 
         private readonly GameObject _playerView;
         private readonly GameObject _playerCameraView;
@@ -59,12 +19,11 @@ namespace Core
         public string Key => "PlayerInfo";
 
         public PlayerPresenter(PlayerConfig config, ISaveService<Player> saveService, IInputService inputService, 
-            IGrabbingService grabbingService, GameObject playerView, GameObject playerCameraView)
+            GameObject playerView, GameObject playerCameraView)
         {
             _playerConfig = config;
             _saveService = saveService;
             _inputService = inputService;
-            _grabbingService = grabbingService;
             _playerView = playerView;
             _playerCameraView = playerCameraView;
         }
@@ -77,17 +36,14 @@ namespace Core
 
         public void Tick()
         {
-            _characterView.Tick();
-            _grabbingService.Tick();
+            _characterView.Update(_inputService.CharacterInputs);
 
-            Debug.Log(_model);
-            Debug.Log(_characterView);
             _model.Transformable.SetPosition(_characterView.ControllerView.Transform.position);
         }
 
         public void LateTick()
         {
-            _characterView.LateTick();
+            _characterView.LateUpdate(_inputService.CameraInputs);
         }
 
         public void Dispose()
@@ -95,18 +51,20 @@ namespace Core
             _saveService.Save(this, _model);
         }
 
+        public T GetView<T>()
+        {
+            return _playerView.GetComponentInChildren<T>();
+        }
+
         private void Initialize()
         {
             ICharacterControllerView controllerView = _playerView.GetComponentInChildren<ICharacterControllerView>();
             ICharacterCameraView cameraView = _playerCameraView.GetComponentInChildren<ICharacterCameraView>();
-            IGrabberView grabberView = _playerView.GetComponentInChildren<IGrabberView>();
 
             controllerView.SetCameraTransform(cameraView.Transform);
             cameraView.SetFollowTransform(controllerView.CameraTarget, controllerView.CameraFollow);
 
-            _grabbingService.Initialize(grabberView);
-
-            _characterView = new CharacterView(_inputService, controllerView, cameraView, grabberView);
+            _characterView = new CharacterView(controllerView, cameraView);
         }
 
         private void LoadModel()

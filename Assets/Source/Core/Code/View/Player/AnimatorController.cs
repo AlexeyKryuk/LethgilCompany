@@ -8,7 +8,6 @@ namespace Core.View
 
         public void SetBool(AnimatorParameter parameter, bool value)
         {
-            Debug.Log(parameter.ToString());
             _animator.SetBool(parameter.ToString(), value);
         }
 

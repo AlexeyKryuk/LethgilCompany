@@ -1,35 +1,50 @@
 using System;
+using System.Collections.Generic;
 using VContainer.Unity;
 
 namespace Core
 {
-    public class GameEntryPoint : IStartable, ITickable, ILateTickable, IDisposable
+    public class GameEntryPoint : IInitializable, IStartable, ITickable, ILateTickable, IDisposable
     {
-        private readonly ILifetimeCycleService _playerService;
+        private readonly IList<ILifetimeCycleService> _services;
 
-        public GameEntryPoint(PlayerService playerService)
+        public GameEntryPoint(PlayerService playerService, IGrabbingService grabbingService)
         {
-            _playerService = playerService;
+            _services = new List<ILifetimeCycleService>()
+            {
+                playerService,
+                grabbingService
+            };
+        }
+
+        public void Initialize()
+        {
+            foreach (var service in _services)
+                service.Initialize();
         }
 
         public void Start()
         {
-            _playerService.Start();
+            foreach (var service in _services)
+                service.Start();
         }
 
         public void Tick()
         {
-            _playerService.Tick();
+            foreach (var service in _services)
+                service.Tick();
         }
 
         public void LateTick()
         {
-            _playerService.LateTick();
+            foreach (var service in _services)
+                service.LateTick();
         }
 
         public void Dispose()
         {
-            _playerService.Dispose();
+            foreach (var service in _services)
+                service.Dispose();
         }
     }
 }

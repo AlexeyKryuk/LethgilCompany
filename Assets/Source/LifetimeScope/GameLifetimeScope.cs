@@ -1,4 +1,4 @@
-using ItemGrabber;
+using ItemGrabbing;
 using Core.Model;
 using UnityEngine;
 using VContainer;

@@ -1,9 +1,7 @@
-using VContainer.Unity;
-
 namespace Core
 {
-    public interface IGrabbingService : ITickable
+    public interface IGrabbingService : ILifetimeCycleService
     {
-        void Initialize(IGrabberView grabber);
+
     }
 }
