@@ -4,6 +4,6 @@ namespace Core.View
     {
         void Attach(IGrabberView grabber);
         void Render(bool isReady);
-        void Drop();
+        void Drop(float power);
     }
 }

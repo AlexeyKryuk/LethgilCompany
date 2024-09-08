@@ -5,7 +5,7 @@ namespace ItemGrabbing
 {
     public class AttachableItemView : MonoBehaviour, IAttachableView
     {
-        private const float DropPower = 50f;
+        private const float DropPower = 200f;
         private const float Offset = 1f;
 
         [SerializeField] private Rigidbody _rigidbody;
@@ -33,10 +33,10 @@ namespace ItemGrabbing
             SetPhysical(false);
         }
 
-        public void Drop()
+        public void Drop(float holdTime)
         {
             SetPhysical(true);
-            RenderDrop();
+            RenderDrop(holdTime);
         }
 
         private void SetPhysical(bool value)
@@ -45,17 +45,17 @@ namespace ItemGrabbing
             _collider.isTrigger = !value;
         }
 
+        private void RenderDrop(float power)
+        {
+            transform.parent = null;
+            _rigidbody.AddForce(_anchor.forward * power);
+        }
+
         private void RenderAttach()
         {
             transform.parent = _anchor;
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
-        }
-
-        private void RenderDrop()
-        {
-            transform.parent = null;
-            _rigidbody.AddForce(_anchor.forward * DropPower);
         }
 
         public void Render(bool isReady)

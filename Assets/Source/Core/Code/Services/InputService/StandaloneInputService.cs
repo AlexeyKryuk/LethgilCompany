@@ -16,6 +16,11 @@ namespace Core
             CameraInputs = new PlayerCameraInputs();
         }
 
+        private void Update()
+        {
+            CharacterInputs.ActionButton.Update(Time.deltaTime);
+        }
+
         public void OnMove(InputValue inputValue)
         {
             CharacterInputs.MoveAxis = inputValue.Get<Vector2>();
@@ -48,7 +53,7 @@ namespace Core
 
         public void OnActionButton(InputValue inputValue)
         {
-            CharacterInputs.ActionButton = inputValue.isPressed;
+            CharacterInputs.ActionButton.Click(inputValue.isPressed);
         }
     }
 }

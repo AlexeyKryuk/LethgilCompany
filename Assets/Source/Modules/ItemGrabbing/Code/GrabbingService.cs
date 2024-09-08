@@ -1,7 +1,6 @@
 using Core;
 using Core.View;
 using VContainer.Unity;
-using UnityEngine;
 
 namespace ItemGrabbing
 {
@@ -11,8 +10,14 @@ namespace ItemGrabbing
         private readonly IInputService _inputService;
         private readonly PlayerService _playerService;
 
+        private ICharacterInputs _inputs;
         private IGrabberView _grabber;
+
         private GrabbingUI _grabbingUI;
+        private GrabbingCanvas _grabbingCanvas;
+
+        private bool _isGrabbing;
+        private float _dropPower = 100f;
 
         public GrabbingService(IInputService inputService, IUIService uiService, PlayerService playerService)
         {
@@ -23,53 +28,51 @@ namespace ItemGrabbing
 
         public void Initialize()
         {
+            _inputs = _inputService.CharacterInputs;
             _grabber = _playerService.Presenter.GetView<IGrabberView>();
+
             _grabbingUI = _uiService.CreateUIElement<GrabbingUI>(UIElementID.GrabberView);
+            _grabbingCanvas = _uiService.CreateUIElement<GrabbingCanvas>(UIElementID.GrabbingCanvas);
         }
 
         public void Start()
         {
-
-        }
-
-        public void Tick()
-        {
-            CheckInputs();
-            RenderUI();
-        }
-
-        public void LateTick()
-        {
-
+            _inputs.ActionButton.PointerDown += OnPointerDown;
+            _inputs.ActionButton.PointerUp += OnPointerUp;
         }
 
         public void Dispose()
         {
-
+            _inputs.ActionButton.PointerDown -= OnPointerDown;
+            _inputs.ActionButton.PointerUp -= OnPointerUp;
         }
 
-        private void RenderUI()
+        public void Tick()
         {
             _grabbingUI.Render(_grabber.IsGrabReady && _grabber.IsGrabActive == false);
+            _grabbingCanvas.Render(_inputs.ActionButton.HoldValue * _dropPower);
         }
 
-        private void CheckInputs()
+        private void OnPointerDown()
         {
-            if (_inputService.CharacterInputs.ActionButton)
+            if (_grabber.IsGrabReady)
+                _grabber.Grab().Attach(_grabber);
+        }
+
+        private void OnPointerUp(float holdTime)
+        {
+            if (_isGrabbing == false)
+                _isGrabbing = true;
+            else
             {
                 if (_grabber.IsGrabActive)
                 {
-                    var droped = _grabber.Drop();
-                    droped.Drop();
+                    _grabber.Drop().Drop(holdTime * _dropPower);
+                    _isGrabbing = false;
                 }
-                else if (_grabber.IsGrabReady)
-                {
-                    var item = _grabber.Grab();
-                    item.Attach(_grabber);
-                }
-
-                _inputService.CharacterInputs.ActionButton = false;
             }
         }
+
+        public void LateTick() { }
     }
 }
