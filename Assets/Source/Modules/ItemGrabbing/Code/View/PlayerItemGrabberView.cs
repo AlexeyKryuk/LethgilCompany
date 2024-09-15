@@ -18,6 +18,8 @@ namespace ItemGrabbing
         public bool IsGrabReady => _itemInRange != null;
         public bool IsGrabActive => _attachable != null;
 
+        public Transform DropForward { get; private set; }
+
         private void Awake()
         {
             _broadcaster = GetComponentInChildren<IPhysicsEventBroadcaster<AttachableItemView>>();
@@ -74,6 +76,11 @@ namespace ItemGrabbing
             _animatorController.SetBool(AnimatorParameter.Grab, false);
 
             return droped;
+        }
+
+        public void Initialize(Transform dropForward)
+        {
+            DropForward = dropForward;
         }
     }
 }

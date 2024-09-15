@@ -1,5 +1,6 @@
 using Core.Model;
 using Core.View;
+using System;
 using UnityEngine;
 
 namespace Core
@@ -53,7 +54,15 @@ namespace Core
 
         public T GetView<T>()
         {
-            return _playerView.GetComponentInChildren<T>();
+            T characterview = _playerView.GetComponentInChildren<T>();
+
+            if (characterview == null)
+                characterview = _playerCameraView.GetComponentInChildren<T>();
+
+            if (characterview == null)
+                throw new NullReferenceException();
+
+            return characterview;
         }
 
         private void Initialize()

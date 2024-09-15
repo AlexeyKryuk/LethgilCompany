@@ -31,6 +31,7 @@ namespace ItemGrabbing
         {
             _inputs = _inputService.CharacterInputs;
             _grabber = _playerService.Presenter.GetView<IGrabberView>();
+            _grabber.Initialize(_playerService.Presenter.GetView<ICharacterCameraView>().Transform);
 
             _grabbingUI = _uiService.CreateUIElement<GrabbingUI>(UIElementID.GrabbingCanvas);
         }

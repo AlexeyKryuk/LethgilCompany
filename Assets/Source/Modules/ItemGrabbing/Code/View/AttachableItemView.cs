@@ -10,6 +10,7 @@ namespace ItemGrabbing
         [SerializeField] private GameObject _tooltip;
 
         private Transform _anchor;
+        private Transform _dropForward;
 
         private void Awake()
         {
@@ -26,6 +27,7 @@ namespace ItemGrabbing
         public void Attach(IGrabberView grabber)
         {
             _anchor = grabber.Anchor;
+            _dropForward = grabber.DropForward;
 
             RenderAttach();
             SetPhysical(false);
@@ -46,7 +48,7 @@ namespace ItemGrabbing
         private void RenderDrop(float power)
         {
             transform.parent = null;
-            _rigidbody.AddForce(_anchor.forward * power);
+            _rigidbody.AddForce(_dropForward.forward * power);
         }
 
         private void RenderAttach()
