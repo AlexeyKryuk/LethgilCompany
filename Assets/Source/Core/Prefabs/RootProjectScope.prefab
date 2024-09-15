@@ -49,5 +49,3 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   _inputService: {fileID: 4634137793505619818, guid: 98e992c2d09469a4a9b850d3f58b96f7, type: 3}
-  _uiConfig: {fileID: 11400000, guid: bc6028b3abed1f94489496ee8e9c03be, type: 2}
-  _playerConfig: {fileID: 11400000, guid: 8ce3dd50ce4726548b9bbd6c7856e819, type: 2}

@@ -1,16 +1,17 @@
+using System;
+
 namespace Core.Model
 {
+    [Serializable]
     public struct Speed
     {
-        public Speed(float walk, float running, float sprint)
+        public Speed(float walk, float sprint)
         {
             Walk = walk;
-            Running = running;
             Sprint = sprint;
         }
 
         public float Walk;
-        public float Running;
         public float Sprint;
     }
 }

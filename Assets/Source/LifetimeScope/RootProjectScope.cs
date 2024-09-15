@@ -1,6 +1,6 @@
 using Core;
+using ItemGrabbing;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
 using VContainer;
 using VContainer.Unity;
 
@@ -10,26 +10,29 @@ namespace LifetimeScopes
     {
         [SerializeField] private StandaloneInputService _inputService;
 
-        [Header("Configs")]
-        [SerializeField] private UIConfig _uiConfig;
-        [SerializeField] private PlayerConfig _playerConfig;
-
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<IObjectResolver, Container>(Lifetime.Singleton);
 
-            builder.RegisterInstance(_uiConfig);
-            builder.RegisterInstance(_playerConfig);
+            RegisterConfigs(builder);
 
             builder.Register<SceneLoadService>(Lifetime.Singleton);
             builder.Register<UIService>(Lifetime.Singleton).As<IUIService>();
 
-            builder.RegisterComponentInNewPrefab(typeof(IInputService), _inputService, Lifetime.Singleton).DontDestroyOnLoad();
+            builder.RegisterComponentInNewPrefab(_inputService, Lifetime.Singleton)
+                .DontDestroyOnLoad().As<IInputService>();
 
             builder.Register<PlayerCharacterFactory>(Lifetime.Singleton);
             builder.Register<UIFactory>(Lifetime.Singleton);
 
             builder.RegisterEntryPoint<BootstrapEntryPoint>();
+        }
+
+        private static void RegisterConfigs(IContainerBuilder builder)
+        {
+            builder.RegisterInstance(Resources.Load<GrabbingConfig>("Grabbing Config"));
+            builder.RegisterInstance(Resources.Load<UIConfig>("UI Config"));
+            builder.RegisterInstance(Resources.Load<PlayerConfig>("Player Config"));
         }
     }
 }

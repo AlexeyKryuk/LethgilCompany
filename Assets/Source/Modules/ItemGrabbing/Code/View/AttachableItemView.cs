@@ -5,9 +5,6 @@ namespace ItemGrabbing
 {
     public class AttachableItemView : MonoBehaviour, IAttachableView
     {
-        private const float DropPower = 200f;
-        private const float Offset = 1f;
-
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Collider _collider;
         [SerializeField] private GameObject _tooltip;
@@ -22,7 +19,8 @@ namespace ItemGrabbing
 
         private void Update()
         {
-            _tooltip.transform.position = transform.position + Vector3.up * Offset;
+            _tooltip.transform.position = transform.position + Vector3.up;
+            _tooltip.transform.LookAt(Camera.main.transform);
         }
 
         public void Attach(IGrabberView grabber)
@@ -33,10 +31,10 @@ namespace ItemGrabbing
             SetPhysical(false);
         }
 
-        public void Drop(float holdTime)
+        public void Drop(float power)
         {
             SetPhysical(true);
-            RenderDrop(holdTime);
+            RenderDrop(power);
         }
 
         private void SetPhysical(bool value)

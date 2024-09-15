@@ -1,5 +1,6 @@
 ﻿using Core.View;
 using UnityEngine;
+using Core.Model;
 
 namespace StarterAssets
 {
@@ -55,6 +56,7 @@ namespace StarterAssets
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
         public GameObject CinemachineCameraTarget;
         public GameObject CinemachineCameraFollow;
+        public GameObject CinemachineCameraAim;
 
         [Tooltip("How far in degrees can you move the camera up")]
         public float TopClamp = 70.0f;
@@ -94,10 +96,16 @@ namespace StarterAssets
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
+        private Vector3 _aimPosition;
 
         public Transform Transform => transform;
         public Transform CameraTarget => CinemachineCameraTarget.transform;
         public Transform CameraFollow => CinemachineCameraFollow.transform;
+
+        private void Awake()
+        {
+            _aimPosition = CinemachineCameraAim.transform.position;
+        }
 
         private void Start()
         {
@@ -111,6 +119,16 @@ namespace StarterAssets
             _fallTimeoutDelta = FallTimeout;
         }
 
+        public void Initialize(TransformSettings transformSettings)
+        {
+            MoveSpeed = transformSettings.Speed.Walk;
+            SprintSpeed = transformSettings.Speed.Sprint;
+            JumpHeight = transformSettings.Jumping.Height;
+            Gravity = transformSettings.Jumping.Gravity;
+            JumpTimeout = transformSettings.Jumping.Timeout;
+            FallTimeout = transformSettings.Jumping.FallTimeout;
+        }
+
         public void UpdateInputs(ICharacterInputs inputs)
         {
             _hasAnimator = TryGetComponent(out _animator);
@@ -118,6 +136,8 @@ namespace StarterAssets
             JumpAndGravity(inputs);
             GroundedCheck();
             Move(inputs);
+
+            CinemachineCameraAim.transform.position = _characterCamera.transform.position + _characterCamera.transform.forward * 6f;
         }
 
         private void AssignAnimationIDs()

@@ -62,6 +62,7 @@ namespace Core
             ICharacterCameraView cameraView = _playerCameraView.GetComponentInChildren<ICharacterCameraView>();
 
             controllerView.SetCameraTransform(cameraView.Transform);
+            controllerView.Initialize(_playerConfig.TransformSettings);
             cameraView.SetFollowTransform(controllerView.CameraTarget, controllerView.CameraFollow);
 
             _characterView = new CharacterView(controllerView, cameraView);

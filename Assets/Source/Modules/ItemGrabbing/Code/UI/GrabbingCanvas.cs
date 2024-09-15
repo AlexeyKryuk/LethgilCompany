@@ -1,16 +1,20 @@
 using Core;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace ItemGrabbing
 {
-    public class GrabbingCanvas : BaseUIElement
+    public class GrabbingUI : BaseUIElement
     {
         [SerializeField] private Image _circle;
 
-        public void Render(float power)
+        public void Render(float targetValue, float holdTime)
         {
-            _circle.fillAmount = Mathf.Lerp(_circle.fillAmount, 1, power * Time.deltaTime);
+            if (targetValue == 0)
+                throw new ArgumentNullException();
+
+            _circle.fillAmount = holdTime / targetValue;
         }
     }
 }

@@ -1,3 +1,4 @@
+using Core.Model;
 using UnityEngine;
 
 namespace Core.View
@@ -10,5 +11,6 @@ namespace Core.View
 
         void UpdateInputs(ICharacterInputs inputs);
         void SetCameraTransform(Transform camera);
+        void Initialize(TransformSettings transform);
     }
 }

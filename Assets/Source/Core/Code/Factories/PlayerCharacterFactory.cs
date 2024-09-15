@@ -15,7 +15,7 @@ namespace Core
         public PlayerCharacterFactory(IObjectResolver objectResolver, PlayerConfig config)
         {
             _objectResolver = objectResolver;
-            _prefab = config.Prefab;
+            _prefab = config.PlayerPrefab;
             _playerCameraPrefab = config.PlayerCameraPrefab;
             _mainCameraPrefab = config.MainCameraPrefab;
         }

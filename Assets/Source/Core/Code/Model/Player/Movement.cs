@@ -17,19 +17,19 @@ namespace Core.Model
         public void BuffSpeed(Speed speed)
         {
             float walk = Math.Max(0, Speed.Walk + speed.Walk);
-            float running = Math.Max(0, Speed.Running + speed.Running);
             float sprint = Math.Max(0, Speed.Sprint + speed.Sprint);
 
-            Speed = new Speed(walk, running, sprint);
+            Speed = new Speed(walk, sprint);
         }
 
         public void BuffJump(Jumping jumping)
         {
             float gravity = Math.Max(0, Jumping.Gravity + jumping.Gravity);
             float height = Math.Max(0, Jumping.Height + jumping.Height);
-            float time = Math.Max(0, Jumping.Time + jumping.Time);
+            float timeOut = Math.Max(0, Jumping.Timeout + jumping.Timeout);
+            float fallTimeOut = Math.Max(0, Jumping.FallTimeout + jumping.FallTimeout);
 
-            Jumping = new Jumping(gravity, height, time);
+            Jumping = new Jumping(gravity, height, timeOut, fallTimeOut);
         }
     }
 }

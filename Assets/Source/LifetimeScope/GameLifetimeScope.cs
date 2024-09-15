@@ -15,11 +15,11 @@ namespace LifetimeScopes
         {
             builder.RegisterComponent(_playerSpawnPoint);
 
-            builder.RegisterEntryPoint<GameEntryPoint>();
-
             builder.Register<PlayerPrefsSaveService<Player>>(Lifetime.Scoped).As<ISaveService<Player>>();
             builder.Register<GrabbingService>(Lifetime.Scoped).As<IGrabbingService>();
             builder.Register<PlayerService>(Lifetime.Scoped);
+
+            builder.RegisterEntryPoint<GameEntryPoint>();
         }
     }
 }

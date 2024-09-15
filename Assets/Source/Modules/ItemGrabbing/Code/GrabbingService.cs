@@ -1,5 +1,6 @@
 using Core;
 using Core.View;
+using UnityEngine;
 using VContainer.Unity;
 
 namespace ItemGrabbing
@@ -8,22 +9,22 @@ namespace ItemGrabbing
     {
         private readonly IUIService _uiService;
         private readonly IInputService _inputService;
+
         private readonly PlayerService _playerService;
+        private readonly GrabbingConfig _config;
 
         private ICharacterInputs _inputs;
         private IGrabberView _grabber;
 
         private GrabbingUI _grabbingUI;
-        private GrabbingCanvas _grabbingCanvas;
-
         private bool _isGrabbing;
-        private float _dropPower = 100f;
 
-        public GrabbingService(IInputService inputService, IUIService uiService, PlayerService playerService)
+        public GrabbingService(IInputService inputService, IUIService uiService, PlayerService playerService, GrabbingConfig config)
         {
             _inputService = inputService;
             _uiService = uiService;
             _playerService = playerService;
+            _config = config;
         }
 
         public void Initialize()
@@ -31,8 +32,7 @@ namespace ItemGrabbing
             _inputs = _inputService.CharacterInputs;
             _grabber = _playerService.Presenter.GetView<IGrabberView>();
 
-            _grabbingUI = _uiService.CreateUIElement<GrabbingUI>(UIElementID.GrabberView);
-            _grabbingCanvas = _uiService.CreateUIElement<GrabbingCanvas>(UIElementID.GrabbingCanvas);
+            _grabbingUI = _uiService.CreateUIElement<GrabbingUI>(UIElementID.GrabbingCanvas);
         }
 
         public void Start()
@@ -49,9 +49,16 @@ namespace ItemGrabbing
 
         public void Tick()
         {
-            _grabbingUI.Render(_grabber.IsGrabReady && _grabber.IsGrabActive == false);
-            _grabbingCanvas.Render(_inputs.ActionButton.HoldValue * _dropPower);
+            float holdValue = ClampHoldTime(_inputs.ActionButton.HoldValue);
+            float targetValue = _config.DropDelayClamp.y;
+
+            if (_isGrabbing)
+                _grabbingUI.Render(targetValue, holdValue);
+            else
+                _grabbingUI.Render(targetValue, 0);
         }
+
+        public void LateTick() { }
 
         private void OnPointerDown()
         {
@@ -62,17 +69,30 @@ namespace ItemGrabbing
         private void OnPointerUp(float holdTime)
         {
             if (_isGrabbing == false)
-                _isGrabbing = true;
+                _isGrabbing = _grabber.IsGrabReady;
             else
             {
                 if (_grabber.IsGrabActive)
                 {
-                    _grabber.Drop().Drop(holdTime * _dropPower);
+                    float power = GetDropPower(ClampHoldTime(holdTime));
+                    IAttachableView attachable = _grabber.Drop();
+
+                    attachable.Drop(power);
+
                     _isGrabbing = false;
                 }
             }
         }
 
-        public void LateTick() { }
+        private float ClampHoldTime(float time)
+        {
+            float min = _config.DropDelayClamp.x;
+            float max = _config.DropDelayClamp.y;
+
+            return Mathf.Clamp(time, min, max);
+        }
+
+        private float GetDropPower(float holdTime)
+            => _config.Graph.Evaluate(holdTime);
     }
 }
