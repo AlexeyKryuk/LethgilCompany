@@ -4,6 +4,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 using Core;
+using Network;
 
 namespace LifetimeScopes
 {
@@ -17,7 +18,7 @@ namespace LifetimeScopes
 
             builder.Register<PlayerPrefsSaveService<Player>>(Lifetime.Scoped).As<ISaveService<Player>>();
             builder.Register<GrabbingService>(Lifetime.Scoped).As<IGrabbingService>();
-            builder.Register<PlayerService>(Lifetime.Scoped);
+            builder.Register<MultiplayerService>(Lifetime.Scoped).As<IPlayerService>();
 
             builder.RegisterEntryPoint<GameEntryPoint>();
         }

@@ -5,7 +5,7 @@ namespace Core
 {
     public class SceneLoadService
     {
-        private static string GameScene = "PolygonCity";
+        private static string GameScene = "Lobby";
 
         public AsyncOperation LoadGameScene()
         {

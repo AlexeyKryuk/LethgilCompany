@@ -1,4 +1,6 @@
+#if UNITY_EDITOR
 using Kilosoft.Tools;
+#endif
 using UnityEngine;
 
 namespace ItemGrabbing
@@ -26,6 +28,7 @@ namespace ItemGrabbing
             }
         }
 
+#if UNITY_EDITOR
         [EditorButton("Recalculate Keyframes")]
         public void RecalculateKeyframes()
         {
@@ -34,5 +37,6 @@ namespace ItemGrabbing
             Graph.AddKey(new Keyframe(DropDelayClamp.x, DropPowerClamp.x));
             Graph.AddKey(new Keyframe(DropDelayClamp.y, DropPowerClamp.y));
         }
+#endif
     }
 }

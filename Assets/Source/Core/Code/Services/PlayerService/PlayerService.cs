@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Core
 {
-    public class PlayerService : ILifetimeCycleService
+    public class PlayerService : IPlayerService
     {
         private readonly IInputService _inputService;
         private readonly ISaveService<Player> _saveService;

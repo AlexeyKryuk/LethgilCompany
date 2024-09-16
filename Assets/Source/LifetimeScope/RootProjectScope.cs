@@ -19,8 +19,7 @@ namespace LifetimeScopes
             builder.Register<SceneLoadService>(Lifetime.Singleton);
             builder.Register<UIService>(Lifetime.Singleton).As<IUIService>();
 
-            builder.RegisterComponentInNewPrefab(_inputService, Lifetime.Singleton)
-                .DontDestroyOnLoad().As<IInputService>();
+            builder.RegisterInstance<IInputService>(Instantiate(_inputService));
 
             builder.Register<PlayerCharacterFactory>(Lifetime.Singleton);
             builder.Register<UIFactory>(Lifetime.Singleton);

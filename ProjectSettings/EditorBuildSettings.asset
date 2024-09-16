@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Bootstrap.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 5344466c413574244b11308338a6ea07
+  - enabled: 1
     path: Assets/Scenes/PolygonCity.unity
     guid: 35299a6a99d6dfe4bb709527ba95aab0
   m_configObjects:

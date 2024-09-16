@@ -8,7 +8,7 @@ namespace Core
     {
         private readonly IList<ILifetimeCycleService> _services;
 
-        public GameEntryPoint(PlayerService playerService, IGrabbingService grabbingService)
+        public GameEntryPoint(IPlayerService playerService, IGrabbingService grabbingService)
         {
             _services = new List<ILifetimeCycleService>()
             {

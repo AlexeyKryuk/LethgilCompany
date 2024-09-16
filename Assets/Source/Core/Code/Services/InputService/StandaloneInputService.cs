@@ -12,6 +12,8 @@ namespace Core
 
         private void Awake()
         {
+            DontDestroyOnLoad(gameObject);
+
             CharacterInputs = new PlayerCharacterInputs();
             CameraInputs = new PlayerCameraInputs();
         }
