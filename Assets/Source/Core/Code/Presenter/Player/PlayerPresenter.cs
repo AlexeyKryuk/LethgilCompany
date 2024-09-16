@@ -29,16 +29,22 @@ namespace Core
             _playerCameraView = playerCameraView;
         }
 
-        public void Start()
+        public void Initialize()
         {
-            Initialize();
             LoadModel();
+
+            var controllerView = GetView<ICharacterControllerView>();
+            var cameraView = GetView<ICharacterCameraView>();
+
+            InitializeCharacterController(controllerView, cameraView);
+            cameraView.SetFollowTransform(controllerView.CameraTarget, controllerView.CameraFollow);
+
+            _characterView = new CharacterView(controllerView, cameraView);
         }
 
         public void Tick()
         {
             _characterView.Update(_inputService.CharacterInputs);
-
             _model.Transformable.SetPosition(_characterView.ControllerView.Transform.position);
         }
 
@@ -65,18 +71,6 @@ namespace Core
             return characterview;
         }
 
-        private void Initialize()
-        {
-            ICharacterControllerView controllerView = _playerView.GetComponentInChildren<ICharacterControllerView>();
-            ICharacterCameraView cameraView = _playerCameraView.GetComponentInChildren<ICharacterCameraView>();
-
-            controllerView.SetCameraTransform(cameraView.Transform);
-            controllerView.Initialize(_playerConfig.TransformSettings);
-            cameraView.SetFollowTransform(controllerView.CameraTarget, controllerView.CameraFollow);
-
-            _characterView = new CharacterView(controllerView, cameraView);
-        }
-
         private void LoadModel()
         {
             Transformable transformable = new Transformable(_playerView.transform);
@@ -84,6 +78,16 @@ namespace Core
             Damage damage = new Damage(_playerConfig.DamageSettings.Min, _playerConfig.DamageSettings.Max);
 
             _model = _saveService.Load(this, new Player(transformable, movement, damage));
+        }
+
+        private void InitializeCharacterController(ICharacterControllerView character, ICharacterCameraView camera)
+        {
+            character.SetCameraTransform(camera.Transform);
+            character.Initialize(new TransformSettings(_model.Movement.Speed, _model.Movement.Jumping));
+
+            character.Transform.position = _model.Transformable.Position;
+            character.Transform.rotation = _model.Transformable.Rotation;
+            character.Transform.localScale = _model.Transformable.Scale;
         }
     }
 }

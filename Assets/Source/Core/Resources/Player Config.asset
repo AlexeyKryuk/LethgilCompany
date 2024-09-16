@@ -22,7 +22,7 @@ MonoBehaviour:
     Jumping:
       Gravity: -15
       Height: 2
-      Timeout: 0.5
+      Timeout: 0.11
       FallTimeout: 0.15
   <DamageSettings>k__BackingField:
     Min: 1

@@ -29,11 +29,7 @@ namespace Core
         public void Initialize()
         {
             _presenter = Spawn();
-        }
-
-        public void Start()
-        {
-            _presenter.Start();
+            _presenter.Initialize();
         }
 
         public void Tick()
@@ -60,5 +56,7 @@ namespace Core
 
             return new PlayerPresenter(_config, _saveService, _inputService, player, playerCamera);
         }
+
+        public void Start() { }
     }
 }
