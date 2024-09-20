@@ -8,8 +8,11 @@ namespace Core.View
         IAttachableView Grab();
         IAttachableView Drop();
 
+        IAttachableView ItemInRange { get; }
+
         Transform Anchor { get; }
         Transform DropForward { get; }
+
         bool IsGrabReady { get; }
         bool IsGrabActive { get; }
     }

@@ -1,21 +1,22 @@
 using Core;
 using Core.Model;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Network
 {
-    public class MultiplayerService : IPlayerService
+    public class MultiplayerService : MonoBehaviourPunCallbacks, IPlayerService
     {
         private readonly IInputService _inputService;
         private readonly ISaveService<Player> _saveService;
 
-        private readonly PlayerCharacterFactory _factory;
+        private readonly IPlayerCharacterFactory _factory;
         private readonly PlayerSpawnPoint _spawnPoint;
         private readonly PlayerConfig _config;
 
         private PlayerPresenter _presenter;
 
-        public MultiplayerService(PlayerCharacterFactory factory, PlayerConfig config, PlayerSpawnPoint spawnPoint,
+        public MultiplayerService(IPlayerCharacterFactory factory, PlayerConfig config, PlayerSpawnPoint spawnPoint,
             ISaveService<Player> saveService, IInputService inputService)
         {
             _factory = factory;

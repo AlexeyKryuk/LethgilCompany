@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace Core
 {
-    public class PlayerCharacterFactory
+    public class PlayerCharacterFactory : IPlayerCharacterFactory
     {
         private readonly GameObject _prefab;
         private readonly GameObject _playerCameraPrefab;

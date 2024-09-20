@@ -39,6 +39,10 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - Grab
+  - Attach
+  - Drop
+  - Take
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

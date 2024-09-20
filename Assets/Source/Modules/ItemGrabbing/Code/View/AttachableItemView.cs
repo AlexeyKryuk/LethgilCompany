@@ -1,16 +1,26 @@
+using Core.Model;
 using Core.View;
+using Photon.Pun;
 using UnityEngine;
 
 namespace ItemGrabbing
 {
     public class AttachableItemView : MonoBehaviour, IAttachableView
     {
-        [SerializeField] private Rigidbody _rigidbody;
-        [SerializeField] private Collider _collider;
+        [SerializeField] private ItemType _itemType;
         [SerializeField] private GameObject _tooltip;
+        [SerializeField] private Collider _collider;
+        [SerializeField] private Rigidbody _rigidbody;
+        [SerializeField] private PhotonView _photonView;
 
         private Transform _anchor;
         private Transform _dropForward;
+
+        private bool _isAvailable = true;
+
+        public ItemType Type => _itemType;
+        public bool IsAvailable => _isAvailable;
+        public int PhotonViewId => _photonView.sceneViewId;
 
         private void Awake()
         {
@@ -20,47 +30,51 @@ namespace ItemGrabbing
 
         private void Update()
         {
+            RenderTooltip();
+            Render();
+        }
+
+        private void RenderTooltip()
+        {
             _tooltip.transform.position = transform.position + Vector3.up;
             _tooltip.transform.LookAt(Camera.main.transform);
         }
 
+        private void Render()
+        {
+            if (_isAvailable)
+                return;
+
+            transform.position = _anchor.position;
+            transform.rotation = _anchor.rotation;
+        }
+
         public void Attach(IGrabberView grabber)
         {
+            Activate(false);
+
             _anchor = grabber.Anchor;
             _dropForward = grabber.DropForward;
-
-            RenderAttach();
-            SetPhysical(false);
+            _isAvailable = false;
         }
 
         public void Drop(float power)
         {
-            SetPhysical(true);
-            RenderDrop(power);
-        }
+            _isAvailable = true;
 
-        private void SetPhysical(bool value)
-        {
-            _rigidbody.isKinematic = !value;
-            _collider.isTrigger = !value;
-        }
-
-        private void RenderDrop(float power)
-        {
-            transform.parent = null;
+            Activate(true);
             _rigidbody.AddForce(_dropForward.forward * power);
-        }
-
-        private void RenderAttach()
-        {
-            transform.parent = _anchor;
-            transform.localPosition = Vector3.zero;
-            transform.localRotation = Quaternion.identity;
         }
 
         public void Render(bool isReady)
         {
             _tooltip.SetActive(isReady);
+        }
+
+        private void Activate(bool value)
+        {
+            _rigidbody.isKinematic = !value;
+            _collider.enabled = value;
         }
     }
 }

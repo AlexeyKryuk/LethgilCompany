@@ -1,5 +1,7 @@
 using Core;
+using Core.Model;
 using Core.View;
+using Photon.Pun;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -10,16 +12,17 @@ namespace ItemGrabbing
         private readonly IUIService _uiService;
         private readonly IInputService _inputService;
 
-        private readonly PlayerService _playerService;
+        private readonly IPlayerService _playerService;
         private readonly GrabbingConfig _config;
 
         private ICharacterInputs _inputs;
         private IGrabberView _grabber;
+        private PhotonView _grabberPhotonView;
 
         private GrabbingUI _grabbingUI;
         private bool _isGrabbing;
 
-        public GrabbingService(IInputService inputService, IUIService uiService, PlayerService playerService, GrabbingConfig config)
+        public GrabbingService(IInputService inputService, IUIService uiService, IPlayerService playerService, GrabbingConfig config)
         {
             _inputService = inputService;
             _uiService = uiService;
@@ -31,6 +34,7 @@ namespace ItemGrabbing
         {
             _inputs = _inputService.CharacterInputs;
             _grabber = _playerService.Presenter.GetView<IGrabberView>();
+            _grabberPhotonView = _playerService.Presenter.GetView<PhotonView>();
             _grabber.Initialize(_playerService.Presenter.GetView<ICharacterCameraView>().Transform);
 
             _grabbingUI = _uiService.CreateUIElement<GrabbingUI>(UIElementID.GrabbingCanvas);
@@ -61,27 +65,61 @@ namespace ItemGrabbing
 
         public void LateTick() { }
 
+        [PunRPC]
+        public void TakeItem(int grabberId, int itemId)
+        {
+            var grabber = PhotonNetwork.GetPhotonView(grabberId).GetComponentInChildren<IGrabberView>();
+            var item = PhotonNetwork.GetPhotonView(itemId).GetComponent<IAttachableView>();
+
+            if (_grabberPhotonView.sceneViewId == grabberId)
+                grabber.Grab();
+
+            item.Attach(grabber);
+        }
+
+        [PunRPC]
+        public void DropItem(int grabberId, int itemId, float holdTime)
+        {
+            var grabber = PhotonNetwork.GetPhotonView(grabberId).GetComponentInChildren<IGrabberView>();
+            var item = PhotonNetwork.GetPhotonView(itemId).GetComponent<IAttachableView>();
+
+            if (_grabberPhotonView.sceneViewId == grabberId)
+            {
+                float power = GetDropPower(ClampHoldTime(holdTime));
+                item.Drop(power);
+            }
+
+            item.Attach(grabber);
+
+
+
+
+            float power = GetDropPower(ClampHoldTime(holdTime));
+            IAttachableView attachable = _grabber.Drop();
+
+            attachable.Drop(power);
+        }
+
         private void OnPointerDown()
         {
             if (_grabber.IsGrabReady)
-                _grabber.Grab().Attach(_grabber);
+            {
+                _grabberPhotonView.RPC(nameof(TakeItem), RpcTarget.AllBuffered, 
+                    _grabberPhotonView.sceneViewId, _grabber.ItemInRange.PhotonViewId);
+            }
         }
 
         private void OnPointerUp(float holdTime)
         {
-            if (_isGrabbing == false)
-                _isGrabbing = _grabber.IsGrabReady;
-            else
+            if (_grabber.IsGrabActive)
             {
-                if (_grabber.IsGrabActive)
-                {
-                    float power = GetDropPower(ClampHoldTime(holdTime));
-                    IAttachableView attachable = _grabber.Drop();
-
-                    attachable.Drop(power);
-
-                    _isGrabbing = false;
-                }
+                _grabberPhotonView.RPC(nameof(DropItem), RpcTarget.AllBuffered,
+                    _grabberPhotonView.sceneViewId, _grabber.ItemInRange.PhotonViewId, holdTime);
+            }
+            else if (_grabber.IsGrabReady)
+            {
+                _grabberPhotonView.RPC(nameof(TakeItem), RpcTarget.AllBuffered,
+                    _grabberPhotonView.sceneViewId, _grabber.ItemInRange.PhotonViewId);
             }
         }
 

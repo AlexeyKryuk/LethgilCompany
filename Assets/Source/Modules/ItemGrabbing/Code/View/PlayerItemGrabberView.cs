@@ -1,5 +1,8 @@
 using Core;
 using Core.View;
+using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 namespace ItemGrabbing
@@ -15,10 +18,11 @@ namespace ItemGrabbing
         private IAnimatorController _animatorController;
 
         public Transform Anchor => _anchor;
-        public bool IsGrabReady => _itemInRange != null;
+        public bool IsGrabReady => _itemInRange != null && _itemInRange.IsAvailable;
         public bool IsGrabActive => _attachable != null;
 
         public Transform DropForward { get; private set; }
+        public IAttachableView ItemInRange => _itemInRange;
 
         private void Awake()
         {
@@ -73,6 +77,7 @@ namespace ItemGrabbing
 
             var droped = _attachable;
             _attachable = null;
+
             _animatorController.SetBool(AnimatorParameter.Grab, false);
 
             return droped;

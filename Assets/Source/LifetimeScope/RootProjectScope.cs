@@ -1,5 +1,6 @@
 using Core;
 using ItemGrabbing;
+using Network;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -22,6 +23,7 @@ namespace LifetimeScopes
             builder.RegisterInstance<IInputService>(Instantiate(_inputService));
 
             builder.Register<PlayerCharacterFactory>(Lifetime.Singleton);
+            builder.Register<NetworkPlayerCharacterFactory>(Lifetime.Singleton).As<IPlayerCharacterFactory>();
             builder.Register<UIFactory>(Lifetime.Singleton);
 
             builder.RegisterEntryPoint<BootstrapEntryPoint>();
