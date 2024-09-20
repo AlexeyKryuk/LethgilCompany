@@ -7,7 +7,7 @@ namespace ItemGrabbing
 {
     public class AttachableItemView : MonoBehaviour, IAttachableView
     {
-        [SerializeField] private ItemType _itemType;
+        [SerializeField] private LootType _itemType;
         [SerializeField] private GameObject _tooltip;
         [SerializeField] private Collider _collider;
         [SerializeField] private Rigidbody _rigidbody;
@@ -18,7 +18,7 @@ namespace ItemGrabbing
 
         private bool _isAvailable = true;
 
-        public ItemType Type => _itemType;
+        public LootType Type => _itemType;
         public bool IsAvailable => _isAvailable;
         public int PhotonViewId => _photonView.sceneViewId;
 

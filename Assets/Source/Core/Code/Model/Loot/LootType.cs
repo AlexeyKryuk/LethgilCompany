@@ -1,6 +1,6 @@
 namespace Core.Model
 {
-    public enum ItemType
+    public enum LootType
     {
         None, Cube
     }

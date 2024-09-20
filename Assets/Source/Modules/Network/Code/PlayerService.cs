@@ -1,20 +1,21 @@
+using Core;
 using Core.Model;
 using UnityEngine;
 
-namespace Core
+namespace Network
 {
     public class PlayerService : IPlayerService
     {
         private readonly IInputService _inputService;
         private readonly ISaveService<Player> _saveService;
 
-        private readonly PlayerCharacterFactory _factory;
-        private readonly PlayerSpawnPoint _spawnPoint;  
+        private readonly IPlayerCharacterFactory _factory;
+        private readonly PlayerSpawnPoint _spawnPoint;
         private readonly PlayerConfig _config;
 
         private PlayerPresenter _presenter;
 
-        public PlayerService(PlayerCharacterFactory factory, PlayerConfig config, PlayerSpawnPoint spawnPoint,
+        public PlayerService(IPlayerCharacterFactory factory, PlayerConfig config, PlayerSpawnPoint spawnPoint,
             ISaveService<Player> saveService, IInputService inputService)
         {
             _factory = factory;

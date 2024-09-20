@@ -8,7 +8,7 @@ namespace Core.View
         void Render(bool isReady);
         void Drop(float power);
 
-        ItemType Type { get; }
+        LootType Type { get; }
         int PhotonViewId { get; }
         bool IsAvailable { get; }
     }

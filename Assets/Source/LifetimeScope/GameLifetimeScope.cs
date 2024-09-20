@@ -16,11 +16,16 @@ namespace LifetimeScopes
         {
             builder.RegisterComponent(_playerSpawnPoint);
 
-            builder.Register<PlayerPrefsSaveService<Player>>(Lifetime.Scoped).As<ISaveService<Player>>();
-            builder.Register<GrabbingService>(Lifetime.Scoped).As<IGrabbingService>();
-            builder.Register<MultiplayerService>(Lifetime.Scoped).As<IPlayerService>();
+            RegisterServices(builder);
 
             builder.RegisterEntryPoint<GameEntryPoint>();
+        }
+
+        private void RegisterServices(IContainerBuilder builder)
+        {
+            builder.Register<PlayerPrefsSaveService<Player>>(Lifetime.Scoped).As<ISaveService<Player>>();
+            builder.Register<GrabbingService>(Lifetime.Scoped).As<IGrabbingService>();
+            builder.Register<PlayerService>(Lifetime.Scoped).As<IPlayerService>();
         }
     }
 }
