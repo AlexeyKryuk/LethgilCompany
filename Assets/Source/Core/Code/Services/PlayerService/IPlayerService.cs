@@ -1,7 +1,10 @@
+using System;
+using VContainer.Unity;
+
 namespace Core
 {
-    public interface IPlayerService : ILifetimeCycleService
+    public interface IPlayerService : ILifetimeCycleService, ITickable, ILateTickable, IDisposable
     {
-        IPresenter Presenter { get; }
+        T GetView<T>();
     }
 }

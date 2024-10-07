@@ -2,7 +2,7 @@ using Core.View;
 
 namespace ItemGrabbing
 {
-    public class PhysicalEventsAttachable : PhysicalEventsView<AttachableItemView>
+    public class PhysicalEventsAttachable : PhysicalTriggerBroadcaster<AttachableItemView>
     {
 
     }

@@ -5,11 +5,16 @@ namespace Core
 {
     public class SceneLoadService
     {
-        private static string GameScene = "Lobby";
+        private readonly string _gameScene;
+
+        public SceneLoadService(string gameScene)
+        {
+            _gameScene = gameScene;
+        }
 
         public AsyncOperation LoadGameScene()
         {
-            return SceneManager.LoadSceneAsync(GameScene);
+            return SceneManager.LoadSceneAsync(_gameScene);
         }
     }
 }

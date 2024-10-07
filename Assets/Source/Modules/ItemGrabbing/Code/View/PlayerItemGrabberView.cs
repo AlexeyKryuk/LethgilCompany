@@ -1,87 +1,75 @@
 using Core.View;
+using Photon.Pun;
 using UnityEngine;
 
 namespace ItemGrabbing
 {
-    public class PlayerItemGrabberView : MonoBehaviour, IGrabberView
+    public class PlayerItemGrabberView : MonoBehaviourPun, IGrabberView
     {
         [SerializeField] private Transform _anchor;
 
-        private IAttachableView _itemInRange;
-        private IAttachableView _attachable;
-
-        private IPhysicsEventBroadcaster<AttachableItemView> _broadcaster;
+        private GrabbingConfig _config;
+        private Transform _directionOfView;
         private IAnimatorController _animatorController;
+        private IAttachableView _current;
 
         public Transform Anchor => _anchor;
-        public bool IsGrabReady => _itemInRange != null && _itemInRange.IsAvailable;
-        public bool IsGrabActive => _attachable != null;
-
-        public Transform DropForward { get; private set; }
-        public IAttachableView ItemInRange => _itemInRange;
+        public Transform DirectionOfView => _directionOfView;
 
         private void Awake()
         {
-            _broadcaster = GetComponentInChildren<IPhysicsEventBroadcaster<AttachableItemView>>();
             _animatorController = GetComponentInChildren<IAnimatorController>();
         }
 
-        private void OnEnable()
+        private void Update()
         {
-            _broadcaster.onTriggerEnter += OnItemInRange;
-            _broadcaster.onTriggerExit += OnItemIsNotInRange;
+            if (_current != null)
+                _current.UpdateTransform(Anchor.position, Anchor.rotation);
         }
 
-        private void OnDisable()
+        public void Initialize(GrabbingConfig config, Transform directionOfView)
         {
-            _broadcaster.onTriggerEnter -= OnItemInRange;
-            _broadcaster.onTriggerExit -= OnItemIsNotInRange;
+            _config = config;
+            _directionOfView = directionOfView;
         }
 
-        private void OnItemInRange(IAttachableView item)
+        public void Grab(IAttachableView item)
         {
-            _itemInRange = item;
+            _current = item;
+            _current.Attach();
 
-            if (IsGrabActive == false)
-                _itemInRange.Render(true);
-        }
-
-        private void OnItemIsNotInRange(IAttachableView item)
-        {
-            if (_itemInRange == item)
-            {
-                if (IsGrabActive == false)
-                    _itemInRange.Render(false);
-
-                _itemInRange = null;
-            }
-        }
-
-        public IAttachableView Grab()
-        {
-            _itemInRange.Render(false);
-
-            _attachable = _itemInRange;
+            photonView.RPC(nameof(GrabRPC), RpcTarget.AllBuffered, _current.NetworkId, photonView.ViewID);
             _animatorController.SetBool(AnimatorParameter.Grab, true);
-
-            return _attachable;
         }
 
-        public IAttachableView Drop()
+        public void Drop(float holdTime)
         {
-            _attachable.Render(true);
-
-            var droped = _attachable;
-            _attachable = null;
-
+            photonView.RPC(nameof(DropRPC), RpcTarget.AllBuffered, _current.NetworkId);
             _animatorController.SetBool(AnimatorParameter.Grab, false);
 
-            return droped;
+            _current.Unattach();
+            _current.Throw(DirectionOfView.forward, GetDropPower(holdTime));
+            _current = null;
         }
 
-        public void Initialize(Transform dropForward)
+        [PunRPC]
+        public void GrabRPC(int itemID, int ownerID)
         {
-            DropForward = dropForward;
+            var itemNetView = PhotonNetwork.GetPhotonView(itemID);
+            var item = itemNetView.GetComponent<IAttachableView>();
+
+            item.Attach();
         }
+
+        [PunRPC]
+        public void DropRPC(int itemID)
+        {
+            var item = PhotonNetwork.GetPhotonView(itemID).GetComponent<IAttachableView>();
+
+            item.Unattach();
+        }
+
+        private float GetDropPower(float holdTime)
+            => _config.Graph.Evaluate(holdTime);
     }
 }

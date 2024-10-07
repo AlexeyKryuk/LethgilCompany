@@ -456,6 +456,7 @@ namespace CharacterController
 
         public void SetLookAt(GameObject lookAt)
         {
+            
             this.lookAt = lookAt;
         }
 

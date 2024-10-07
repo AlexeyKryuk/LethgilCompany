@@ -49,3 +49,4 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   _inputService: {fileID: 4634137793505619818, guid: 98e992c2d09469a4a9b850d3f58b96f7, type: 3}
+  _gameScene: Lobby

@@ -2,6 +2,6 @@ namespace Core
 {
     public enum UIElementID
     {
-        None, MainCanvas, GrabbingCanvas
+        None, MainCanvas, GrabbingDrop, GrabbingTooltip
     }
 }

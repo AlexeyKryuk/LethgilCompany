@@ -4,6 +4,7 @@ using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 using Core;
+using Core.View;
 using Network;
 
 namespace LifetimeScopes
@@ -15,6 +16,7 @@ namespace LifetimeScopes
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterComponent(_playerSpawnPoint);
+            builder.RegisterComponentInHierarchy<LootSpawnPoints>();
 
             RegisterServices(builder);
 
@@ -24,8 +26,11 @@ namespace LifetimeScopes
         private void RegisterServices(IContainerBuilder builder)
         {
             builder.Register<PlayerPrefsSaveService<Player>>(Lifetime.Scoped).As<ISaveService<Player>>();
-            builder.Register<GrabbingService>(Lifetime.Scoped).As<IGrabbingService>();
-            builder.Register<PlayerService>(Lifetime.Scoped).As<IPlayerService>();
+            builder.Register<PlayerService>(Lifetime.Scoped).As<IPlayerService, ILifetimeCycleService>();
+            builder.Register<GrabbingService>(Lifetime.Scoped).As<IGrabbingService, ILifetimeCycleService>();
+
+            builder.Register<NetworkLootSpawner>(Lifetime.Scoped).As<ILootSpawner>();
+            builder.Register<LootService>(Lifetime.Scoped).As<ILootService, ILifetimeCycleService>();
         }
     }
 }

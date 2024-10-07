@@ -10,6 +10,7 @@ namespace LifetimeScopes
     public class RootProjectScope : LifetimeScope
     {
         [SerializeField] private StandaloneInputService _inputService;
+        [SerializeField] private string _gameScene;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -24,15 +25,18 @@ namespace LifetimeScopes
 
         private void RegisterServices(IContainerBuilder builder)
         {
-            builder.Register<SceneLoadService>(Lifetime.Singleton);
+            builder.Register<SceneLoadService>(Lifetime.Singleton).WithParameter(_gameScene);
             builder.Register<UIService>(Lifetime.Singleton).As<IUIService>();
             builder.RegisterInstance<IInputService>(Instantiate(_inputService));
         }
 
         private void RegisterFactories(IContainerBuilder builder)
         {
-            builder.Register<PlayerCharacterFactory>(Lifetime.Singleton);
-            builder.Register<NetworkPlayerCharacterFactory>(Lifetime.Singleton).As<IPlayerCharacterFactory>();
+            builder.Register<NetworkInstantiate>(Lifetime.Singleton);
+            builder.Register<ObjectResolveInstantiate>(Lifetime.Singleton);
+
+            builder.Register<PlayerCharacterFactory<NetworkInstantiate>>(Lifetime.Singleton).As<IPlayerCharacterFactory>();
+            builder.Register<LootFactory<NetworkInstantiate>>(Lifetime.Singleton).As<ILootFactory>();
             builder.Register<UIFactory>(Lifetime.Singleton);
         }
 
@@ -41,6 +45,7 @@ namespace LifetimeScopes
             builder.RegisterInstance(Resources.Load<GrabbingConfig>("Grabbing Config"));
             builder.RegisterInstance(Resources.Load<UIConfig>("UI Config"));
             builder.RegisterInstance(Resources.Load<PlayerConfig>("Player Config"));
+            builder.RegisterInstance(Resources.Load<LootConfig>("Loot Config"));
         }
     }
 }

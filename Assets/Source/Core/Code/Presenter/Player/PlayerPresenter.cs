@@ -2,14 +2,14 @@ using Core.Model;
 using Core.View;
 using System;
 using UnityEngine;
+using VContainer.Unity;
 
 namespace Core
 {
-    public class PlayerPresenter : ISaveLoaded, IPresenter
+    public class PlayerPresenter : ISaveLoaded, IInitializable, ITickable, ILateTickable, IDisposable
     {
         private readonly IInputService _inputService;
         private readonly ISaveService<Player> _saveService;
-
         private readonly GameObject _playerView;
         private readonly GameObject _playerCameraView;
         private readonly PlayerConfig _playerConfig;
@@ -36,8 +36,8 @@ namespace Core
             var controllerView = GetView<ICharacterControllerView>();
             var cameraView = GetView<ICharacterCameraView>();
 
-            InitializeCharacterController(controllerView, cameraView);
             cameraView.SetFollowTransform(controllerView.CameraTarget, controllerView.CameraFollow);
+            InitializeCharacterController(controllerView, cameraView);
 
             _characterView = new CharacterView(controllerView, cameraView);
         }
@@ -66,7 +66,7 @@ namespace Core
                 characterview = _playerCameraView.GetComponentInChildren<T>();
 
             if (characterview == null)
-                throw new NullReferenceException();
+                throw new NullReferenceException($"Component {typeof(T)} not found!");
 
             return characterview;
         }

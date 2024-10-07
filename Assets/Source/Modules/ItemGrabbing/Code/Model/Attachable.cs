@@ -1,26 +1,25 @@
-using Core.Model;
+using System;
 
 namespace ItemGrabbing
 {
     public class Attachable : IAttachable
     {
-        private IGrabber _grabber;
+        public bool IsAttached { get; private set; }
 
-        public Attachable(IGrabber grabber)
+        public void Attach()
         {
-            _grabber = grabber;
+            if (IsAttached)
+                throw new InvalidOperationException("This is object is already attached!");
+
+            IsAttached = true;
         }
 
-        public bool IsAttached => _grabber != null;
-
-        public void Attach(IGrabber grabber)
+        public void UnAttach()
         {
-            _grabber = grabber;
-        }
+            if (!IsAttached)
+                throw new InvalidOperationException("This is object is already unattached!");
 
-        public void Drop()
-        {
-            _grabber = null;
+            IsAttached = false;
         }
     }
 }

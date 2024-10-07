@@ -1,29 +1,17 @@
-using Core.Model;
-
 namespace ItemGrabbing
 {
     public class Grabber : IGrabber
     {
-        private IAttachable _attachable;
+        public bool IsGrabActive { get; private set; }
 
-        public Grabber(IAttachable attachable)
+        public void Grab()
         {
-            _attachable = attachable;
+            IsGrabActive = true;
         }
 
-        public bool IsGrabActive => _attachable != null;
-
-        public IAttachable Drop()
+        public void Drop()
         {
-            var dropped = _attachable;
-            _attachable = null;
-
-            return dropped;
-        }
-
-        public void Grab(IAttachable attachable)
-        {
-            _attachable = attachable;
+            IsGrabActive = false;
         }
     }
 }

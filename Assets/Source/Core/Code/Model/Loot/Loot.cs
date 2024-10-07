@@ -1,30 +1,12 @@
-using System;
-
 namespace Core.Model
 {
-    public class Loot : IAttachable
+    public class Loot : ILoot
     {
-        public bool IsAttached { get; private set; }
+        private readonly LootID _id;
 
-        public Loot(bool isAttached)
+        public Loot(LootID id)
         {
-            IsAttached = isAttached;
-        }
-
-        public void Attach()
-        {
-            if (IsAttached)
-                throw new Exception("The item is already attached");
-
-            IsAttached = true;
-        }
-
-        public void UnAttach()
-        {
-            if (!IsAttached) 
-                throw new Exception("The item is already unattached");
-
-            IsAttached = false;
+            _id = id;
         }
     }
 }

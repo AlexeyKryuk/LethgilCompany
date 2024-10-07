@@ -1,5 +1,3 @@
-using Core.Model;
-using Core.View;
 using Photon.Pun;
 using UnityEngine;
 
@@ -7,71 +5,46 @@ namespace ItemGrabbing
 {
     public class AttachableItemView : MonoBehaviour, IAttachableView
     {
-        [SerializeField] private LootType _itemType;
-        [SerializeField] private GameObject _tooltip;
-        [SerializeField] private Collider _collider;
-        [SerializeField] private Rigidbody _rigidbody;
-        [SerializeField] private PhotonView _photonView;
+        private Collider _collider;
+        private Rigidbody _rigidbody;
+        private PhotonView _photonView;
 
-        private Transform _anchor;
-        private Transform _dropForward;
-
-        private bool _isAvailable = true;
-
-        public LootType Type => _itemType;
-        public bool IsAvailable => _isAvailable;
-        public int PhotonViewId => _photonView.sceneViewId;
+        public bool IsAvailable { get; private set; } = true;
+        public int NetworkId => _photonView.ViewID;
 
         private void Awake()
         {
-            _tooltip.transform.SetParent(null);
-            _tooltip.SetActive(false);
+            _collider = GetComponent<Collider>();
+            _rigidbody = GetComponent<Rigidbody>();
+            _photonView = GetComponent<PhotonView>();
         }
 
-        private void Update()
+        public void UpdateTransform(Vector3 position, Quaternion rotation)
         {
-            RenderTooltip();
-            Render();
+            transform.position = position;
+            transform.rotation = rotation;
         }
 
-        private void RenderTooltip()
+        public void Attach()
         {
-            _tooltip.transform.position = transform.position + Vector3.up;
-            _tooltip.transform.LookAt(Camera.main.transform);
+            SwitchActivityState(false);
+            IsAvailable = false;
+
+            _photonView.RequestOwnership();
         }
 
-        private void Render()
+        public void Unattach()
         {
-            if (_isAvailable)
-                return;
-
-            transform.position = _anchor.position;
-            transform.rotation = _anchor.rotation;
+            SwitchActivityState(true);
+            IsAvailable = true;
         }
 
-        public void Attach(IGrabberView grabber)
+        public void Throw(Vector3 direction, float power)
         {
-            Activate(false);
-
-            _anchor = grabber.Anchor;
-            _dropForward = grabber.DropForward;
-            _isAvailable = false;
+            _rigidbody.AddForce(direction * power);
         }
 
-        public void Drop(float power)
-        {
-            _isAvailable = true;
-
-            Activate(true);
-            _rigidbody.AddForce(_dropForward.forward * power);
-        }
-
-        public void Render(bool isReady)
-        {
-            _tooltip.SetActive(isReady);
-        }
-
-        private void Activate(bool value)
+        private void SwitchActivityState(bool value)
         {
             _rigidbody.isKinematic = !value;
             _collider.enabled = value;
