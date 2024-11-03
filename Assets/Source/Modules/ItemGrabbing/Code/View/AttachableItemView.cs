@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 namespace ItemGrabbing
@@ -21,33 +22,34 @@ namespace ItemGrabbing
 
         public void UpdateTransform(Vector3 position, Quaternion rotation)
         {
-            transform.position = position;
-            transform.rotation = rotation;
+            transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime * 50f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 50f);
+        }
+
+        public void TransferOwnership(Player newOwner)
+        {
+            _photonView.TransferOwnership(newOwner);
         }
 
         public void Attach()
         {
-            SwitchActivityState(false);
             IsAvailable = false;
 
-            _photonView.RequestOwnership();
+            _collider.enabled = false;
+            _rigidbody.isKinematic = true;
         }
 
         public void Unattach()
         {
-            SwitchActivityState(true);
             IsAvailable = true;
+            _collider.enabled = true;
         }
 
         public void Throw(Vector3 direction, float power)
         {
+            _rigidbody.isKinematic = false;
+            _collider.enabled = true;
             _rigidbody.AddForce(direction * power);
-        }
-
-        private void SwitchActivityState(bool value)
-        {
-            _rigidbody.isKinematic = !value;
-            _collider.enabled = value;
         }
     }
 }

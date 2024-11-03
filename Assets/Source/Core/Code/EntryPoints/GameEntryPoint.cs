@@ -12,7 +12,7 @@ namespace Core
         private readonly IList<ILateTickable> _lateTickables = new List<ILateTickable>();
         private readonly IList<IDisposable> _disposables = new List<IDisposable>();
 
-        public GameEntryPoint(IReadOnlyList<ILifetimeCycleService> services)
+        public GameEntryPoint(IEnumerable<ILifetimeCycleService> services)
         {
             foreach (var service in services)
             {

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core.View
 {
-    public abstract class RaycastBroadcaster<T> : MonoBehaviour, IRaycastBroadcaster<T> where T : MonoBehaviour
+    public abstract class ForwardRaycastBroadcaster<T> : MonoBehaviour, IRaycastBroadcaster<T> where T : MonoBehaviour
     {
         [SerializeField] private Transform _origin;
         [SerializeField] private float _distance;

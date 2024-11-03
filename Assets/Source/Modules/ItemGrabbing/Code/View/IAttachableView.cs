@@ -1,3 +1,4 @@
+using Photon.Realtime;
 using UnityEngine;
 
 namespace ItemGrabbing
@@ -6,6 +7,7 @@ namespace ItemGrabbing
     {
         void Attach();
         void Unattach();
+        void TransferOwnership(Player newOwner);
         void UpdateTransform(Vector3 position, Quaternion rotation);
         void Throw(Vector3 direction, float power);
 

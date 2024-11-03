@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 using VContainer.Unity;
 
 namespace Core
 {
-    public class UIFactory
+    public class UIFactory : IUIFactory
     {
         private readonly UIConfig _uiConfig;
         private readonly IObjectResolver _objectResolver;

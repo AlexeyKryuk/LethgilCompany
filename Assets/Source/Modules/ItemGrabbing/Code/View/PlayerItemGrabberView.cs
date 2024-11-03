@@ -36,7 +36,7 @@ namespace ItemGrabbing
         public void Grab(IAttachableView item)
         {
             _current = item;
-            _current.Attach();
+            _current.TransferOwnership(PhotonNetwork.LocalPlayer);
 
             photonView.RPC(nameof(GrabRPC), RpcTarget.AllBuffered, _current.NetworkId, photonView.ViewID);
             _animatorController.SetBool(AnimatorParameter.Grab, true);
@@ -47,7 +47,6 @@ namespace ItemGrabbing
             photonView.RPC(nameof(DropRPC), RpcTarget.AllBuffered, _current.NetworkId);
             _animatorController.SetBool(AnimatorParameter.Grab, false);
 
-            _current.Unattach();
             _current.Throw(DirectionOfView.forward, GetDropPower(holdTime));
             _current = null;
         }

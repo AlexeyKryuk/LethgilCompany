@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5673845309919053449}
   - component: {fileID: 369824380835768266}
   - component: {fileID: 7795664503406500738}
-  - component: {fileID: -8123531188273501045}
+  - component: {fileID: 5926622542326881618}
   m_Layer: 6
   m_Name: GrabbingTooltipUI
   m_TagString: Untagged
@@ -83,7 +83,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-8123531188273501045
+--- !u!114 &5926622542326881618
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2807747974756670049}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a0b1846a2c9576418f7b26cc4e57cc0, type: 3}
+  m_Script: {fileID: 11500000, guid: b796a1c2c17c75a4f91bfaf5fccc40c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <UIElementType>k__BackingField: 3

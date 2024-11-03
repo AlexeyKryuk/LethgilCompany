@@ -1,6 +1,5 @@
 using Core;
 using Core.View;
-using Photon.Pun;
 
 namespace ItemGrabbing
 {
@@ -37,12 +36,11 @@ namespace ItemGrabbing
             var view = _playerService.GetView<IGrabberView>();
             var cameraView = _playerService.GetView<ICharacterCameraView>();
             var raycastBroadcaster = _playerService.GetView<IRaycastBroadcaster<AttachableItemView>>();
-            var photonView = _playerService.GetView<PhotonView>();
             var dropUI = _uiService.CreateUIElement<GrabbingDropUI>(UIElementID.GrabbingDrop);
-            var tooltipUI = _uiService.CreateUIElement<GrabbingTooltipUI>(UIElementID.GrabbingTooltip);
+            var tooltipUI = _uiService.CreateUIElement<TooltipUI>(UIElementID.GrabbingTooltip);
 
             return new GrabbingPresenter(view, cameraView, _inputService, raycastBroadcaster, 
-                photonView, dropUI, tooltipUI, _config);
+                dropUI, tooltipUI, _config);
         }
     }
 }

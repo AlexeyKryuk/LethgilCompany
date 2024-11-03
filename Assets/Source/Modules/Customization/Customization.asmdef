@@ -1,0 +1,19 @@
+{
+    "name": "Customization",
+    "rootNamespace": "Customization",
+    "references": [
+        "Core",
+        "Core.Model",
+        "Core.View",
+        "VContainer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,6 +1,5 @@
 using Core;
 using Core.View;
-using Photon.Pun;
 using System;
 using UnityEngine;
 using VContainer.Unity;
@@ -13,22 +12,20 @@ namespace ItemGrabbing
         private readonly ICharacterCameraView _cameraView;
         private readonly IInputService _inputService;
         private readonly IRaycastBroadcaster<AttachableItemView> _raycastBroadcaster;
-        private readonly PhotonView _photonView;
+        private readonly TooltipUI _tooltipUI;
         private readonly GrabbingDropUI _dropUI;
-        private readonly GrabbingTooltipUI _tooltipUI;
         private readonly GrabbingConfig _config;
 
         private IGrabber _model;
 
         public GrabbingPresenter(IGrabberView view, ICharacterCameraView cameraView,
             IInputService inputService, IRaycastBroadcaster<AttachableItemView> raycastBroadcaster,
-            PhotonView photonView, GrabbingDropUI dropUI, GrabbingTooltipUI tooltipUI, GrabbingConfig config)
+            GrabbingDropUI dropUI, TooltipUI tooltipUI, GrabbingConfig config)
         {
             _view = view;
             _cameraView = cameraView;
             _inputService = inputService;
             _raycastBroadcaster = raycastBroadcaster;
-            _photonView = photonView;
             _dropUI = dropUI;
             _tooltipUI = tooltipUI;
             _config = config;
@@ -59,7 +56,7 @@ namespace ItemGrabbing
             float targetValue = _config.DropDelayClamp.y;
 
             _dropUI.Render(targetValue, holdValue);
-            _tooltipUI.Render(_raycastBroadcaster.CurrentHit);
+            _tooltipUI.Render(_raycastBroadcaster.CurrentHit == null ? null : _raycastBroadcaster.CurrentHit.transform);
         }
             
         private void OnPointerUp(float holdTime)

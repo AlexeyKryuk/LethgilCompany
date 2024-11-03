@@ -1,15 +1,14 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Core
 {
     public class UIService : IUIService
     {
-        private readonly UIFactory _factory;
+        private readonly IUIFactory _factory;
 
         private List<IUIElement> _uiElements = new List<IUIElement>();
 
-        public UIService(UIFactory factory)
+        public UIService(IUIFactory factory)
         {
             _factory = factory;
         }
@@ -25,22 +24,6 @@ namespace Core
         public void Initialize()
         {
             _factory.CreateUIElement<MainCanvas>();
-        }
-
-        public void Start()
-        {
-        }
-
-        public void Tick()
-        {
-        }
-
-        public void LateTick()
-        {
-        }
-
-        public void Dispose()
-        {
         }
 
         public void DisableAll()

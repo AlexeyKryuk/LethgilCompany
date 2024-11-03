@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Player Config
   m_EditorClassIdentifier: 
   <PlayerPrefab>k__BackingField: {fileID: 7974169934441508928, guid: a93dc289fd20c684692364d877ad965a, type: 3}
+  <UIPlayerPrefab>k__BackingField: {fileID: 2281655720733274264, guid: 6d0bfc8e3d723ad41a454eea4ad4e48a, type: 3}
   <PlayerCameraPrefab>k__BackingField: {fileID: 4357260483811684540, guid: 8a0e29700610d53498f4286f74934851, type: 3}
   <MainCameraPrefab>k__BackingField: {fileID: 6354104006070355725, guid: fc81d845e9c8b5e468e95e9e06e26c3f, type: 3}
   <TransformSettings>k__BackingField:

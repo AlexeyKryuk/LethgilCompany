@@ -1,10 +1,9 @@
-using Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ItemGrabbing
+namespace Core
 {
-    public class GrabbingTooltipUI : BaseUIElement
+    public class TooltipUI : BaseUIElement
     {
         [SerializeField] private Graphic _renderer;
 
@@ -15,13 +14,13 @@ namespace ItemGrabbing
             _camera = camera;
         }
 
-        public void Render(AttachableItemView target)
+        public void Render(Transform target)
         {
             _renderer.enabled = target != null;
 
             if (target != null)
             {
-                transform.position = target.transform.position + Vector3.up;
+                transform.position = target.position + Vector3.up;
                 transform.LookAt(_camera);
             }
         }
