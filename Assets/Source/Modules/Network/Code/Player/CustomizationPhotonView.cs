@@ -12,15 +12,20 @@ namespace Network
     {
         private const string SKIN_KEY = nameof(SKIN_KEY);
         private const string NET_ID = nameof(NET_ID);
+        private const string NICKNAME = nameof(NICKNAME);
 
         [SerializeField] private List<MeshRendererReference> _skins;
+        [SerializeField] private NickNameView _nickNameView;
         [SerializeField] private PhotonView _photonView;
 
-        public void Set(SkinType type)
+        public INicknameView NickNameView => _nickNameView;
+
+        public void Set(CustomizationInfo data)
         {
             Hashtable props = new Hashtable
             {
-                {SKIN_KEY, type},
+                {SKIN_KEY, data.Skin},
+                {NICKNAME, data.NickName},
                 {NET_ID, _photonView.ViewID}
             };
 
@@ -36,6 +41,11 @@ namespace Network
                     if (PhotonNetwork.GetPhotonView(id).TryGetComponent(out CustomizationPhotonView component))
                     {
                         component.SetSkin(type);
+
+                        if (_photonView.IsMine == false && changedProps.TryGetValue(NICKNAME, out object nickname))
+                        {
+                            component.NickNameView.Initialize(nickname.ToString());
+                        }
                     }
                 }
             }

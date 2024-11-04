@@ -43,7 +43,7 @@ namespace Customization
         private void OnSelected(SkinType skin)
         {
             _model.Skin = skin;
-            _customizationView.Set(skin);
+            _customizationView.Set(_model);
         }
 
         private void OnNicknameConfirmed(string nickname)

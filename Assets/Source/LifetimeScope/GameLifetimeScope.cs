@@ -30,7 +30,7 @@ namespace LifetimeScopes
             builder.Register<GrabbingService>(Lifetime.Scoped).As<IGrabbingService, ILifetimeCycleService>();
             builder.Register<NetworkLootSpawner>(Lifetime.Scoped).As<ILootSpawner>();
             builder.Register<LootService>(Lifetime.Scoped).As<ILootService, ILifetimeCycleService>();
-            builder.Register<CustomizationPresenter>(Lifetime.Scoped).As<ILifetimeCycleService>();
+            builder.Register<CustomizationPhotonPresenter>(Lifetime.Scoped).As<ILifetimeCycleService>();
         }
     }
 }

@@ -9,11 +9,11 @@ namespace Customization
     {
         [SerializeField] private List<MeshRendererReference> _skins;
 
-        public void Set(SkinType type)
+        public void Set(CustomizationInfo data)
         {
             foreach (var skin in _skins)
             {
-                if (skin.Skin == type)
+                if (skin.Skin == data.Skin)
                     skin.Mesh.gameObject.SetActive(true);
                 else
                     skin.Mesh.gameObject.SetActive(false);
