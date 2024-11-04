@@ -18,7 +18,7 @@ namespace ItemGrabbing
 
         private void Awake()
         {
-            _animatorController = GetComponentInChildren<IAnimatorController>();
+            _animatorController = GetComponentInParent<IAnimatorController>();
         }
 
         private void Update()

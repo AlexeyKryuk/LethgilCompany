@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "Press,Hold(duration=1.401298E-45,pressPoint=1.401298E-45)",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "LMB_Down",
+                    "type": "Button",
+                    "id": "21ddb284-4b50-4559-a5fc-906ed94f2d44",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -203,6 +212,17 @@
                     "processors": "",
                     "groups": "Standalone",
                     "action": "ActionButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "361cf528-cffb-4d7b-9dcb-fd0dfebb0228",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Standalone",
+                    "action": "LMB_Down",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

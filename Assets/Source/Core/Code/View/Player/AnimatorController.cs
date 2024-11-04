@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Core.View
@@ -5,6 +6,10 @@ namespace Core.View
     public class AnimatorController : MonoBehaviour, IAnimatorController
     {
         [SerializeField] private Animator _animator;
+
+        public event Action<AnimatorParameter> AnimationEnded;
+        public event Action<AnimatorParameter> AnimationStarted;
+        public event Action<AnimatorParameter> AnimationCanRepeated;
 
         public void SetBool(AnimatorParameter parameter, bool value)
         {
@@ -24,6 +29,41 @@ namespace Core.View
         public void SetTrigger(AnimatorParameter parameter)
         {
             _animator.SetTrigger(parameter.ToString());
+        }
+
+        /// <summary>
+        /// AnimationEvent
+        /// </summary>
+        /// <param name="name"></param>
+        private void OnAnimationStart(string name)
+        {
+            AnimationStarted?.Invoke(ConvertToParameter(name));
+        }
+
+        /// <summary>
+        /// AnimationEvent
+        /// </summary>
+        /// <param name="name"></param>
+        private void OnAnimationEnd(string name)
+        {
+            AnimationEnded?.Invoke(ConvertToParameter(name));
+        }
+
+        /// <summary>
+        /// AnimationEvent
+        /// </summary>
+        /// <param name="name"></param>
+        private void OnAnimationCanRepeat(string name)
+        {
+            AnimationCanRepeated?.Invoke(ConvertToParameter(name));
+        }
+
+        private AnimatorParameter ConvertToParameter(string name)
+        {
+            if (Enum.TryParse(name, out AnimatorParameter parameter))
+                return parameter;
+
+            throw new ArgumentException($"Invalid animator parameter [{name}]");
         }
     }
 }

@@ -38,6 +38,11 @@ namespace Core
             CharacterInputs.JumpDown = inputValue.isPressed;
         }
 
+        public void OnLMB_Down(InputValue inputValue)
+        {
+            CharacterInputs.LMB_Down = inputValue.isPressed;
+        }
+
         public void OnLook(InputValue inputValue)
         {
             CameraInputs.AxisRaw = inputValue.Get<Vector2>();

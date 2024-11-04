@@ -2,6 +2,6 @@ namespace Core.View
 {
     public enum AnimatorParameter
     {
-        Speed, Jump, Grounded, FreeFall, Grab
+        Speed, Jump, Grounded, FreeFall, Grab, Punch, Random
     }
 }

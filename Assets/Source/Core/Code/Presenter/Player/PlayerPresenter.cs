@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace Core
 {
-    public class PlayerPresenter : ISaveLoaded, IInitializable, ITickable, ILateTickable, IDisposable
+    public class PlayerPresenter : ISaveLoaded, IInitializable, IStartable, ITickable, ILateTickable, IDisposable
     {
         private readonly IInputService _inputService;
         private readonly ISaveService<Player> _saveService;
@@ -35,11 +35,17 @@ namespace Core
 
             var controllerView = GetView<ICharacterControllerView>();
             var cameraView = GetView<ICharacterCameraView>();
+            var combatView = GetView<ICharacterCombatView>();
 
             cameraView.SetFollowTransform(controllerView.CameraTarget, controllerView.CameraFollow);
-            InitializeCharacterController(controllerView, cameraView);
+            InitializeCharacterController(controllerView, cameraView, combatView);
 
-            _characterView = new CharacterView(controllerView, cameraView);
+            _characterView = new CharacterView(controllerView, cameraView, combatView);
+        }
+
+        public void Start()
+        {
+            _characterView.Start();
         }
 
         public void Tick()
@@ -80,10 +86,11 @@ namespace Core
             _model = _saveService.Load(this, new Player(transformable, movement, damage));
         }
 
-        private void InitializeCharacterController(ICharacterControllerView character, ICharacterCameraView camera)
+        private void InitializeCharacterController(ICharacterControllerView character, ICharacterCameraView camera, ICharacterCombatView combatView)
         {
             character.SetCameraTransform(camera.Transform);
             character.Initialize(new TransformSettings(_model.Movement.Speed, _model.Movement.Jumping));
+            combatView.Initialize(character);
 
             character.Transform.position = _model.Transformable.Position;
             character.Transform.rotation = _model.Transformable.Rotation;

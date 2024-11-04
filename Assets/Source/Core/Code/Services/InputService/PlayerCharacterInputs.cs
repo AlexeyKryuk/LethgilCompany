@@ -12,6 +12,7 @@ namespace Core
 
         public Vector2 MoveAxis { get; set; }
         public bool JumpDown { get; set; }
+        public bool LMB_Down { get; set; }
         public bool Sprint { get; set; }
         public Button ActionButton { get; set; }
     }
