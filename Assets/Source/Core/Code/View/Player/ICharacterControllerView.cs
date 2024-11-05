@@ -14,6 +14,6 @@ namespace Core.View
         void UpdateInputs(ICharacterInputs inputs);
         void SetCameraTransform(Transform camera);
         void Initialize(TransformSettings transform);
-        IEnumerator SetSpeedDelimeter(float value, float valueChangeSpeed);
+        float SpeedDelimeter { get; set; }
     }
 }

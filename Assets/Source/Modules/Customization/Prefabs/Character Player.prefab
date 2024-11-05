@@ -632,6 +632,7 @@ GameObject:
   - component: {fileID: 3698741105523290545}
   - component: {fileID: 86304936138683119}
   - component: {fileID: 4721541841982373948}
+  - component: {fileID: 3815991932767122771}
   m_Layer: 7
   m_Name: Character Player
   m_TagString: Player
@@ -708,6 +709,19 @@ MonoBehaviour:
     Mesh: {fileID: 2027637648454693141}
   - Skin: 8
     Mesh: {fileID: 6559412582982613383}
+--- !u!114 &3815991932767122771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2281655720733274264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e576c4bcf8d8534ebfac5d3c196fe0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 86304936138683119}
 --- !u!1 &2431680883802980669
 GameObject:
   m_ObjectHideFlags: 0

@@ -95,13 +95,14 @@ namespace StarterAssets
         private UnityEngine.CharacterController _controller;
         private GameObject _characterCamera;
 
-        private float _speedDelimeter = 1f;
         private bool _hasAnimator;
 
         public Transform Transform => transform;
         public Transform CameraTarget => CinemachineCameraTarget.transform;
         public Transform CameraFollow => CinemachineCameraFollow.transform;
         public bool IsGrounded => Grounded;
+
+        public float SpeedDelimeter { get; set; } = 1f;
 
         private void Start()
         {
@@ -139,15 +140,6 @@ namespace StarterAssets
         public void SetCameraTransform(Transform camera)
         {
             _characterCamera = camera.gameObject;
-        }
-
-        public IEnumerator SetSpeedDelimeter(float value, float valueChangeSpeed)
-        {
-            while (Mathf.Abs(_speedDelimeter - value) > float.Epsilon)
-            {
-                _speedDelimeter = Mathf.Lerp(_speedDelimeter, value, valueChangeSpeed * Time.deltaTime);
-                yield return null;
-            }
         }
 
         private void AssignAnimationIDs()
@@ -231,7 +223,7 @@ namespace StarterAssets
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
             // move the player
-            _controller.Move(targetDirection.normalized * (_speed * _speedDelimeter * Time.deltaTime) +
+            _controller.Move(targetDirection.normalized * (_speed * SpeedDelimeter * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
             // update animator if using character

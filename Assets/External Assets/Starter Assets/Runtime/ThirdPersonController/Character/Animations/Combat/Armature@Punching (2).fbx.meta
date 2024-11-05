@@ -57,7 +57,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.21703297
+      - time: 0.023404248
         functionName: OnAnimationStart
         data: Punch
         objectReferenceParameter: {instanceID: 0}
@@ -71,7 +71,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.7931925
+      - time: 1
         functionName: OnAnimationEnd
         data: Punch
         objectReferenceParameter: {instanceID: 0}
