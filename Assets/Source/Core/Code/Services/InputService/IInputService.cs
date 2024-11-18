@@ -1,12 +1,7 @@
-using Core.View;
-using System;
-using UnityEngine;
-
 namespace Core
 {
-    public interface IInputService
+    public interface IInputService<T> where T : struct
     {
-        ICharacterInputs CharacterInputs { get; }
-        ICameraInputs CameraInputs { get; }
+        T Inputs { get; }
     }
 }

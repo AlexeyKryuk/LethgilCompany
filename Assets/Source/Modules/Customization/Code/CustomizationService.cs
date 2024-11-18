@@ -7,17 +7,15 @@ namespace Customization
     {
         private readonly ISaveService<CustomizationInfo> _saveService;
         private readonly IUIService _uiService;
-        private readonly Transform _spawnPoint;
         private readonly NicknameConfirmButton _nicknameConfirmButton;
 
         private CustomizationEditorPresenter _presenter;
 
         public CustomizationService(ISaveService<CustomizationInfo> saveService, IUIService uiService,
-            PlayerSpawnPoint spawnPoint, NicknameConfirmButton nicknameConfirmButton)
+            NicknameConfirmButton nicknameConfirmButton)
         {
             _saveService = saveService;
             _uiService = uiService;
-            _spawnPoint = spawnPoint.transform;
             _nicknameConfirmButton = nicknameConfirmButton;
         }
 
@@ -28,7 +26,7 @@ namespace Customization
             var uiElement = _uiService.CreateUIElement<CustomizationUI>(UIElementID.CustomizationUI);
             var view = uiElement.GetComponentInChildren<CustomizationView>();
 
-            uiElement.transform.SetParent(_spawnPoint);
+            uiElement.transform.SetParent(GameObject.FindGameObjectWithTag(GameObjectTags.PlayerSpawnPoint.ToString()).transform);
 
             _presenter = new CustomizationEditorPresenter(view, _saveService, uiElement, _nicknameConfirmButton);
             _presenter.Initialize();

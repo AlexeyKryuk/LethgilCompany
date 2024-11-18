@@ -25,12 +25,12 @@
                 },
                 {
                     "name": "Jump",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "03cbf0ab-3e0a-483f-860e-a3a9f960d2ce",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "DiscreteButton",
                     "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
+                    "interactions": "Press(pressPoint=0.1)",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Sprint",

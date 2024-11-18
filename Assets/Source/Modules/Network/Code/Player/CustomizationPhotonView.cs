@@ -1,6 +1,5 @@
 using Customization;
 using Photon.Pun;
-using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 using ExitGames.Client.Photon;
@@ -32,7 +31,7 @@ namespace Network
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
 
-        public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+        public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, Hashtable changedProps)
         {
             if (changedProps.TryGetValue(SKIN_KEY, out SkinType type))
             {

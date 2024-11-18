@@ -1,7 +1,7 @@
 using Core;
 using System;
 using UnityEngine;
-using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
 namespace Customization
 {

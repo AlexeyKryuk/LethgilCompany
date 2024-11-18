@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineTarget
+  - PlayerSpawnPoint
+  - LootSpawnPoint
   layers:
   - Default
   - TransparentFX

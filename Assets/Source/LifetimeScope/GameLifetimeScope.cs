@@ -2,9 +2,10 @@ using ItemGrabbing;
 using VContainer;
 using VContainer.Unity;
 using Core;
-using Core.View;
 using Network;
-using Customization;
+using Player;
+using Combat;
+using CharacterController;
 
 namespace LifetimeScopes
 {
@@ -12,25 +13,25 @@ namespace LifetimeScopes
     {
         protected override void Configure(IContainerBuilder builder)
         {
-            RegisterComponents(builder);
             RegisterServices(builder);
+            RegisterPresenters(builder);
 
             builder.RegisterEntryPoint<GameEntryPoint>();
         }
 
-        private void RegisterComponents(IContainerBuilder builder)
-        {
-            builder.RegisterComponentInHierarchy<PlayerSpawnPoint>();
-            builder.RegisterComponentInHierarchy<LootSpawnPoints>();
-        }
-
         private void RegisterServices(IContainerBuilder builder)
         {
-            builder.Register<PlayerService>(Lifetime.Scoped).As<IPlayerService, ILifetimeCycleService>();
-            builder.Register<GrabbingService>(Lifetime.Scoped).As<IGrabbingService, ILifetimeCycleService>();
             builder.Register<NetworkLootSpawner>(Lifetime.Scoped).As<ILootSpawner>();
             builder.Register<LootService>(Lifetime.Scoped).As<ILootService, ILifetimeCycleService>();
             builder.Register<CustomizationPhotonPresenter>(Lifetime.Scoped).As<ILifetimeCycleService>();
+        }
+
+        private void RegisterPresenters(IContainerBuilder builder)
+        {
+            builder.Register<PlayerPresenter>(Lifetime.Scoped).As<ILifetimeCycleService>().As<IPlayerPresenter>();
+            builder.Register<CharacterControllerPresenter>(Lifetime.Scoped).As<ILifetimeCycleService>().AsSelf();
+            builder.Register<CharacterCombatPresenter>(Lifetime.Scoped).As<ILifetimeCycleService>().AsSelf();
+            builder.Register<GrabbingPresenter>(Lifetime.Scoped).As<ILifetimeCycleService>().AsSelf();
         }
     }
 }

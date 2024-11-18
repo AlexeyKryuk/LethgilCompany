@@ -1,13 +1,9 @@
-﻿using Core.View;
-using UnityEngine;
-using Core.Model;
-using System.Collections;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
+﻿using UnityEngine;
 
 namespace StarterAssets
 {
     [RequireComponent(typeof(UnityEngine.CharacterController))]
-    public class ThirdPersonController : MonoBehaviour, ICharacterControllerView
+    public class ThirdPersonController : MonoBehaviour
     {
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
@@ -36,7 +32,7 @@ namespace StarterAssets
 
         [Space(10)]
         [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
-        public float JumpTimeout = 0.50f;
+        public float JumpTimeout = 1.50f;
 
         [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
         public float FallTimeout = 0.15f;
@@ -96,11 +92,7 @@ namespace StarterAssets
         private GameObject _characterCamera;
 
         private bool _hasAnimator;
-
-        public Transform Transform => transform;
-        public Transform CameraTarget => CinemachineCameraTarget.transform;
-        public Transform CameraFollow => CinemachineCameraFollow.transform;
-        public bool IsGrounded => Grounded;
+        private bool _canJump = true;
 
         public float SpeedDelimeter { get; set; } = 1f;
 
@@ -116,30 +108,33 @@ namespace StarterAssets
             _fallTimeoutDelta = FallTimeout;
         }
 
-        public void Initialize(TransformSettings transformSettings)
+        public void UpdateCamera()
         {
-            MoveSpeed = transformSettings.Speed.Walk;
-            SprintSpeed = transformSettings.Speed.Sprint;
-            JumpHeight = transformSettings.Jumping.Height;
-            Gravity = transformSettings.Jumping.Gravity;
-            JumpTimeout = transformSettings.Jumping.Timeout;
-            FallTimeout = transformSettings.Jumping.FallTimeout;
-        }
-
-        public void UpdateInputs(ICharacterInputs inputs)
-        {
-            _hasAnimator = TryGetComponent(out _animator);
-
-            JumpAndGravity(inputs);
-            GroundedCheck();
-            Move(inputs);
-
             CinemachineCameraAim.transform.position = _characterCamera.transform.position + _characterCamera.transform.forward * 6f;
         }
 
-        public void SetCameraTransform(Transform camera)
+        public void SetCameraTransform(GameObject camera)
         {
-            _characterCamera = camera.gameObject;
+            _characterCamera = camera;
+        }
+
+        public void DisableMove(float threshold, bool withJump = false)
+        {
+            SpeedDelimeter = threshold;
+
+            if (withJump)
+                _canJump = false;
+        }
+
+        public void EnableMove(bool withJump = false)
+        {
+            SpeedDelimeter = 1f;
+
+            if (withJump)
+            {
+                _canJump = true;
+                _jumpTimeoutDelta = JumpTimeout;
+            }
         }
 
         private void AssignAnimationIDs()
@@ -151,7 +146,7 @@ namespace StarterAssets
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         }
 
-        private void GroundedCheck()
+        public void GroundedCheck()
         {
             // set sphere position, with offset
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
@@ -166,16 +161,16 @@ namespace StarterAssets
             }
         }
 
-        private void Move(ICharacterInputs inputs)
+        public void Move(Vector2 moveAxis, bool sprint)
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = inputs.Sprint ? SprintSpeed : MoveSpeed;
+            float targetSpeed = sprint ? SprintSpeed : MoveSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-            if (inputs.MoveAxis == Vector2.zero) targetSpeed = 0.0f;
+            if (moveAxis == Vector2.zero) targetSpeed = 0.0f;
 
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
@@ -204,11 +199,11 @@ namespace StarterAssets
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             // normalise input direction
-            Vector3 inputDirection = new Vector3(inputs.MoveAxis.x, 0.0f, inputs.MoveAxis.y).normalized;
+            Vector3 inputDirection = new Vector3(moveAxis.x, 0.0f, moveAxis.y).normalized;
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
-            if (inputs.MoveAxis != Vector2.zero)
+            if (moveAxis != Vector2.zero)
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                   _characterCamera.transform.eulerAngles.y;
@@ -234,7 +229,7 @@ namespace StarterAssets
             }
         }
 
-        private void JumpAndGravity(ICharacterInputs inputs)
+        public void JumpAndGravity(bool jumpButtonDown)
         {
             if (Grounded)
             {
@@ -255,7 +250,7 @@ namespace StarterAssets
                 }
 
                 // Jump
-                if (inputs.JumpDown && _jumpTimeoutDelta <= 0.0f)
+                if (jumpButtonDown && _jumpTimeoutDelta <= 0.0f && _canJump)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
@@ -268,7 +263,7 @@ namespace StarterAssets
                 }
 
                 // jump timeout
-                if (_jumpTimeoutDelta >= 0.0f)
+                if (_jumpTimeoutDelta >= 0.0f && _canJump)
                 {
                     _jumpTimeoutDelta -= Time.deltaTime;
                 }
@@ -291,9 +286,6 @@ namespace StarterAssets
                         _animator.SetBool(_animIDFreeFall, true);
                     }
                 }
-
-                // if we are not grounded, do not jump
-                inputs.JumpDown = false;
             }
 
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
