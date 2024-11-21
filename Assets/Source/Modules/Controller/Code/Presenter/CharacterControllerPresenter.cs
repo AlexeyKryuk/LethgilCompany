@@ -39,8 +39,7 @@ namespace CharacterController
             _model = LoadModel(_controllerView.Transform, _staticData.ControllerSettings);
 
             _cameraView.SetFollowTransform(_controllerView.CameraTarget, _controllerView.CameraFollow);
-            _controllerView.SetCameraTransform(_cameraView.Transform);
-            _controllerView.Initialize(_model.ControllerSettings);
+            _controllerView.Initialize(_model.ControllerSettings, _cameraView.Transform);
         }
 
         public void Tick()

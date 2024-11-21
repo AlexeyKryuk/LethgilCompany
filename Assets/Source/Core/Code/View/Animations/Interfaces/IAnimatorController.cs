@@ -7,7 +7,6 @@ namespace Core.View
         event Action<T> AnimationStarted;
         event Action<T> AnimationEnded;
         event Action<T> AnimationCanRepeated;
-        event Action<T> PunchContacted;
 
         void SetBool(T parameters, bool value);
         void SetInt(T parameters, int value);

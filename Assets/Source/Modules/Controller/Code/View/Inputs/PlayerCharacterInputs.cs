@@ -15,5 +15,10 @@ namespace CharacterController
         {
             ActionButton = actionButton;
         }
+
+        public override string ToString()
+        {
+            return $"Move Axis - {MoveAxis}\nJumpDown - {JumpDown}\nLMB_Down - {LMB_Down}\nSprint - {Sprint}\nActionButton - {ActionButton.IsPressed}";
+        }
     }
 }

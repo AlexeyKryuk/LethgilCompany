@@ -52,11 +52,11 @@
                 },
                 {
                     "name": "LMB_Down",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "21ddb284-4b50-4559-a5fc-906ed94f2d44",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],

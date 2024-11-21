@@ -1,35 +1,46 @@
 using System;
+using System.Data.Common;
 using UnityEngine;
 
 namespace Core.View
 {
-    public class AnimatorController : MonoBehaviour, IAnimatorController<AnimatorParameter>
+    [RequireComponent(typeof(Animator))]
+    public abstract class AnimatorController<TParameter> : MonoBehaviour, IAnimatorController<TParameter> where TParameter : struct, Enum
     {
-        [SerializeField] private Animator _animator;
+        private Animator _animator;
 
-        public event Action<AnimatorParameter> AnimationStarted;
-        public event Action<AnimatorParameter> AnimationEnded;
-        public event Action<AnimatorParameter> AnimationCanRepeated;
-        public event Action<AnimatorParameter> PunchContacted;
+        public event Action<TParameter> AnimationStarted;
+        public event Action<TParameter> AnimationEnded;
+        public event Action<TParameter> AnimationCanRepeated;
 
-        public void SetBool(AnimatorParameter parameter, bool value)
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+        }
+
+        public void SetBool(TParameter parameter, bool value)
         {
             _animator.SetBool(parameter.ToString(), value);
         }
 
-        public void SetFloat(AnimatorParameter parameter, float value)
+        public void SetFloat(TParameter parameter, float value)
         {
             _animator.SetFloat(parameter.ToString(), value);
         }
 
-        public void SetInt(AnimatorParameter parameter, int value)
+        public void SetInt(TParameter parameter, int value)
         {
             _animator.SetInteger(parameter.ToString(), value);
         }
 
-        public void SetTrigger(AnimatorParameter parameter)
+        public void SetTrigger(TParameter parameter)
         {
             _animator.SetTrigger(parameter.ToString());
+        }
+
+        protected bool TryConvertToParameter(string name, out TParameter parameter)
+        {
+            return Enum.TryParse(name, out parameter);
         }
 
         /// <summary>
@@ -38,7 +49,8 @@ namespace Core.View
         /// <param name="name"></param>
         private void OnAnimationStart(string name)
         {
-            AnimationStarted?.Invoke(ConvertToParameter(name));
+            if (TryConvertToParameter(name, out TParameter parameter))
+                AnimationStarted?.Invoke(parameter);
         }
 
         /// <summary>
@@ -47,7 +59,8 @@ namespace Core.View
         /// <param name="name"></param>
         private void OnAnimationEnd(string name)
         {
-            AnimationEnded?.Invoke(ConvertToParameter(name));
+            if (TryConvertToParameter(name, out TParameter parameter))
+                AnimationEnded?.Invoke(parameter);
         }
 
         /// <summary>
@@ -56,24 +69,8 @@ namespace Core.View
         /// <param name="name"></param>
         private void OnAnimationCanRepeat(string name)
         {
-            AnimationCanRepeated?.Invoke(ConvertToParameter(name));
-        }
-
-        /// <summary>
-        /// AnimationEvent
-        /// </summary>
-        /// <param name="name"></param>
-        private void OnPunchContacted(string name)
-        {
-            PunchContacted?.Invoke(ConvertToParameter(name));
-        }
-
-        private AnimatorParameter ConvertToParameter(string name)
-        {
-            if (Enum.TryParse(name, out AnimatorParameter parameter))
-                return parameter;
-
-            throw new ArgumentException($"Invalid animator parameter [{name}]");
+            if (TryConvertToParameter(name, out TParameter parameter))
+                AnimationCanRepeated?.Invoke(parameter);
         }
     }
 }

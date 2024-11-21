@@ -1,4 +1,3 @@
-using Core.View;
 using Photon.Pun;
 using UnityEngine;
 
@@ -7,8 +6,8 @@ namespace ItemGrabbing
     public class PlayerItemGrabberView : MonoBehaviourPun, IGrabberView
     {
         [SerializeField] private Transform _anchor;
+        [SerializeField] private GrabberAnimatorController _animatorController;
 
-        private IAnimatorController<AnimatorParameter> _animatorController;
         private IAttachableView _current;
         private Transform _directionOfView;
 
@@ -16,11 +15,6 @@ namespace ItemGrabbing
 
         public Transform Anchor => _anchor;
         public Transform DirectionOfView => _directionOfView;
-
-        private void Awake()
-        {
-            _animatorController = GetComponentInParent<IAnimatorController<AnimatorParameter>>();
-        }
 
         private void Update()
         {
@@ -40,13 +34,13 @@ namespace ItemGrabbing
             _current.TransferOwnership(PhotonNetwork.LocalPlayer);
 
             photonView.RPC(nameof(GrabRPC), RpcTarget.AllBuffered, _current.NetworkId, photonView.ViewID);
-            _animatorController.SetBool(AnimatorParameter.Grab, true);
+            _animatorController.SetBool(GrabberAnimatorParameter.Grab, true);
         }
 
         public void Drop(float holdTime)
         {
             photonView.RPC(nameof(DropRPC), RpcTarget.AllBuffered, _current.NetworkId);
-            _animatorController.SetBool(AnimatorParameter.Grab, false);
+            _animatorController.SetBool(GrabberAnimatorParameter.Grab, false);
 
             _current.Throw(DirectionOfView.forward, GetDropPower(holdTime));
             _current = null;

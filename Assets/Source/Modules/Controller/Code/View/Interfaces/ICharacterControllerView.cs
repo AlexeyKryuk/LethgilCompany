@@ -10,8 +10,7 @@ namespace CharacterController
         bool IsGrounded { get; }
 
         void UpdateInputs(PlayerCharacterInputs inputs);
-        void SetCameraTransform(Transform camera);
-        void Initialize(ControllerSettings settings);
+        void Initialize(ControllerSettings settings, Transform camera);
         void DisableMove(float threshold, bool withJump = false);
         void EnableMove(bool withJump = false);
     }

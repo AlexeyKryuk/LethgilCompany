@@ -1,11 +1,15 @@
-﻿using UnityEngine;
+﻿using CharacterController;
+using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace StarterAssets
 {
-    [RequireComponent(typeof(UnityEngine.CharacterController))]
-    public class ThirdPersonController : MonoBehaviour
+    public class ThirdPersonController : MonoBehaviour, ICharacterControllerView
     {
         [Header("Player")]
+        public Transform TransformParent;
+
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
 
@@ -68,6 +72,9 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
+        [SerializeField] private UnityEngine.CharacterController _controller;
+        [SerializeField] private CharacterAnimatorController _animator;
+
         // player
         private float _speed;
         private float _animationBlend;
@@ -80,29 +87,32 @@ namespace StarterAssets
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
 
-        // animation IDs
-        private int _animIDSpeed;
-        private int _animIDGrounded;
-        private int _animIDJump;
-        private int _animIDFreeFall;
-        private int _animIDMotionSpeed;
-
-        private Animator _animator;
-        private UnityEngine.CharacterController _controller;
         private GameObject _characterCamera;
 
-        private bool _hasAnimator;
+        private bool _hasAnimator = true;
         private bool _canJump = true;
 
         public float SpeedDelimeter { get; set; } = 1f;
 
+        public Transform Transform => TransformParent;
+        public Transform CameraTarget => CinemachineCameraTarget.transform;
+        public Transform CameraFollow => CinemachineCameraFollow.transform;
+        public bool IsGrounded => Grounded;
+
+        private void OnEnable()
+        {
+            _animator.Landed += OnLand;
+            _animator.Footstep += OnFootstep;
+        }
+
+        private void OnDisable()
+        {
+            _animator.Landed -= OnLand;
+            _animator.Footstep -= OnFootstep;
+        }
+
         private void Start()
         {
-            _hasAnimator = TryGetComponent(out _animator);
-            _controller = GetComponent<UnityEngine.CharacterController>();
-
-            AssignAnimationIDs();
-
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
@@ -111,11 +121,6 @@ namespace StarterAssets
         public void UpdateCamera()
         {
             CinemachineCameraAim.transform.position = _characterCamera.transform.position + _characterCamera.transform.forward * 6f;
-        }
-
-        public void SetCameraTransform(GameObject camera)
-        {
-            _characterCamera = camera;
         }
 
         public void DisableMove(float threshold, bool withJump = false)
@@ -137,27 +142,18 @@ namespace StarterAssets
             }
         }
 
-        private void AssignAnimationIDs()
-        {
-            _animIDSpeed = Animator.StringToHash("Speed");
-            _animIDGrounded = Animator.StringToHash("Grounded");
-            _animIDJump = Animator.StringToHash("Jump");
-            _animIDFreeFall = Animator.StringToHash("FreeFall");
-            _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-        }
-
         public void GroundedCheck()
         {
             // set sphere position, with offset
-            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
-                transform.position.z);
+            Vector3 spherePosition = new Vector3(TransformParent.position.x, TransformParent.position.y - GroundedOffset,
+                TransformParent.position.z);
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
 
             // update animator if using character
             if (_hasAnimator)
             {
-                _animator.SetBool(_animIDGrounded, Grounded);
+                _animator.SetBool(CharacterControllerAnimatorParameter.Grounded, Grounded);
             }
         }
 
@@ -207,11 +203,11 @@ namespace StarterAssets
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                   _characterCamera.transform.eulerAngles.y;
-                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
+                float rotation = Mathf.SmoothDampAngle(TransformParent.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                TransformParent.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
 
@@ -224,8 +220,8 @@ namespace StarterAssets
             // update animator if using character
             if (_hasAnimator)
             {
-                _animator.SetFloat(_animIDSpeed, _animationBlend);
-                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+                _animator.SetFloat(CharacterControllerAnimatorParameter.Speed, _animationBlend);
+                _animator.SetFloat(CharacterControllerAnimatorParameter.MotionSpeed, inputMagnitude);
             }
         }
 
@@ -239,8 +235,8 @@ namespace StarterAssets
                 // update animator if using character
                 if (_hasAnimator)
                 {
-                    _animator.SetBool(_animIDJump, false);
-                    _animator.SetBool(_animIDFreeFall, false);
+                    _animator.SetBool(CharacterControllerAnimatorParameter.Jump, false);
+                    _animator.SetBool(CharacterControllerAnimatorParameter.FreeFall, false);
                 }
 
                 // stop our velocity dropping infinitely when grounded
@@ -258,7 +254,7 @@ namespace StarterAssets
                     // update animator if using character
                     if (_hasAnimator)
                     {
-                        _animator.SetBool(_animIDJump, true);
+                        _animator.SetBool(CharacterControllerAnimatorParameter.Jump, true);
                     }
                 }
 
@@ -283,7 +279,7 @@ namespace StarterAssets
                     // update animator if using character
                     if (_hasAnimator)
                     {
-                        _animator.SetBool(_animIDFreeFall, true);
+                        _animator.SetBool(CharacterControllerAnimatorParameter.FreeFall, true);
                     }
                 }
             }
@@ -312,7 +308,7 @@ namespace StarterAssets
 
             // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
             Gizmos.DrawSphere(
-                new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
+                new Vector3(TransformParent.position.x, TransformParent.position.y - GroundedOffset, TransformParent.position.z),
                 GroundedRadius);
         }
 
@@ -323,7 +319,7 @@ namespace StarterAssets
                 if (FootstepAudioClips.Length > 0)
                 {
                     var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], TransformParent.TransformPoint(_controller.center), FootstepAudioVolume);
                 }
             }
         }
@@ -332,8 +328,28 @@ namespace StarterAssets
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                AudioSource.PlayClipAtPoint(LandingAudioClip, TransformParent.TransformPoint(_controller.center), FootstepAudioVolume);
             }
+        }
+
+        public void UpdateInputs(PlayerCharacterInputs inputs)
+        {
+            JumpAndGravity(inputs.JumpDown);
+            GroundedCheck();
+            Move(inputs.MoveAxis, inputs.Sprint);
+            UpdateCamera();
+        }
+
+        public void Initialize(ControllerSettings settings, Transform camera)
+        {
+            MoveSpeed = settings.Speed.Walk;
+            SprintSpeed = settings.Speed.Sprint;
+            JumpHeight = settings.Jumping.Height;
+            Gravity = settings.Jumping.Gravity;
+            JumpTimeout = settings.Jumping.Timeout;
+            FallTimeout = settings.Jumping.FallTimeout;
+
+            _characterCamera = camera.gameObject;
         }
     }
 }

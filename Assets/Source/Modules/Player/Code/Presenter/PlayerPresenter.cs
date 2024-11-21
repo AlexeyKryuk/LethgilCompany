@@ -34,6 +34,9 @@ namespace Player
             T characterview = _playerInstance.GetComponentInChildren<T>();
 
             if (characterview == null)
+                characterview = _playerInstance.GetComponentInParent<T>();
+
+            if (characterview == null)
                 characterview = _playerCameraInstance.GetComponentInChildren<T>();
 
             if (characterview == null)
