@@ -1,21 +1,22 @@
 using Core;
 using Core.View;
 using Customization;
+using Player;
 using VContainer.Unity;
 
 namespace Network
 {
     public class CustomizationPhotonPresenter : ILifetimeCycleService, IStartable, ITickable, ISaveLoaded
     {
-        private readonly IPlayerService _playerService;
+        private readonly IPlayerPresenter _player;
         private readonly ISaveService<CustomizationInfo> _saveService;
 
         private ICharacterCameraView _characterCameraView;
         private IRaycastBroadcaster<CustomizationPhotonView> _raycastBroadcaster;
 
-        public CustomizationPhotonPresenter(IPlayerService playerService, ISaveService<CustomizationInfo> saveService)
+        public CustomizationPhotonPresenter(IPlayerPresenter player, ISaveService<CustomizationInfo> saveService)
         {
-            _playerService = playerService;
+            _player = player;
             _saveService = saveService;
         }
 
@@ -23,11 +24,11 @@ namespace Network
 
         public void Start()
         {
-            _raycastBroadcaster = _playerService.GetView<IRaycastBroadcaster<CustomizationPhotonView>>();
-            _characterCameraView = _playerService.GetView<ICharacterCameraView>();
+            _raycastBroadcaster = _player.GetView<IRaycastBroadcaster<CustomizationPhotonView>>();
+            _characterCameraView = _player.GetView<ICharacterCameraView>();
 
             var model = _saveService.Load(this, new());
-            var customizationView = _playerService.GetView<ICustomizationView>();
+            var customizationView = _player.GetView<ICustomizationView>();
 
             customizationView.Set(model);
         }
