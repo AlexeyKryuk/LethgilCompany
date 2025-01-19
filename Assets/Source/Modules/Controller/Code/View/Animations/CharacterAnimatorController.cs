@@ -2,7 +2,7 @@ using Core.View;
 using System;
 using UnityEngine;
 
-namespace CharacterController
+namespace MovementController
 {
     public class CharacterAnimatorController : AnimatorController<CharacterControllerAnimatorParameter>
     {

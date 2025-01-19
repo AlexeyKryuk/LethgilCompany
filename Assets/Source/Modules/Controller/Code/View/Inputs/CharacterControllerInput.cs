@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace CharacterController
+namespace MovementController
 {
     public class CharacterControllerInput : StandaloneInputService, IInputService<PlayerCharacterInputs>
     {

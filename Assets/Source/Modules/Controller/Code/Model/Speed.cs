@@ -1,6 +1,6 @@
 using System;
 
-namespace CharacterController
+namespace MovementController
 {
     [Serializable]
     public struct Speed

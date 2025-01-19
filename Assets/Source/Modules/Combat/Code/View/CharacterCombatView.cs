@@ -1,4 +1,4 @@
-using CharacterController;
+using MovementController;
 using UnityEngine;
 
 namespace Combat

@@ -1,4 +1,4 @@
-﻿using CharacterController;
+﻿using MovementController;
 using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -75,7 +75,6 @@ namespace StarterAssets
         [SerializeField] private UnityEngine.CharacterController _controller;
         [SerializeField] private CharacterAnimatorController _animator;
 
-        // player
         private float _speed;
         private float _animationBlend;
         private float _targetRotation = 0.0f;
@@ -83,7 +82,6 @@ namespace StarterAssets
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
 
-        // timeout deltatime
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
 
@@ -92,12 +90,11 @@ namespace StarterAssets
         private bool _hasAnimator = true;
         private bool _canJump = true;
 
-        public float SpeedDelimeter { get; set; } = 1f;
-
         public Transform Transform => TransformParent;
         public Transform CameraTarget => CinemachineCameraTarget.transform;
         public Transform CameraFollow => CinemachineCameraFollow.transform;
         public bool IsGrounded => Grounded;
+        public float SpeedDelimeter { get; set; } = 1f;
 
         private void OnEnable()
         {
@@ -113,7 +110,6 @@ namespace StarterAssets
 
         private void Start()
         {
-            // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
         }
@@ -144,13 +140,12 @@ namespace StarterAssets
 
         public void GroundedCheck()
         {
-            // set sphere position, with offset
             Vector3 spherePosition = new Vector3(TransformParent.position.x, TransformParent.position.y - GroundedOffset,
                 TransformParent.position.z);
+
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
 
-            // update animator if using character
             if (_hasAnimator)
             {
                 _animator.SetBool(CharacterControllerAnimatorParameter.Grounded, Grounded);
@@ -159,31 +154,23 @@ namespace StarterAssets
 
         public void Move(Vector2 moveAxis, bool sprint)
         {
-            // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = sprint ? SprintSpeed : MoveSpeed;
 
-            // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
+            if (moveAxis == Vector2.zero) 
+                targetSpeed = 0.0f;
 
-            // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-            // if there is no input, set the target speed to 0
-            if (moveAxis == Vector2.zero) targetSpeed = 0.0f;
-
-            // a reference to the players current horizontal velocity
-            float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
+            float currentHorizontalSpeed = 
+                new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
             float speedOffset = 0.1f;
             float inputMagnitude = 1f;
 
-            // accelerate or decelerate to target speed
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
                 currentHorizontalSpeed > targetSpeed + speedOffset)
             {
-                // creates curved result rather than a linear one giving a more organic speed change
-                // note T in Lerp is clamped, so we don't need to clamp our speed
                 _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
                     Time.deltaTime * SpeedChangeRate);
 
-                // round speed to 3 decimal places
                 _speed = Mathf.Round(_speed * 1000f) / 1000f;
             }
             else
@@ -194,30 +181,25 @@ namespace StarterAssets
             _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
-            // normalise input direction
             Vector3 inputDirection = new Vector3(moveAxis.x, 0.0f, moveAxis.y).normalized;
 
-            // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-            // if there is a move input rotate player when the player is moving
             if (moveAxis != Vector2.zero)
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                   _characterCamera.transform.eulerAngles.y;
-                float rotation = Mathf.SmoothDampAngle(TransformParent.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-                    RotationSmoothTime);
 
-                // rotate to face input direction relative to camera position
+                float rotation = Mathf.SmoothDampAngle(TransformParent.eulerAngles.y, _targetRotation, 
+                    ref _rotationVelocity, RotationSmoothTime);
+
                 TransformParent.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
-            // move the player
             _controller.Move(targetDirection.normalized * (_speed * SpeedDelimeter * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
-            // update animator if using character
             if (_hasAnimator)
             {
                 _animator.SetFloat(CharacterControllerAnimatorParameter.Speed, _animationBlend);
@@ -229,36 +211,29 @@ namespace StarterAssets
         {
             if (Grounded)
             {
-                // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
 
-                // update animator if using character
                 if (_hasAnimator)
                 {
                     _animator.SetBool(CharacterControllerAnimatorParameter.Jump, false);
                     _animator.SetBool(CharacterControllerAnimatorParameter.FreeFall, false);
                 }
 
-                // stop our velocity dropping infinitely when grounded
                 if (_verticalVelocity < 0.0f)
                 {
                     _verticalVelocity = -2f;
                 }
 
-                // Jump
                 if (jumpButtonDown && _jumpTimeoutDelta <= 0.0f && _canJump)
                 {
-                    // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
-                    // update animator if using character
                     if (_hasAnimator)
                     {
                         _animator.SetBool(CharacterControllerAnimatorParameter.Jump, true);
                     }
                 }
 
-                // jump timeout
                 if (_jumpTimeoutDelta >= 0.0f && _canJump)
                 {
                     _jumpTimeoutDelta -= Time.deltaTime;
@@ -266,17 +241,14 @@ namespace StarterAssets
             }
             else
             {
-                // reset the jump timeout timer
                 _jumpTimeoutDelta = JumpTimeout;
 
-                // fall timeout
                 if (_fallTimeoutDelta >= 0.0f)
                 {
                     _fallTimeoutDelta -= Time.deltaTime;
                 }
                 else
                 {
-                    // update animator if using character
                     if (_hasAnimator)
                     {
                         _animator.SetBool(CharacterControllerAnimatorParameter.FreeFall, true);
@@ -284,7 +256,6 @@ namespace StarterAssets
                 }
             }
 
-            // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
             if (_verticalVelocity < _terminalVelocity)
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
@@ -295,6 +266,7 @@ namespace StarterAssets
         {
             if (lfAngle < -360f) lfAngle += 360f;
             if (lfAngle > 360f) lfAngle -= 360f;
+
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
 
@@ -306,7 +278,6 @@ namespace StarterAssets
             if (Grounded) Gizmos.color = transparentGreen;
             else Gizmos.color = transparentRed;
 
-            // when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
             Gizmos.DrawSphere(
                 new Vector3(TransformParent.position.x, TransformParent.position.y - GroundedOffset, TransformParent.position.z),
                 GroundedRadius);

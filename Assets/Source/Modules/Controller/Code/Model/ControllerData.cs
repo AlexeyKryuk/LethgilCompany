@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace CharacterController
+namespace MovementController
 {
     [Serializable]
     public class ControllerData

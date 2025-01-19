@@ -1,7 +1,7 @@
 using Core;
 using UnityEngine;
 
-namespace CharacterController
+namespace MovementController
 {
     public struct PlayerCharacterInputs
     {

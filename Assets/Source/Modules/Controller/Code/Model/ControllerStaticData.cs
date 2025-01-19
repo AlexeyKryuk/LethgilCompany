@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CharacterController
+namespace MovementController
 {
     [CreateAssetMenu(fileName = "Controller Data", menuName = "Config/Player/Create Controller Data")]
     public class ControllerStaticData : ScriptableObject

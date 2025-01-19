@@ -1,4 +1,4 @@
-using CharacterController;
+using MovementController;
 using Combat;
 using Core;
 using Customization;
@@ -41,9 +41,8 @@ namespace LifetimeScopes
             var inputService = Instantiate(_inputServicePrefab);
 
             foreach (var service in inputService.GetComponentsInChildren<StandaloneInputService>())
-            {
                 builder.RegisterInstance(service).AsImplementedInterfaces();
-            }
+
         }
 
         private void RegisterFactories(IContainerBuilder builder)

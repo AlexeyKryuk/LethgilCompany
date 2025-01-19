@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using Core.View;
 
-namespace CharacterController
+namespace MovementController
 {
     public enum OrbitPosition
     {

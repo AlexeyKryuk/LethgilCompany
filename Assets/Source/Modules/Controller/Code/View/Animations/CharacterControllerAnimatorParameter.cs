@@ -1,4 +1,4 @@
-namespace CharacterController
+namespace MovementController
 {
     public enum CharacterControllerAnimatorParameter
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CharacterController
+namespace MovementController
 {
     public struct PlayerCameraInputs
     {

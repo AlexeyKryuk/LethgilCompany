@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace CharacterController
+namespace MovementController
 {
     public class CharacterControllerPresenter : ISaveLoaded, ILifetimeCycleService, IStartable, ITickable, ILateTickable, IDisposable
     {

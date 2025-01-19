@@ -5,7 +5,7 @@ using Core;
 using Network;
 using Player;
 using Combat;
-using CharacterController;
+using MovementController;
 
 namespace LifetimeScopes
 {
