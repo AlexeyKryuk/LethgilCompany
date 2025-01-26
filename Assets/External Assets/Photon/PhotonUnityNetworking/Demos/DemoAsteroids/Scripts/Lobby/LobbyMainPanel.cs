@@ -8,8 +8,6 @@ namespace Photon.Pun.Demo.Asteroids
 {
     public class LobbyMainPanel : MonoBehaviourPunCallbacks
     {
-        public string LoadLevel;
-
         [Header("Login Panel")]
         public GameObject LoginPanel;
 
@@ -274,7 +272,7 @@ namespace Photon.Pun.Demo.Asteroids
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
 
-            PhotonNetwork.LoadLevel(LoadLevel);
+            PhotonNetwork.LoadLevel(SceneManagerHelper.ActiveSceneBuildIndex + 1);
         }
 
         #endregion

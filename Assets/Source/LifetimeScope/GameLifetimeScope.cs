@@ -21,8 +21,8 @@ namespace LifetimeScopes
 
         private void RegisterServices(IContainerBuilder builder)
         {
-            builder.Register<NetworkLootSpawner>(Lifetime.Scoped).As<ILootSpawner>();
-            builder.Register<LootService>(Lifetime.Scoped).As<ILootService, ILifetimeCycleService>();
+            //builder.Register<NetworkLootSpawner>(Lifetime.Scoped).As<ILootSpawner>();
+            //builder.Register<LootService>(Lifetime.Scoped).As<ILootService, ILifetimeCycleService>();
             builder.Register<CustomizationPhotonPresenter>(Lifetime.Scoped).As<ILifetimeCycleService>();
         }
 
@@ -30,8 +30,8 @@ namespace LifetimeScopes
         {
             builder.Register<PlayerPresenter>(Lifetime.Scoped).As<ILifetimeCycleService>().As<IPlayerPresenter>();
             builder.Register<CharacterControllerPresenter>(Lifetime.Scoped).As<ILifetimeCycleService>().AsSelf();
-            builder.Register<CharacterCombatPresenter>(Lifetime.Scoped).As<ILifetimeCycleService>().AsSelf();
-            builder.Register<GrabbingPresenter>(Lifetime.Scoped).As<ILifetimeCycleService>().AsSelf();
+            //builder.Register<CharacterCombatPresenter>(Lifetime.Scoped).As<ILifetimeCycleService>().AsSelf();
+            //builder.Register<GrabbingPresenter>(Lifetime.Scoped).As<ILifetimeCycleService>().AsSelf();
         }
     }
 }

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ControllerSettings>k__BackingField:
     Speed:
-      Walk: 2
-      Sprint: 5.335
+      Walk: 0
+      Sprint: 0
     Jumping:
       Gravity: -15
       Height: 1.2

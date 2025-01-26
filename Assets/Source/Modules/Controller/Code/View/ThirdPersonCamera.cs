@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEditor;
 using Core.View;
+using Cinemachine;
 
 namespace CharacterController
 {
@@ -451,12 +452,17 @@ namespace CharacterController
 
         public void SetFollow(GameObject follow)
         {
+            var virtualCamera = GetComponent<CinemachineVirtualCamera>();
+
+            virtualCamera.Follow = follow.transform;
             this.follow = follow;
         }
 
         public void SetLookAt(GameObject lookAt)
         {
-            
+            var virtualCamera = GetComponent<CinemachineVirtualCamera>();
+
+            virtualCamera.LookAt = lookAt.transform;
             this.lookAt = lookAt;
         }
 
