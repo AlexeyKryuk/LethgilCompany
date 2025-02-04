@@ -6,6 +6,6 @@ namespace Core
     {
         GameObject CreateCharacter(Vector3 position, Quaternion rotation);
         GameObject CreateMainCamera();
-        GameObject CreatePlayerCamera(Vector3 position, Quaternion rotation);
+        GameObject CreatePlayerCamera(Vector3 position, Quaternion rotation, Transform parent);
     }
 }

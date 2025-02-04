@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8817762151330403868}
   - component: {fileID: 7995377654575765415}
   - component: {fileID: 7641237995611044657}
+  - component: {fileID: 7340364420601021868}
+  - component: {fileID: 5188570277870909351}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -127,3 +129,416 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7340364420601021868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6354104006070355725}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba5113e7208c4316acb1028a08587a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader1: {fileID: 4800000, guid: e5b137a48bf2c4c668927fd89b6ccbcd, type: 3}
+  shader2: {fileID: 4800000, guid: e2075d3cd3deb45c78fdc81aab250ef7, type: 3}
+  shader3: {fileID: 4800000, guid: de4e63e4455b14b8e8c57542f8089707, type: 3}
+  shader4: {fileID: 4800000, guid: 65c19848f188f4192a05ff1eece78fee, type: 3}
+  shader_clear: {fileID: 4800000, guid: 3c6a64923374747f7b15711533b5971a, type: 3}
+  shader_tape: {fileID: 4800000, guid: caea6b3daf52a4416949b7b9c0146d77, type: 3}
+  mat1: {fileID: 0}
+  mat2: {fileID: 0}
+  mat3: {fileID: 0}
+  mat4: {fileID: 0}
+  mat_clear: {fileID: 0}
+  mat_tape: {fileID: 0}
+  g_showCRT: 1
+  g_showNoise: 1
+  g_showJitter: 1
+  g_showSignal: 1
+  g_showFeedback: 1
+  g_showExtra: 1
+  g_showBypass: 1
+  bleedOn: 1
+  crtMode: 0
+  crtLinesMode: 0
+  screenLinesNum: 0
+  bleedAmount: 1
+  bleedDebugOn: 0
+  bleedCurveY:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: -1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  bleedCurveI:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 0
+      outSlope: -0.5
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.5
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  bleedCurveQ:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 0
+      outSlope: -0.5
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.5
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  bleedLength: 24
+  bleedCurveEditModeOn: 0
+  bleedCurveIQSyncOn: 1
+  fisheyeOn: 1
+  fisheyeBend: 31.8
+  fisheyeType: 1
+  fisheyeSize: 1.2
+  cutoffX: 0
+  cutoffY: 0
+  cutoffFadeX: 0.7
+  cutoffFadeY: 1.3
+  vignetteOn: 1
+  vignetteAmount: 0.1
+  vignetteSpeed: 4.76
+  noiseLinesMode: 1
+  noiseLinesNum: 0
+  noiseQuantizeX: 0
+  filmgrainOn: 1
+  filmGrainAmount: 0
+  signalNoiseOn: 0
+  signalNoiseAmount: 0.627
+  signalNoisePower: 0.988
+  tapeNoiseOn: 0
+  tapeNoiseTH: 0.63
+  tapeNoiseAmount: 1
+  tapeNoiseSpeed: 1
+  lineNoiseOn: 0
+  lineNoiseAmount: 1
+  lineNoiseSpeed: 5
+  scanLinesOn: 0
+  scanLineWidth: 10
+  linesFloatOn: 0
+  linesFloatSpeed: 1
+  stretchOn: 0
+  twitchHOn: 0
+  twitchHFreq: 0.99
+  twitchVOn: 0
+  twitchVFreq: 1
+  jitterHOn: 1
+  jitterHAmount: 0.5
+  jitterVOn: 1
+  jitterVAmount: 1
+  jitterVSpeed: 1
+  signalTweakOn: 0
+  signalAdjustY: 0.064
+  signalAdjustI: -0.17
+  signalAdjustQ: -0.067
+  signalShiftY: 1.62
+  signalShiftI: 0.85
+  signalShiftQ: 0.51
+  gammaCorection: 1.149
+  feedbackOn: 0
+  feedbackMode: 0
+  feedbackThresh: 0.206
+  feedbackAmount: 1.5
+  feedbackFade: 0.82
+  feedbackColor: {r: 1, g: 0.5, b: 0, a: 1}
+  feedbackDebugOn: 0
+  independentTimeOn: 0
+  bypassTex: {fileID: 0}
+  spriteTex: {fileID: 0}
+--- !u!114 &5188570277870909351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6354104006070355725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54415757aaddf4b8a9cd7122fd120cc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _preset: 999
+  _quality: 0
+  _profile: {fileID: 0}
+  _syncWithProfile: 1
+  _compareMode: 1
+  _compareStyle: 0
+  _comparePanning: 0.25
+  _compareLineAngle: 1.18
+  _compareLineWidth: 0.0027
+  _dither: 0
+  _ditherDepth: 0
+  _sharpenMinDepth: 0.955
+  _sharpenMaxDepth: 1
+  _sharpenMinMaxDepthFallOff: 0
+  _sharpen: 3
+  _sharpenDepthThreshold: 0.0348
+  _tintColor: {r: 1, g: 1, b: 1, a: 0}
+  _sharpenRelaxation: 0.07
+  _sharpenClamp: 0.45
+  _sharpenMotionSensibility: 0.5
+  _sharpenMotionRestoreSpeed: 0.5
+  _saturate: 1
+  _contrast: 1.02
+  _brightness: 1.05
+  _daltonize: 0
+  _hardLightIntensity: 0.5
+  _hardLightBlend: 0
+  _vignetting: 0
+  _vignettingColor: {r: 0.3, g: 0.3, b: 0.3, a: 0.05}
+  _vignettingFade: 0
+  _vignettingCircularShape: 0
+  _vignettingAspectRatio: 1
+  _vignettingBlink: 0
+  _vignettingBlinkStyle: 0
+  _vignettingCenter: {x: 0.5, y: 0.5}
+  _vignettingMask: {fileID: 0}
+  _frame: 0
+  _frameStyle: 0
+  _frameBandHorizontalSize: 0
+  _frameBandHorizontalSmoothness: 0
+  _frameBandVerticalSize: 0.1
+  _frameBandVerticalSmoothness: 0
+  _frameColor: {r: 1, g: 1, b: 1, a: 0.047}
+  _frameMask: {fileID: 0}
+  _lut: 0
+  _lutIntensity: 1
+  _lutTexture: {fileID: 0}
+  _lutTexture3D: {fileID: 0}
+  _nightVision: 0
+  _nightVisionColor: {r: 0.5, g: 1, b: 0.5, a: 0.5}
+  _outline: 0
+  _outlineColor: {r: 0, g: 0, b: 0, a: 0.64}
+  _outlineCustomize: 0
+  _outlineStage: 0
+  _outlineSpread: 0.22
+  _outlineBlurPassCount: 2
+  _outlineIntensityMultiplier: 1
+  _outlineBlurDownscale: 1
+  _outlineMinDepthThreshold: 0
+  _thermalVision: 0
+  _lensDirt: 0
+  _lensDirtThreshold: 0.5
+  _lensDirtIntensity: 0.9
+  _lensDirtTexture: {fileID: 2800000, guid: f5c5080de097a4274bab7bc2bf5017f6, type: 3}
+  _bloom: 0
+  _bloomCullingMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _bloomLayerMaskDownsampling: 1
+  _bloomIntensity: 1
+  _bloomMaxBrightness: 1000
+  _bloomBoost0: 0
+  _bloomBoost1: 0
+  _bloomBoost2: 0
+  _bloomBoost3: 0
+  _bloomBoost4: 0
+  _bloomBoost5: 0
+  _bloomAntiflicker: 0
+  _bloomAntiflickerMaxOutput: 10
+  _bloomIterations: 4
+  _bloomUltra: 0
+  _bloomUltraResolution: 10
+  _bloomThreshold: 2.67
+  _bloomConservativeThreshold: 0
+  _bloomTint: {r: 1, g: 1, b: 1, a: 0}
+  _bloomCustomize: 0
+  _bloomDebug: 0
+  _bloomWeight0: 0.5
+  _bloomWeight1: 0.5
+  _bloomWeight2: 0.5
+  _bloomWeight3: 0.5
+  _bloomWeight4: 0.5
+  _bloomWeight5: 0.5
+  _bloomTint0: {r: 1, g: 1, b: 1, a: 1}
+  _bloomTint1: {r: 1, g: 1, b: 1, a: 1}
+  _bloomTint2: {r: 1, g: 1, b: 1, a: 1}
+  _bloomTint3: {r: 1, g: 1, b: 1, a: 1}
+  _bloomTint4: {r: 1, g: 1, b: 1, a: 1}
+  _bloomTint5: {r: 1, g: 1, b: 1, a: 1}
+  _bloomBlur: 1
+  _bloomQuickerBlur: 0
+  _bloomDepthAtten: 0
+  _bloomNearAtten: 0
+  _bloomLayerZBias: 0.0001
+  _preRenderCameraEvent: 0
+  _anamorphicFlares: 0
+  _anamorphicFlaresCullingMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _anamorphicFlaresIntensity: 8.47
+  _anamorphicFlaresAntiflicker: 0
+  _anamorphicFlaresAntiflickerMaxOutput: 10
+  _anamorphicFlaresUltra: 0
+  _anamorphicFlaresUltraResolution: 10
+  _anamorphicFlaresThreshold: 0.66
+  _anamorphicFlaresSpread: 1
+  _anamorphicFlaresVertical: 0
+  _anamorphicFlaresTint: {r: 0.5, g: 0.5, b: 1, a: 0}
+  _anamorphicFlaresBlur: 1
+  _depthOfField: 1
+  _depthOfFieldTransparencySupport: 0
+  _depthOfFieldTransparencyLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  _depthOfFieldTransparencyCullMode: 2
+  _depthOfFieldTargetFocus: {fileID: 0}
+  _depthOfFieldDebug: 0
+  _depthOfFieldAutofocus: 1
+  _depthofFieldAutofocusViewportPoint: {x: 0.5, y: 0.21}
+  _depthOfFieldAutofocusMinDistance: 1.58
+  _depthOfFieldAutofocusDistanceShift: -2.57
+  _depthOfFieldAutofocusMaxDistance: 10
+  _depthOfFieldAutofocusLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  _depthOfFieldExclusionLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _depthOfFieldExclusionCullMode: 2
+  _depthOfFieldExclusionLayerMaskDownsampling: 1
+  _depthOfFieldTransparencySupportDownsampling: 1
+  _depthOfFieldExclusionBias: 0.99
+  _depthOfFieldDistance: 1
+  _depthOfFieldFocusSpeed: 1.35
+  _depthOfFieldDownsampling: 1
+  _depthOfFieldMaxSamples: 8
+  _depthOfFieldCameraSettings: 0
+  _depthOfFieldFocalLengthReal: 26
+  _depthOfFieldFStop: 2.6
+  _depthOfFieldImageSensorHeight: 17.4
+  _depthOfFieldFocalLength: 0.096
+  _depthOfFieldAperture: 2.96
+  _depthOfFieldForegroundBlur: 1
+  _depthOfFieldForegroundBlurHQ: 0
+  _depthOfFieldForegroundBlurHQSpread: 16
+  _depthOfFieldForegroundDistance: 7.81
+  _depthOfFieldBokeh: 0
+  _depthOfFieldBokehComposition: 0
+  _depthOfFieldBokehThreshold: 1
+  _depthOfFieldBokehIntensity: 2
+  _depthOfFieldMaxBrightness: 1000
+  _depthOfFieldMaxDistance: 1
+  _depthOfFieldFilterMode: 1
+  _eyeAdaptation: 0
+  _eyeAdaptationMinExposure: 0.2
+  _eyeAdaptationMaxExposure: 5
+  _eyeAdaptationSpeedToLight: 0.4
+  _eyeAdaptationSpeedToDark: 0.2
+  _eyeAdaptationInEditor: 1
+  _purkinje: 0
+  _purkinjeAmount: 5
+  _purkinjeLuminanceThreshold: 0.021
+  _tonemap: 0
+  _tonemapGamma: 2.5
+  _tonemapExposurePre: 1
+  _tonemapBrightnessPost: 1
+  _sunFlares: 0
+  _sun: {fileID: 0}
+  _sunFlaresLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  _sunFlaresIntensity: 1
+  _sunFlaresRevealSpeed: 1
+  _sunFlaresHideSpeed: 1
+  _sunFlaresSolarWindSpeed: 0.01
+  _sunFlaresTint: {r: 1, g: 1, b: 1, a: 1}
+  _sunFlaresDownsampling: 1
+  _sunFlaresSunIntensity: 0.1
+  _sunFlaresSunDiskSize: 0.093
+  _sunFlaresSunRayDiffractionIntensity: 3.5
+  _sunFlaresSunRayDiffractionThreshold: 0.13
+  _sunFlaresCoronaRays1Length: 0.02
+  _sunFlaresCoronaRays1Streaks: 12
+  _sunFlaresCoronaRays1Spread: 0.001
+  _sunFlaresCoronaRays1AngleOffset: 0
+  _sunFlaresCoronaRays2Length: 0.05
+  _sunFlaresCoronaRays2Streaks: 12
+  _sunFlaresCoronaRays2Spread: 0.1
+  _sunFlaresCoronaRays2AngleOffset: 0
+  _sunFlaresGhosts1Size: 0.03
+  _sunFlaresGhosts1Offset: 1.04
+  _sunFlaresGhosts1Brightness: 0.037
+  _sunFlaresGhosts2Size: 0.1
+  _sunFlaresGhosts2Offset: 0.71
+  _sunFlaresGhosts2Brightness: 0.03
+  _sunFlaresGhosts3Size: 0.24
+  _sunFlaresGhosts3Brightness: 0.025
+  _sunFlaresGhosts3Offset: 0.31
+  _sunFlaresGhosts4Size: 0.016
+  _sunFlaresGhosts4Offset: 0
+  _sunFlaresGhosts4Brightness: 0.017
+  _sunFlaresHaloOffset: 0.22
+  _sunFlaresHaloAmplitude: 15.1415
+  _sunFlaresHaloIntensity: 0.01
+  _sunFlaresRadialOffset: 0
+  _sunFlaresRotationDeadZone: 0
+  _blur: 0
+  _blurIntensity: 1
+  _downscale: 1
+  _superSampling: 1
+  _pixelateAmount: 1
+  _pixelateDownscale: 0
+  _antialiasStrength: 5
+  _antialiasMaxSpread: 3
+  _antialiasDepthThreshold: 0.000001
+  _antialiasDepthAtten: 0
+  _chromaticAberration: 0
+  _chromaticAberrationIntensity: 0.0029
+  _chromaticAberrationSmoothing: 32
+  isDirty: 0
+  bMat: {fileID: 0}

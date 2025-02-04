@@ -26,7 +26,7 @@ namespace Player
             var point = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
             _playerInstance = _factory.CreateCharacter(point.transform.position, point.transform.rotation);
-            //_playerCameraInstance = _factory.CreatePlayerCamera(point.transform.position, point.transform.rotation);
+            _playerCameraInstance = _factory.CreatePlayerCamera(point.transform.position, point.transform.rotation, _playerInstance.transform);
         }
 
         public T GetView<T>()
@@ -36,8 +36,8 @@ namespace Player
             if (characterview == null)
                 characterview = _playerInstance.GetComponentInParent<T>();
 
-            //if (characterview == null)
-            //    characterview = _playerCameraInstance.GetComponentInChildren<T>();
+            if (characterview == null)
+                characterview = _playerCameraInstance.GetComponentInChildren<T>();
 
             if (characterview == null)
                 throw new NullReferenceException($"Component {typeof(T)} not found!");

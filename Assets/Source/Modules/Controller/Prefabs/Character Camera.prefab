@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1016938238933414669}
   - component: {fileID: 5944272683732748307}
   - component: {fileID: 8937608976273441812}
-  - component: {fileID: 3909794282628374114}
+  - component: {fileID: 1801446390993113779}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -61,15 +61,15 @@ MonoBehaviour:
   m_RecenterTarget: 2
   m_VerticalAxis:
     Value: 0
-    m_SpeedMode: 0
-    m_MaxSpeed: 150
+    m_SpeedMode: 1
+    m_MaxSpeed: 1
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
     m_InvertInput: 1
-    m_MinValue: -50
-    m_MaxValue: 50
+    m_MinValue: -45
+    m_MaxValue: 30
     m_Wrap: 0
     m_Recentering:
       m_enabled: 0
@@ -85,15 +85,15 @@ MonoBehaviour:
     m_LegacyVelocityFilterStrength: -1
   m_HorizontalAxis:
     Value: 0
-    m_SpeedMode: 0
-    m_MaxSpeed: 150
+    m_SpeedMode: 1
+    m_MaxSpeed: 1
     m_AccelTime: 0.1
     m_DecelTime: 0.1
     m_InputAxisName: Mouse X
     m_InputAxisValue: 0
     m_InvertInput: 0
-    m_MinValue: -60
-    m_MaxValue: 60
+    m_MinValue: -50
+    m_MaxValue: 50
     m_Wrap: 0
     m_Recentering:
       m_enabled: 0
@@ -108,7 +108,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_ApplyBeforeBody: 0
---- !u!114 &3909794282628374114
+--- !u!114 &1801446390993113779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,11 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: {x: 0.1, y: 0.5, z: 0.3}
-  ShoulderOffset: {x: 0.5, y: -0.4, z: 0}
-  VerticalArmLength: 0.4
+  Damping: {x: 0.1, y: 0.1, z: 0.1}
+  ShoulderOffset: {x: 0, y: 1.26, z: 0.09}
+  VerticalArmLength: 0
   CameraSide: 1
-  CameraDistance: 2
+  CameraDistance: 0
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 0
@@ -141,7 +141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9007682126841391747}
-  - component: {fileID: 4452065136690295029}
+  - component: {fileID: -3514802302598656199}
   - component: {fileID: 218688966547499764}
   - component: {fileID: -6486443368915643459}
   m_Layer: 0
@@ -160,14 +160,14 @@ Transform:
   m_GameObject: {fileID: 4357260483811684540}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.14, y: 2.5, z: -28.81}
+  m_LocalPosition: {x: 24.14643, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1016938238933414669}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4452065136690295029
+--- !u!114 &-3514802302598656199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,10 +176,65 @@ MonoBehaviour:
   m_GameObject: {fileID: 4357260483811684540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30f5c36be3ace364eb01383fd621bbf6, type: 3}
+  m_Script: {fileID: 11500000, guid: a18aec471746dd04f82a6c2dc350d072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _virtualCamera: {fileID: 218688966547499764}
+  showGizmos: 1
+  editorPreview: 1
+  follow: {fileID: 0}
+  lookAt: {fileID: 0}
+  topRing:
+    radius: 2
+    height: 1.4
+    color: {r: 1, g: 0, b: 0, a: 1}
+  middleRing:
+    radius: 5
+    height: 3
+    color: {r: 1, g: 0, b: 0, a: 1}
+  bottomRing:
+    radius: 1
+    height: -1
+    color: {r: 1, g: 0, b: 0, a: 1}
+  lockHeight: 1
+  fixedHeight: 0.5
+  lockTranslation: 0
+  fixedTranslation: 0
+  avoidClipping: 1
+  avoidClippingLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  clipDistance: 1
+  clippingOffset: 0
+  horizontalTilt: 0
+  horizontalOffset: 0
+  verticalTilt: 0
+  verticalOffset: 0
+  useTargetNormal: 1
+  captureCursor: 1
+  horizontalAxis: Mouse X
+  horizontalSensitivity: 1
+  invertX: 0
+  verticalAxis: Mouse Y
+  verticalSensitivity: 1
+  invertY: 1
+  zoomOutOnMotion:
+    enabled: 1
+    startSpeed: 10
+    capSpeed: 15
+    startDistanceRatio: 0
+    capDistanceRatio: 0.3
+  motionShake:
+    enabled: 1
+    startSpeed: 10
+    capSpeed: 15
+    verticalStartIntensity: 0.02
+    verticalCapIntensity: 0.05
+    verticalSpeed: 15
+    verticalPhase: 0.5
+    horizontalStartIntensity: 0.03
+    horizontalCapIntensity: 0.07
+    horizontalSpeed: 7.5
+    horizontalPhase: 0
 --- !u!114 &218688966547499764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,9 +256,9 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 55
     OrthographicSize: 10
-    NearClipPlane: 0.1
+    NearClipPlane: 0.2
     FarClipPlane: 5000
     Dutch: 0
     ModeOverride: 0

@@ -20,8 +20,8 @@ namespace Core
         public GameObject CreateCharacter(Vector3 position, Quaternion rotation)
             => _instantiatable.Instantiate(_characterPrefab, position, rotation);
 
-        public GameObject CreatePlayerCamera(Vector3 position, Quaternion rotation)
-            => Object.Instantiate(_playerCameraPrefab, position, rotation);
+        public GameObject CreatePlayerCamera(Vector3 position, Quaternion rotation, Transform parent)
+            => Object.Instantiate(_playerCameraPrefab, position, rotation, parent);
 
         public GameObject CreateMainCamera()
             => Object.Instantiate(_mainCameraPrefab);
