@@ -136,7 +136,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6354104006070355725}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ba5113e7208c4316acb1028a08587a2, type: 3}
   m_Name: 
@@ -159,12 +159,12 @@ MonoBehaviour:
   g_showSignal: 1
   g_showFeedback: 1
   g_showExtra: 1
-  g_showBypass: 1
-  bleedOn: 1
+  g_showBypass: 0
+  bleedOn: 0
   crtMode: 0
   crtLinesMode: 0
   screenLinesNum: 0
-  bleedAmount: 1
+  bleedAmount: 2.48
   bleedDebugOn: 0
   bleedCurveY:
     serializedVersion: 2
@@ -255,7 +255,7 @@ MonoBehaviour:
   noiseLinesMode: 1
   noiseLinesNum: 0
   noiseQuantizeX: 0
-  filmgrainOn: 1
+  filmgrainOn: 0
   filmGrainAmount: 0
   signalNoiseOn: 0
   signalNoiseAmount: 0.627
@@ -270,16 +270,16 @@ MonoBehaviour:
   scanLinesOn: 0
   scanLineWidth: 10
   linesFloatOn: 0
-  linesFloatSpeed: 1
+  linesFloatSpeed: -3
   stretchOn: 0
   twitchHOn: 0
-  twitchHFreq: 0.99
+  twitchHFreq: 5
   twitchVOn: 0
-  twitchVFreq: 1
+  twitchVFreq: 5
   jitterHOn: 1
   jitterHAmount: 0.5
   jitterVOn: 1
-  jitterVAmount: 1
+  jitterVAmount: 12.27
   jitterVSpeed: 1
   signalTweakOn: 0
   signalAdjustY: 0.064
@@ -306,16 +306,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6354104006070355725}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54415757aaddf4b8a9cd7122fd120cc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _preset: 999
-  _quality: 0
+  _quality: 1
   _profile: {fileID: 0}
   _syncWithProfile: 1
-  _compareMode: 1
+  _compareMode: 0
   _compareStyle: 0
   _comparePanning: 0.25
   _compareLineAngle: 1.18
@@ -332,13 +332,13 @@ MonoBehaviour:
   _sharpenClamp: 0.45
   _sharpenMotionSensibility: 0.5
   _sharpenMotionRestoreSpeed: 0.5
-  _saturate: 1
-  _contrast: 1.02
-  _brightness: 1.05
+  _saturate: 0.75
+  _contrast: 1.123
+  _brightness: 0.823
   _daltonize: 0
   _hardLightIntensity: 0.5
   _hardLightBlend: 0
-  _vignetting: 0
+  _vignetting: 1
   _vignettingColor: {r: 0.3, g: 0.3, b: 0.3, a: 0.05}
   _vignettingFade: 0
   _vignettingCircularShape: 0
@@ -371,16 +371,16 @@ MonoBehaviour:
   _outlineBlurDownscale: 1
   _outlineMinDepthThreshold: 0
   _thermalVision: 0
-  _lensDirt: 0
-  _lensDirtThreshold: 0.5
-  _lensDirtIntensity: 0.9
+  _lensDirt: 1
+  _lensDirtThreshold: 0.536
+  _lensDirtIntensity: 0.187
   _lensDirtTexture: {fileID: 2800000, guid: f5c5080de097a4274bab7bc2bf5017f6, type: 3}
   _bloom: 0
   _bloomCullingMask:
     serializedVersion: 2
     m_Bits: 0
   _bloomLayerMaskDownsampling: 1
-  _bloomIntensity: 1
+  _bloomIntensity: 0
   _bloomMaxBrightness: 1000
   _bloomBoost0: 0
   _bloomBoost1: 0
@@ -391,9 +391,9 @@ MonoBehaviour:
   _bloomAntiflicker: 0
   _bloomAntiflickerMaxOutput: 10
   _bloomIterations: 4
-  _bloomUltra: 0
-  _bloomUltraResolution: 10
-  _bloomThreshold: 2.67
+  _bloomUltra: 1
+  _bloomUltraResolution: 5
+  _bloomThreshold: 5
   _bloomConservativeThreshold: 0
   _bloomTint: {r: 1, g: 1, b: 1, a: 0}
   _bloomCustomize: 0
@@ -410,7 +410,7 @@ MonoBehaviour:
   _bloomTint3: {r: 1, g: 1, b: 1, a: 1}
   _bloomTint4: {r: 1, g: 1, b: 1, a: 1}
   _bloomTint5: {r: 1, g: 1, b: 1, a: 1}
-  _bloomBlur: 1
+  _bloomBlur: 0
   _bloomQuickerBlur: 0
   _bloomDepthAtten: 0
   _bloomNearAtten: 0
@@ -420,7 +420,7 @@ MonoBehaviour:
   _anamorphicFlaresCullingMask:
     serializedVersion: 2
     m_Bits: 0
-  _anamorphicFlaresIntensity: 8.47
+  _anamorphicFlaresIntensity: 0.01
   _anamorphicFlaresAntiflicker: 0
   _anamorphicFlaresAntiflickerMaxOutput: 10
   _anamorphicFlaresUltra: 0
@@ -438,11 +438,11 @@ MonoBehaviour:
   _depthOfFieldTransparencyCullMode: 2
   _depthOfFieldTargetFocus: {fileID: 0}
   _depthOfFieldDebug: 0
-  _depthOfFieldAutofocus: 1
+  _depthOfFieldAutofocus: 0
   _depthofFieldAutofocusViewportPoint: {x: 0.5, y: 0.21}
-  _depthOfFieldAutofocusMinDistance: 1.58
+  _depthOfFieldAutofocusMinDistance: 1.69
   _depthOfFieldAutofocusDistanceShift: -2.57
-  _depthOfFieldAutofocusMaxDistance: 10
+  _depthOfFieldAutofocusMaxDistance: 27.17
   _depthOfFieldAutofocusLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -453,36 +453,36 @@ MonoBehaviour:
   _depthOfFieldExclusionLayerMaskDownsampling: 1
   _depthOfFieldTransparencySupportDownsampling: 1
   _depthOfFieldExclusionBias: 0.99
-  _depthOfFieldDistance: 1
-  _depthOfFieldFocusSpeed: 1.35
+  _depthOfFieldDistance: 4.4
+  _depthOfFieldFocusSpeed: 3.5
   _depthOfFieldDownsampling: 1
-  _depthOfFieldMaxSamples: 8
+  _depthOfFieldMaxSamples: 4
   _depthOfFieldCameraSettings: 0
-  _depthOfFieldFocalLengthReal: 26
+  _depthOfFieldFocalLengthReal: 46
   _depthOfFieldFStop: 2.6
   _depthOfFieldImageSensorHeight: 17.4
-  _depthOfFieldFocalLength: 0.096
-  _depthOfFieldAperture: 2.96
-  _depthOfFieldForegroundBlur: 1
+  _depthOfFieldFocalLength: 0.197
+  _depthOfFieldAperture: 3.57
+  _depthOfFieldForegroundBlur: 0
   _depthOfFieldForegroundBlurHQ: 0
   _depthOfFieldForegroundBlurHQSpread: 16
-  _depthOfFieldForegroundDistance: 7.81
+  _depthOfFieldForegroundDistance: 0.9
   _depthOfFieldBokeh: 0
   _depthOfFieldBokehComposition: 0
-  _depthOfFieldBokehThreshold: 1
+  _depthOfFieldBokehThreshold: 0.5
   _depthOfFieldBokehIntensity: 2
   _depthOfFieldMaxBrightness: 1000
-  _depthOfFieldMaxDistance: 1
+  _depthOfFieldMaxDistance: 0.294
   _depthOfFieldFilterMode: 1
   _eyeAdaptation: 0
-  _eyeAdaptationMinExposure: 0.2
-  _eyeAdaptationMaxExposure: 5
+  _eyeAdaptationMinExposure: 0.844
+  _eyeAdaptationMaxExposure: 80.1
   _eyeAdaptationSpeedToLight: 0.4
-  _eyeAdaptationSpeedToDark: 0.2
+  _eyeAdaptationSpeedToDark: 0.74
   _eyeAdaptationInEditor: 1
   _purkinje: 0
-  _purkinjeAmount: 5
-  _purkinjeLuminanceThreshold: 0.021
+  _purkinjeAmount: 3.33
+  _purkinjeLuminanceThreshold: 0
   _tonemap: 0
   _tonemapGamma: 2.5
   _tonemapExposurePre: 1
@@ -497,7 +497,7 @@ MonoBehaviour:
   _sunFlaresHideSpeed: 1
   _sunFlaresSolarWindSpeed: 0.01
   _sunFlaresTint: {r: 1, g: 1, b: 1, a: 1}
-  _sunFlaresDownsampling: 1
+  _sunFlaresDownsampling: 2
   _sunFlaresSunIntensity: 0.1
   _sunFlaresSunDiskSize: 0.093
   _sunFlaresSunRayDiffractionIntensity: 3.5
@@ -528,7 +528,7 @@ MonoBehaviour:
   _sunFlaresRadialOffset: 0
   _sunFlaresRotationDeadZone: 0
   _blur: 0
-  _blurIntensity: 1
+  _blurIntensity: 0
   _downscale: 1
   _superSampling: 1
   _pixelateAmount: 1
@@ -538,7 +538,7 @@ MonoBehaviour:
   _antialiasDepthThreshold: 0.000001
   _antialiasDepthAtten: 0
   _chromaticAberration: 0
-  _chromaticAberrationIntensity: 0.0029
+  _chromaticAberrationIntensity: 0.0073
   _chromaticAberrationSmoothing: 32
   isDirty: 0
   bMat: {fileID: 0}

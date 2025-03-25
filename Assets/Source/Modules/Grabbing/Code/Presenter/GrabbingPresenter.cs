@@ -39,8 +39,8 @@ namespace ItemGrabbing
             _cameraView = _player.GetView<ICharacterCameraView>();
             _raycastBroadcaster = _player.GetView<IRaycastBroadcaster<AttachableItemView>>();
 
-            _dropUI = _uiService.CreateUIElement<GrabbingDropUI>(UIElementID.GrabbingDrop);
-            _tooltipUI = _uiService.CreateUIElement<TooltipUI>(UIElementID.GrabbingTooltip);
+            _dropUI = _uiService.CreateUIElement<GrabbingDropUI>();
+            _tooltipUI = _uiService.CreateUIElement<TooltipUI>();
 
             _model = new GrabbingData(_config.Graph);
 

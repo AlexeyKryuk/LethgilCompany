@@ -211,7 +211,7 @@ namespace CharacterController
             {
                 if (captureCursor && Application.isPlaying)
                 {
-                    Cursor.lockState = CursorLockMode.Locked;
+                    //Cursor.lockState = CursorLockMode.Locked;
                 }
                 SetNormalVectors();
                 SetPosition();

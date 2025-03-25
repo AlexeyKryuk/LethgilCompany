@@ -23,7 +23,7 @@ namespace Customization
 
         public void Initialize()
         {
-            var uiElement = _uiService.CreateUIElement<CustomizationUI>(UIElementID.CustomizationUI);
+            var uiElement = _uiService.CreateUIElement<CustomizationUI>();
             var view = uiElement.GetComponentInChildren<CustomizationView>();
 
             uiElement.transform.SetParent(GameObject.FindGameObjectWithTag(GameObjectTags.PlayerSpawnPoint.ToString()).transform);

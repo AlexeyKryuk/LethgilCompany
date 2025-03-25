@@ -1,4 +1,3 @@
-using Core;
 using Customization;
 using Photon.Pun;
 using TMPro;
@@ -8,8 +7,6 @@ namespace Network
 {
     public class NickNameView : MonoBehaviourPunCallbacks, INicknameView
     {
-        [field: SerializeField] public UIElementID UIElementType { get; private set; }
-
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private float _timeToFade;
         [SerializeField] private TMP_Text _text;

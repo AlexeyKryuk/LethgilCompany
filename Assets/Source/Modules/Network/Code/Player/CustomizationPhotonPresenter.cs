@@ -1,7 +1,6 @@
 using Core;
 using Core.View;
 using Customization;
-using Player;
 using VContainer.Unity;
 
 namespace Network

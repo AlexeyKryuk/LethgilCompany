@@ -3279,7 +3279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ff8e665993b784eb8076297d45b35a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <UIElementType>k__BackingField: 5
   _left: {fileID: 6403716679921178745}
   _right: {fileID: 2986213016367855736}
 --- !u!1 &8583923745994394458

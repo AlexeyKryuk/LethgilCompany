@@ -13,7 +13,7 @@ namespace Core
             _factory = factory;
         }
 
-        public T CreateUIElement<T>(UIElementID id) where T : IUIElement
+        public T CreateUIElement<T>() where T : IUIElement
         {
             T element = _factory.CreateUIElement<T>();
             _uiElements.Add(element);

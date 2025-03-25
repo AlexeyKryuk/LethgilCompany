@@ -1,0 +1,21 @@
+{
+    "name": "RockPaperScissors",
+    "rootNamespace": "RockPaperScissors",
+    "references": [
+        "GUID:57c32fc907df0f54e8e6e8f0d2488336",
+        "GUID:831409e8f9d13b5479a3baef9822ad34",
+        "GUID:e0ca39551b62dd44d9e07c4fa22af50a",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:f2f1d30181f188d4f9b7b6c73410bd78",
+        "GUID:9ffbbd5fef7e1344dab0db6cc5208fb1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

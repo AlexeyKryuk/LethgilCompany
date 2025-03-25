@@ -4,6 +4,7 @@ using Core;
 using Customization;
 using ItemGrabbing;
 using Network;
+using RockPaperScissors;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -58,11 +59,13 @@ namespace LifetimeScopes
 
         private void RegisterConfigs(IContainerBuilder builder)
         {
-            //builder.RegisterInstance(Resources.Load<GrabbingConfig>("Grabbing Config"));
             builder.RegisterInstance(Resources.Load<UIConfig>("UI Config"));
             builder.RegisterInstance(Resources.Load<PlayerConfig>("Player Config"));
-            //builder.RegisterInstance(Resources.Load<LootConfig>("Loot Config"));
             builder.RegisterInstance(Resources.Load<ControllerStaticData>("Controller Data"));
+            builder.RegisterInstance(Resources.Load<RPSGameConfig>("RPS Game Config"));
+
+            //builder.RegisterInstance(Resources.Load<GrabbingConfig>("Grabbing Config"));
+            //builder.RegisterInstance(Resources.Load<LootConfig>("Loot Config"));
             //builder.RegisterInstance(Resources.Load<CombatStaticData>("Combat Data"));
         }
 
@@ -71,6 +74,7 @@ namespace LifetimeScopes
             builder.Register<PhotonNetworkSaveService<Photon.Realtime.Player>>(Lifetime.Singleton).As<ISaveService<Photon.Realtime.Player>>();
             builder.Register<PhotonNetworkSaveService<CustomizationInfo>>(Lifetime.Singleton).As<ISaveService<CustomizationInfo>>();
             builder.Register<PhotonNetworkSaveService<ControllerData>>(Lifetime.Singleton).As<ISaveService<ControllerData>>();
+
             //builder.Register<PhotonNetworkSaveService<CombatData>>(Lifetime.Singleton).As<ISaveService<CombatData>>();
         }
     }

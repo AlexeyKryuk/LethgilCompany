@@ -138,7 +138,7 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -45
+    m_MinLimit: -65
     m_MaxLimit: 45
     m_AimAxis: 4
     m_UpAxis: 2
@@ -1006,6 +1006,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3316610375591694542}
+  - {fileID: 23878668530951630}
   - {fileID: 3767822743225726006}
   - {fileID: 4348294247017601743}
   - {fileID: 928726251471397989}
@@ -3152,7 +3153,6 @@ GameObject:
   - component: {fileID: 6661274067001115139}
   - component: {fileID: 7797390762924792563}
   - component: {fileID: 1416836487647478801}
-  - component: {fileID: 7148280813536599872}
   - component: {fileID: 6750956846146540459}
   - component: {fileID: 3383914665526379303}
   - component: {fileID: 7400187477651763478}
@@ -3250,23 +3250,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 0
---- !u!114 &7148280813536599872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7974169934441508928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 909d917d73a63f940ac158d02e936645, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pushLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  canPush: 0
-  strength: 1.1
 --- !u!143 &6750956846146540459
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3284,7 +3267,7 @@ CharacterController:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 1.8
   m_Radius: 0.28
@@ -3450,6 +3433,50 @@ Transform:
   - {fileID: 558430238688025513}
   m_Father: {fileID: 6032747177575403410}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8614709651755625992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 23878668530951630}
+  - component: {fileID: 2655205287270837826}
+  m_Layer: 7
+  m_Name: PlayerRPSGame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &23878668530951630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8614709651755625992}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6572570235281895303}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2655205287270837826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8614709651755625992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 674421379f7e05545b7caea21efa4d66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8679012217366779875
 GameObject:
   m_ObjectHideFlags: 0
@@ -3555,8 +3582,8 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -20
-    m_MaxLimit: 20
+    m_MinLimit: -129
+    m_MaxLimit: 140
     m_AimAxis: 2
     m_UpAxis: 1
     m_WorldUpType: 0
