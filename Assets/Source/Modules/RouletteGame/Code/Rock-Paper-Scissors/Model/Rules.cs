@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace RockPaperScissors
 {
@@ -14,6 +15,9 @@ namespace RockPaperScissors
 
         public void Play(List<Participant> participants)
         {
+            Debug.Log(participants.Count);
+            Debug.Log(_numberOfPlayers);
+
             if (participants.Count != _numberOfPlayers)
                 throw new ArgumentOutOfRangeException();
 

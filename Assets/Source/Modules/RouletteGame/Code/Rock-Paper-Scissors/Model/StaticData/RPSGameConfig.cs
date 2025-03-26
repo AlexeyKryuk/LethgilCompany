@@ -7,5 +7,6 @@ namespace RockPaperScissors
     {
         [field: SerializeField] public int NumberOfPlayers;
         [field: SerializeField] public ChoiceStaticData[] Choices;
+        [field: SerializeField] public ChoiceUIElement ChoiceUIPrefab;
     }
 }

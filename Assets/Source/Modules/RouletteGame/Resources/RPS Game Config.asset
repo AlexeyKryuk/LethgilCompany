@@ -17,3 +17,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c9ff5b0d40f3294d840421a64ea8d22, type: 2}
   - {fileID: 11400000, guid: b0c4b4e821d93a140be1de134f1465a3, type: 2}
   - {fileID: 11400000, guid: f83bc331017af4142bd99e31c76a3031, type: 2}
+  ChoiceUIPrefab: {fileID: 6992435115624390675, guid: e4f89a057bc9f5b46b184d1ab0204cca, type: 3}

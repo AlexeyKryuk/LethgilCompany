@@ -39,8 +39,6 @@ namespace RockPaperScissors
                     Debug.Log(player.NickName);
                     _participants.Add(new Participant(player.NickName));
                 }    
-
-                _rules = new Rules(PhotonNetwork.CountOfPlayersInRooms);
             }
 
             _playerHUD = _uiService.CreateUIElement<PlayerHUD>();
@@ -69,6 +67,7 @@ namespace RockPaperScissors
                     if (participant.IsReady == false)
                         return;
 
+                _rules = new Rules(PhotonNetwork.PlayerList.Length);
                 _rules.Play(_participants);
 
                 LogResult();

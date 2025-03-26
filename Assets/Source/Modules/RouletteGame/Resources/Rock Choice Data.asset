@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChoiceType: 2
   SelectedColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
-  Icon: {fileID: 21300000, guid: ff7bfa7addf40784d86f62b8e4a034a6, type: 3}
+  Icon: {fileID: 21300000, guid: 03c46e5b8e719354fab01ea6b200fe25, type: 3}

@@ -23,6 +23,7 @@ namespace RockPaperScissors
 
         public void Initialize(ChoiceStaticData staticData)
         {
+            _choiceType = staticData.ChoiceType;
             _defaultColor = _background.color;
             _selectedColor = staticData.SelectedColor;
             _icon.sprite = staticData.Icon;

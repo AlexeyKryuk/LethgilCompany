@@ -1,13 +1,16 @@
 using Core;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RockPaperScissors
 {
     public class HandUIElement : BaseUIElement
     {
-        [SerializeField] private ChoiceUIElement[] _choiceElements;
+        [SerializeField] private Transform _parent;
+
+        private List<ChoiceUIElement> _choices = new List<ChoiceUIElement>();
+        private CircleLayout _circleLayout;
 
         public ChoiceType Choice { get; private set; }
 
@@ -15,24 +18,23 @@ namespace RockPaperScissors
 
         public void Initialize(RPSGameConfig config)
         {
-            foreach (var element in _choiceElements)
+            _circleLayout = GetComponent<CircleLayout>();
+
+            foreach (var data in config.Choices)
             {
-                var data = config.Choices.FirstOrDefault(item
-                    => item.ChoiceType == element.ChoiceType);
+                var element = Instantiate(config.ChoiceUIPrefab, _parent);
 
                 element.Initialize(data);
-            }
-        }
-
-        private void OnEnable()
-        {
-            foreach (var element in _choiceElements)
                 element.Selected += OnChoiceSelect;
+
+                _choices.Add(element);
+                _circleLayout.AddElement(element.GetComponent<RectTransform>());
+            }
         }
 
         private void OnDisable()
         {
-            foreach (var element in _choiceElements)
+            foreach (var element in _choices)
                 element.Selected -= OnChoiceSelect;
         }
 
@@ -46,7 +48,7 @@ namespace RockPaperScissors
 
         private void RenderUI(ChoiceUIElement choiceUI)
         {
-            foreach (var element in _choiceElements)
+            foreach (var element in _choices)
                 if (element != choiceUI)
                     element.Deselect();
 

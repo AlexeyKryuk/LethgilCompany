@@ -41,7 +41,6 @@ namespace RockPaperScissors
                 choices.Add(hand.Choice);
             }
 
-
             Selected?.Invoke(new Choice(choices.ToArray()));
         }
     }
